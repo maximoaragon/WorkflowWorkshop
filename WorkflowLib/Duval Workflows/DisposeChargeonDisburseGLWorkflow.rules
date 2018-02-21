@@ -1,0 +1,496 @@
+﻿<RuleDefinitions xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow">
+	<RuleDefinitions.RuleSets>
+		<RuleSet Description="{p3:Null}" Name="SetGlobalEffectiveDate" ChainingBehavior="Full" xmlns:p3="http://schemas.microsoft.com/winfx/2006/xaml">
+			<RuleSet.Rules>
+				<Rule ReevaluationBehavior="Always" Priority="0" Description="{p3:Null}" Active="True" Name="SetEffectiveDate">
+					<Rule.ThenActions>
+						<RuleStatementAction>
+							<RuleStatementAction.CodeDomStatement>
+								<ns0:CodeAssignStatement LinePragma="{p3:Null}" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+									<ns0:CodeAssignStatement.Left>
+										<ns0:CodeFieldReferenceExpression FieldName="EffectiveDate">
+											<ns0:CodeFieldReferenceExpression.TargetObject>
+												<ns0:CodePropertyReferenceExpression PropertyName="GlobalClass">
+													<ns0:CodePropertyReferenceExpression.TargetObject>
+														<ns0:CodeThisReferenceExpression />
+													</ns0:CodePropertyReferenceExpression.TargetObject>
+												</ns0:CodePropertyReferenceExpression>
+											</ns0:CodeFieldReferenceExpression.TargetObject>
+										</ns0:CodeFieldReferenceExpression>
+									</ns0:CodeAssignStatement.Left>
+									<ns0:CodeAssignStatement.Right>
+										<ns0:CodeMethodInvokeExpression>
+											<ns0:CodeMethodInvokeExpression.Method>
+												<ns0:CodeMethodReferenceExpression MethodName="GetDate">
+													<ns0:CodeMethodReferenceExpression.TargetObject>
+														<ns0:CodePropertyReferenceExpression PropertyName="GlobalClass">
+															<ns0:CodePropertyReferenceExpression.TargetObject>
+																<ns0:CodeThisReferenceExpression />
+															</ns0:CodePropertyReferenceExpression.TargetObject>
+														</ns0:CodePropertyReferenceExpression>
+													</ns0:CodeMethodReferenceExpression.TargetObject>
+												</ns0:CodeMethodReferenceExpression>
+											</ns0:CodeMethodInvokeExpression.Method>
+										</ns0:CodeMethodInvokeExpression>
+									</ns0:CodeAssignStatement.Right>
+								</ns0:CodeAssignStatement>
+							</RuleStatementAction.CodeDomStatement>
+						</RuleStatementAction>
+					</Rule.ThenActions>
+					<Rule.Condition>
+						<RuleExpressionCondition Name="{p3:Null}">
+							<RuleExpressionCondition.Expression>
+								<ns0:CodeBinaryOperatorExpression Operator="ValueEquality" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+									<ns0:CodeBinaryOperatorExpression.Right>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+									</ns0:CodeBinaryOperatorExpression.Right>
+									<ns0:CodeBinaryOperatorExpression.Left>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+									</ns0:CodeBinaryOperatorExpression.Left>
+								</ns0:CodeBinaryOperatorExpression>
+							</RuleExpressionCondition.Expression>
+						</RuleExpressionCondition>
+					</Rule.Condition>
+				</Rule>
+			</RuleSet.Rules>
+		</RuleSet>
+	</RuleDefinitions.RuleSets>
+	<RuleDefinitions.Conditions>
+		<RuleExpressionCondition Name="IfTrafficCivil">
+			<RuleExpressionCondition.Expression>
+				<ns0:CodeBinaryOperatorExpression Operator="ValueEquality" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					<ns0:CodeBinaryOperatorExpression.Right>
+						<ns0:CodeFieldReferenceExpression FieldName="TrafficCivil">
+							<ns0:CodeFieldReferenceExpression.TargetObject>
+								<ns0:CodeTypeReferenceExpression Type="ShowCaseClassLib.eTypeOfCase, ShowCaseClassLib, Version=1.0.0.27734, Culture=neutral, PublicKeyToken=null" />
+							</ns0:CodeFieldReferenceExpression.TargetObject>
+						</ns0:CodeFieldReferenceExpression>
+					</ns0:CodeBinaryOperatorExpression.Right>
+					<ns0:CodeBinaryOperatorExpression.Left>
+						<ns0:CodeMethodInvokeExpression>
+							<ns0:CodeMethodInvokeExpression.Method>
+								<ns0:CodeMethodReferenceExpression MethodName="TypeOfCaseAdjustingForSuspense">
+									<ns0:CodeMethodReferenceExpression.TargetObject>
+										<ns0:CodePropertyReferenceExpression PropertyName="Case">
+											<ns0:CodePropertyReferenceExpression.TargetObject>
+												<ns0:CodeThisReferenceExpression />
+											</ns0:CodePropertyReferenceExpression.TargetObject>
+										</ns0:CodePropertyReferenceExpression>
+									</ns0:CodeMethodReferenceExpression.TargetObject>
+								</ns0:CodeMethodReferenceExpression>
+							</ns0:CodeMethodInvokeExpression.Method>
+						</ns0:CodeMethodInvokeExpression>
+					</ns0:CodeBinaryOperatorExpression.Left>
+				</ns0:CodeBinaryOperatorExpression>
+			</RuleExpressionCondition.Expression>
+		</RuleExpressionCondition>
+		<RuleExpressionCondition Name="IfNoCourtAction">
+			<RuleExpressionCondition.Expression>
+				<ns0:CodeBinaryOperatorExpression Operator="BooleanAnd" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					<ns0:CodeBinaryOperatorExpression.Right>
+						<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodeMethodInvokeExpression>
+									<ns0:CodeMethodInvokeExpression.Method>
+										<ns0:CodeMethodReferenceExpression MethodName="GetNonCancelledCourtEventCount">
+											<ns0:CodeMethodReferenceExpression.TargetObject>
+												<ns0:CodeFieldReferenceExpression FieldName="CourtEvents">
+													<ns0:CodeFieldReferenceExpression.TargetObject>
+														<ns0:CodePropertyReferenceExpression PropertyName="Case">
+															<ns0:CodePropertyReferenceExpression.TargetObject>
+																<ns0:CodeThisReferenceExpression />
+															</ns0:CodePropertyReferenceExpression.TargetObject>
+														</ns0:CodePropertyReferenceExpression>
+													</ns0:CodeFieldReferenceExpression.TargetObject>
+												</ns0:CodeFieldReferenceExpression>
+											</ns0:CodeMethodReferenceExpression.TargetObject>
+										</ns0:CodeMethodReferenceExpression>
+									</ns0:CodeMethodInvokeExpression.Method>
+								</ns0:CodeMethodInvokeExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</ns0:CodeBinaryOperatorExpression.Right>
+					<ns0:CodeBinaryOperatorExpression.Left>
+						<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodePropertyReferenceExpression PropertyName="CourtActionID">
+									<ns0:CodePropertyReferenceExpression.TargetObject>
+										<ns0:CodePropertyReferenceExpression PropertyName="ConvertToCCharge">
+											<ns0:CodePropertyReferenceExpression.TargetObject>
+												<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+													<ns0:CodePropertyReferenceExpression.TargetObject>
+														<ns0:CodeMethodInvokeExpression>
+															<ns0:CodeMethodInvokeExpression.Parameters>
+																<ns0:CodePrimitiveExpression>
+																	<ns0:CodePrimitiveExpression.Value>
+																		<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetCharge</ns1:String>
+																	</ns0:CodePrimitiveExpression.Value>
+																</ns0:CodePrimitiveExpression>
+															</ns0:CodeMethodInvokeExpression.Parameters>
+															<ns0:CodeMethodInvokeExpression.Method>
+																<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+																	<ns0:CodeMethodReferenceExpression.TargetObject>
+																		<ns0:CodeThisReferenceExpression />
+																	</ns0:CodeMethodReferenceExpression.TargetObject>
+																</ns0:CodeMethodReferenceExpression>
+															</ns0:CodeMethodInvokeExpression.Method>
+														</ns0:CodeMethodInvokeExpression>
+													</ns0:CodePropertyReferenceExpression.TargetObject>
+												</ns0:CodePropertyReferenceExpression>
+											</ns0:CodePropertyReferenceExpression.TargetObject>
+										</ns0:CodePropertyReferenceExpression>
+									</ns0:CodePropertyReferenceExpression.TargetObject>
+								</ns0:CodePropertyReferenceExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</ns0:CodeBinaryOperatorExpression.Left>
+				</ns0:CodeBinaryOperatorExpression>
+			</RuleExpressionCondition.Expression>
+		</RuleExpressionCondition>
+		<RuleExpressionCondition Name="IfDisposeChargeTrue">
+			<RuleExpressionCondition.Expression>
+				<ns0:CodeBinaryOperatorExpression Operator="ValueEquality" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					<ns0:CodeBinaryOperatorExpression.Right>
+						<ns0:CodePrimitiveExpression>
+							<ns0:CodePrimitiveExpression.Value>
+								<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+							</ns0:CodePrimitiveExpression.Value>
+						</ns0:CodePrimitiveExpression>
+					</ns0:CodeBinaryOperatorExpression.Right>
+					<ns0:CodeBinaryOperatorExpression.Left>
+						<ns0:CodePropertyReferenceExpression PropertyName="ConvertToBoolean">
+							<ns0:CodePropertyReferenceExpression.TargetObject>
+								<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+									<ns0:CodePropertyReferenceExpression.TargetObject>
+										<ns0:CodeMethodInvokeExpression>
+											<ns0:CodeMethodInvokeExpression.Parameters>
+												<ns0:CodePrimitiveExpression>
+													<ns0:CodePrimitiveExpression.Value>
+														<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetDisposeCharge</ns1:String>
+													</ns0:CodePrimitiveExpression.Value>
+												</ns0:CodePrimitiveExpression>
+											</ns0:CodeMethodInvokeExpression.Parameters>
+											<ns0:CodeMethodInvokeExpression.Method>
+												<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+													<ns0:CodeMethodReferenceExpression.TargetObject>
+														<ns0:CodeThisReferenceExpression />
+													</ns0:CodeMethodReferenceExpression.TargetObject>
+												</ns0:CodeMethodReferenceExpression>
+											</ns0:CodeMethodInvokeExpression.Method>
+										</ns0:CodeMethodInvokeExpression>
+									</ns0:CodePropertyReferenceExpression.TargetObject>
+								</ns0:CodePropertyReferenceExpression>
+							</ns0:CodePropertyReferenceExpression.TargetObject>
+						</ns0:CodePropertyReferenceExpression>
+					</ns0:CodeBinaryOperatorExpression.Left>
+				</ns0:CodeBinaryOperatorExpression>
+			</RuleExpressionCondition.Expression>
+		</RuleExpressionCondition>
+		<RuleExpressionCondition Name="IfCourtActionSet">
+			<RuleExpressionCondition.Expression>
+				<ns0:CodeBinaryOperatorExpression Operator="BooleanAnd" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					<ns0:CodeBinaryOperatorExpression.Right>
+						<ns0:CodeBinaryOperatorExpression Operator="BooleanOr">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodeBinaryOperatorExpression Operator="GreaterThan">
+									<ns0:CodeBinaryOperatorExpression.Right>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+									</ns0:CodeBinaryOperatorExpression.Right>
+									<ns0:CodeBinaryOperatorExpression.Left>
+										<ns0:CodeMethodInvokeExpression>
+											<ns0:CodeMethodInvokeExpression.Method>
+												<ns0:CodeMethodReferenceExpression MethodName="GetNonCancelledCourtEventCount">
+													<ns0:CodeMethodReferenceExpression.TargetObject>
+														<ns0:CodeFieldReferenceExpression FieldName="CourtEvents">
+															<ns0:CodeFieldReferenceExpression.TargetObject>
+																<ns0:CodePropertyReferenceExpression PropertyName="Case">
+																	<ns0:CodePropertyReferenceExpression.TargetObject>
+																		<ns0:CodeThisReferenceExpression />
+																	</ns0:CodePropertyReferenceExpression.TargetObject>
+																</ns0:CodePropertyReferenceExpression>
+															</ns0:CodeFieldReferenceExpression.TargetObject>
+														</ns0:CodeFieldReferenceExpression>
+													</ns0:CodeMethodReferenceExpression.TargetObject>
+												</ns0:CodeMethodReferenceExpression>
+											</ns0:CodeMethodInvokeExpression.Method>
+										</ns0:CodeMethodInvokeExpression>
+									</ns0:CodeBinaryOperatorExpression.Left>
+								</ns0:CodeBinaryOperatorExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodeBinaryOperatorExpression Operator="BooleanAnd">
+									<ns0:CodeBinaryOperatorExpression.Right>
+										<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+											<ns0:CodeBinaryOperatorExpression.Right>
+												<ns0:CodeFieldReferenceExpression FieldName="court">
+													<ns0:CodeFieldReferenceExpression.TargetObject>
+														<ns0:CodeTypeReferenceExpression Type="ShowCaseClassLib.CCitation+eDefendantElection, ShowCaseClassLib, Version=1.0.0.27734, Culture=neutral, PublicKeyToken=null" />
+													</ns0:CodeFieldReferenceExpression.TargetObject>
+												</ns0:CodeFieldReferenceExpression>
+											</ns0:CodeBinaryOperatorExpression.Right>
+											<ns0:CodeBinaryOperatorExpression.Left>
+												<ns0:CodePropertyReferenceExpression PropertyName="DefendantElection">
+													<ns0:CodePropertyReferenceExpression.TargetObject>
+														<ns0:CodePropertyReferenceExpression PropertyName="Citation">
+															<ns0:CodePropertyReferenceExpression.TargetObject>
+																<ns0:CodePropertyReferenceExpression PropertyName="ConvertToCCharge">
+																	<ns0:CodePropertyReferenceExpression.TargetObject>
+																		<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+																			<ns0:CodePropertyReferenceExpression.TargetObject>
+																				<ns0:CodeMethodInvokeExpression>
+																					<ns0:CodeMethodInvokeExpression.Parameters>
+																						<ns0:CodePrimitiveExpression>
+																							<ns0:CodePrimitiveExpression.Value>
+																								<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetCharge</ns1:String>
+																							</ns0:CodePrimitiveExpression.Value>
+																						</ns0:CodePrimitiveExpression>
+																					</ns0:CodeMethodInvokeExpression.Parameters>
+																					<ns0:CodeMethodInvokeExpression.Method>
+																						<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+																							<ns0:CodeMethodReferenceExpression.TargetObject>
+																								<ns0:CodeThisReferenceExpression />
+																							</ns0:CodeMethodReferenceExpression.TargetObject>
+																						</ns0:CodeMethodReferenceExpression>
+																					</ns0:CodeMethodInvokeExpression.Method>
+																				</ns0:CodeMethodInvokeExpression>
+																			</ns0:CodePropertyReferenceExpression.TargetObject>
+																		</ns0:CodePropertyReferenceExpression>
+																	</ns0:CodePropertyReferenceExpression.TargetObject>
+																</ns0:CodePropertyReferenceExpression>
+															</ns0:CodePropertyReferenceExpression.TargetObject>
+														</ns0:CodePropertyReferenceExpression>
+													</ns0:CodePropertyReferenceExpression.TargetObject>
+												</ns0:CodePropertyReferenceExpression>
+											</ns0:CodeBinaryOperatorExpression.Left>
+										</ns0:CodeBinaryOperatorExpression>
+									</ns0:CodeBinaryOperatorExpression.Right>
+									<ns0:CodeBinaryOperatorExpression.Left>
+										<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+											<ns0:CodeBinaryOperatorExpression.Right>
+												<ns0:CodePrimitiveExpression>
+													<ns0:CodePrimitiveExpression.Value>
+														<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+													</ns0:CodePrimitiveExpression.Value>
+												</ns0:CodePrimitiveExpression>
+											</ns0:CodeBinaryOperatorExpression.Right>
+											<ns0:CodeBinaryOperatorExpression.Left>
+												<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+													<ns0:CodeBinaryOperatorExpression.Right>
+														<ns0:CodePrimitiveExpression />
+													</ns0:CodeBinaryOperatorExpression.Right>
+													<ns0:CodeBinaryOperatorExpression.Left>
+														<ns0:CodePropertyReferenceExpression PropertyName="Citation">
+															<ns0:CodePropertyReferenceExpression.TargetObject>
+																<ns0:CodePropertyReferenceExpression PropertyName="ConvertToCCharge">
+																	<ns0:CodePropertyReferenceExpression.TargetObject>
+																		<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+																			<ns0:CodePropertyReferenceExpression.TargetObject>
+																				<ns0:CodeMethodInvokeExpression>
+																					<ns0:CodeMethodInvokeExpression.Parameters>
+																						<ns0:CodePrimitiveExpression>
+																							<ns0:CodePrimitiveExpression.Value>
+																								<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetCharge</ns1:String>
+																							</ns0:CodePrimitiveExpression.Value>
+																						</ns0:CodePrimitiveExpression>
+																					</ns0:CodeMethodInvokeExpression.Parameters>
+																					<ns0:CodeMethodInvokeExpression.Method>
+																						<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+																							<ns0:CodeMethodReferenceExpression.TargetObject>
+																								<ns0:CodeThisReferenceExpression />
+																							</ns0:CodeMethodReferenceExpression.TargetObject>
+																						</ns0:CodeMethodReferenceExpression>
+																					</ns0:CodeMethodInvokeExpression.Method>
+																				</ns0:CodeMethodInvokeExpression>
+																			</ns0:CodePropertyReferenceExpression.TargetObject>
+																		</ns0:CodePropertyReferenceExpression>
+																	</ns0:CodePropertyReferenceExpression.TargetObject>
+																</ns0:CodePropertyReferenceExpression>
+															</ns0:CodePropertyReferenceExpression.TargetObject>
+														</ns0:CodePropertyReferenceExpression>
+													</ns0:CodeBinaryOperatorExpression.Left>
+												</ns0:CodeBinaryOperatorExpression>
+											</ns0:CodeBinaryOperatorExpression.Left>
+										</ns0:CodeBinaryOperatorExpression>
+									</ns0:CodeBinaryOperatorExpression.Left>
+								</ns0:CodeBinaryOperatorExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</ns0:CodeBinaryOperatorExpression.Right>
+					<ns0:CodeBinaryOperatorExpression.Left>
+						<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+									<ns0:CodeBinaryOperatorExpression.Right>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+									</ns0:CodeBinaryOperatorExpression.Right>
+									<ns0:CodeBinaryOperatorExpression.Left>
+										<ns0:CodePropertyReferenceExpression PropertyName="CourtActionID">
+											<ns0:CodePropertyReferenceExpression.TargetObject>
+												<ns0:CodePropertyReferenceExpression PropertyName="ConvertToCCharge">
+													<ns0:CodePropertyReferenceExpression.TargetObject>
+														<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+															<ns0:CodePropertyReferenceExpression.TargetObject>
+																<ns0:CodeMethodInvokeExpression>
+																	<ns0:CodeMethodInvokeExpression.Parameters>
+																		<ns0:CodePrimitiveExpression>
+																			<ns0:CodePrimitiveExpression.Value>
+																				<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetCharge</ns1:String>
+																			</ns0:CodePrimitiveExpression.Value>
+																		</ns0:CodePrimitiveExpression>
+																	</ns0:CodeMethodInvokeExpression.Parameters>
+																	<ns0:CodeMethodInvokeExpression.Method>
+																		<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+																			<ns0:CodeMethodReferenceExpression.TargetObject>
+																				<ns0:CodeThisReferenceExpression />
+																			</ns0:CodeMethodReferenceExpression.TargetObject>
+																		</ns0:CodeMethodReferenceExpression>
+																	</ns0:CodeMethodInvokeExpression.Method>
+																</ns0:CodeMethodInvokeExpression>
+															</ns0:CodePropertyReferenceExpression.TargetObject>
+														</ns0:CodePropertyReferenceExpression>
+													</ns0:CodePropertyReferenceExpression.TargetObject>
+												</ns0:CodePropertyReferenceExpression>
+											</ns0:CodePropertyReferenceExpression.TargetObject>
+										</ns0:CodePropertyReferenceExpression>
+									</ns0:CodeBinaryOperatorExpression.Left>
+								</ns0:CodeBinaryOperatorExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</ns0:CodeBinaryOperatorExpression.Left>
+				</ns0:CodeBinaryOperatorExpression>
+			</RuleExpressionCondition.Expression>
+		</RuleExpressionCondition>
+		<RuleExpressionCondition Name="IfNoTRCourtAction">
+			<RuleExpressionCondition.Expression>
+				<ns0:CodeBinaryOperatorExpression Operator="BooleanAnd" xmlns:ns0="clr-namespace:System.CodeDom;Assembly=System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+					<ns0:CodeBinaryOperatorExpression.Right>
+						<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns1:Boolean>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodePropertyReferenceExpression PropertyName="ConvertToBoolean">
+									<ns0:CodePropertyReferenceExpression.TargetObject>
+										<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+											<ns0:CodePropertyReferenceExpression.TargetObject>
+												<ns0:CodeMethodInvokeExpression>
+													<ns0:CodeMethodInvokeExpression.Parameters>
+														<ns0:CodePrimitiveExpression>
+															<ns0:CodePrimitiveExpression.Value>
+																<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetbFlag</ns1:String>
+															</ns0:CodePrimitiveExpression.Value>
+														</ns0:CodePrimitiveExpression>
+													</ns0:CodeMethodInvokeExpression.Parameters>
+													<ns0:CodeMethodInvokeExpression.Method>
+														<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+															<ns0:CodeMethodReferenceExpression.TargetObject>
+																<ns0:CodeThisReferenceExpression />
+															</ns0:CodeMethodReferenceExpression.TargetObject>
+														</ns0:CodeMethodReferenceExpression>
+													</ns0:CodeMethodInvokeExpression.Method>
+												</ns0:CodeMethodInvokeExpression>
+											</ns0:CodePropertyReferenceExpression.TargetObject>
+										</ns0:CodePropertyReferenceExpression>
+									</ns0:CodePropertyReferenceExpression.TargetObject>
+								</ns0:CodePropertyReferenceExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</ns0:CodeBinaryOperatorExpression.Right>
+					<ns0:CodeBinaryOperatorExpression.Left>
+						<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+							<ns0:CodeBinaryOperatorExpression.Right>
+								<ns0:CodePrimitiveExpression>
+									<ns0:CodePrimitiveExpression.Value>
+										<ns1:Boolean xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns1:Boolean>
+									</ns0:CodePrimitiveExpression.Value>
+								</ns0:CodePrimitiveExpression>
+							</ns0:CodeBinaryOperatorExpression.Right>
+							<ns0:CodeBinaryOperatorExpression.Left>
+								<ns0:CodeBinaryOperatorExpression Operator="ValueEquality">
+									<ns0:CodeBinaryOperatorExpression.Right>
+										<ns0:CodePrimitiveExpression>
+											<ns0:CodePrimitiveExpression.Value>
+												<ns1:Int32 xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns1:Int32>
+											</ns0:CodePrimitiveExpression.Value>
+										</ns0:CodePrimitiveExpression>
+									</ns0:CodeBinaryOperatorExpression.Right>
+									<ns0:CodeBinaryOperatorExpression.Left>
+										<ns0:CodePropertyReferenceExpression PropertyName="CourtActionID">
+											<ns0:CodePropertyReferenceExpression.TargetObject>
+												<ns0:CodePropertyReferenceExpression PropertyName="ConvertToCFeeOption">
+													<ns0:CodePropertyReferenceExpression.TargetObject>
+														<ns0:CodePropertyReferenceExpression PropertyName="ReturnParameter">
+															<ns0:CodePropertyReferenceExpression.TargetObject>
+																<ns0:CodeMethodInvokeExpression>
+																	<ns0:CodeMethodInvokeExpression.Parameters>
+																		<ns0:CodePrimitiveExpression>
+																			<ns0:CodePrimitiveExpression.Value>
+																				<ns1:String xmlns:ns1="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">GetFeeOption</ns1:String>
+																			</ns0:CodePrimitiveExpression.Value>
+																		</ns0:CodePrimitiveExpression>
+																	</ns0:CodeMethodInvokeExpression.Parameters>
+																	<ns0:CodeMethodInvokeExpression.Method>
+																		<ns0:CodeMethodReferenceExpression MethodName="GetCallMethodActivity">
+																			<ns0:CodeMethodReferenceExpression.TargetObject>
+																				<ns0:CodeThisReferenceExpression />
+																			</ns0:CodeMethodReferenceExpression.TargetObject>
+																		</ns0:CodeMethodReferenceExpression>
+																	</ns0:CodeMethodInvokeExpression.Method>
+																</ns0:CodeMethodInvokeExpression>
+															</ns0:CodePropertyReferenceExpression.TargetObject>
+														</ns0:CodePropertyReferenceExpression>
+													</ns0:CodePropertyReferenceExpression.TargetObject>
+												</ns0:CodePropertyReferenceExpression>
+											</ns0:CodePropertyReferenceExpression.TargetObject>
+										</ns0:CodePropertyReferenceExpression>
+									</ns0:CodeBinaryOperatorExpression.Left>
+								</ns0:CodeBinaryOperatorExpression>
+							</ns0:CodeBinaryOperatorExpression.Left>
+						</ns0:CodeBinaryOperatorExpression>
+					</ns0:CodeBinaryOperatorExpression.Left>
+				</ns0:CodeBinaryOperatorExpression>
+			</RuleExpressionCondition.Expression>
+		</RuleExpressionCondition>
+	</RuleDefinitions.Conditions>
+</RuleDefinitions>

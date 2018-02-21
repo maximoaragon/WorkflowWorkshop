@@ -1,0 +1,24 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="OffenseLevelCalcWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="OffenseLevelChange:System.Int32, NewOffenseLevel:System.String" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<IfElseActivity x:Name="OffenseChangeDirection">
+		<IfElseBranchActivity x:Name="Up">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="Up" />
+			</IfElseBranchActivity.Condition>
+			<PolicyActivity x:Name="OffenseUp">
+				<PolicyActivity.RuleSetReference>
+					<RuleSetReference RuleSetName="OffenseUp" />
+				</PolicyActivity.RuleSetReference>
+			</PolicyActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="Down">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="Down" />
+			</IfElseBranchActivity.Condition>
+			<PolicyActivity x:Name="OffenseDown">
+				<PolicyActivity.RuleSetReference>
+					<RuleSetReference RuleSetName="OffenseDown" />
+				</PolicyActivity.RuleSetReference>
+			</PolicyActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

@@ -1,0 +1,91 @@
+﻿<ns0:BaseWorkflow x:Name="CloseAppealCaseWorkflow" InputParametersFormat="courtClassDesignator:System.String" Initialized="BaseWorkflow_Initialized" ParameterValues="{x:Null}" Completed="BaseWorkflow_Completed" Case="{x:Null}" EnableCaseTransaction="False" InputParameters="{x:Null}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetDocketPerformingSmartDocketAction" MethodName="GetDocketPerformingSmartDocketAction" Type="{x:Type p5:CDockets}" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib">
+		<ns0:CallMethodActivity.InstanceObject>
+			<ActivityBind Name="CloseAppealCaseWorkflow" Path="Case.Dockets" />
+		</ns0:CallMethodActivity.InstanceObject>
+	</ns0:CallMethodActivity>
+	<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="ShowSelectOpenAppealForm" MethodName="ShowSelectOpenAppealForm" Type="{x:Type p5:GlobalUIExtensions}" xmlns:p5="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+		<ns0:CallMethodActivity.Parameters>
+			<WorkflowParameterBinding ParameterName="myGlobal">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Name="CloseAppealCaseWorkflow" Path="GlobalClass" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="forceSelection">
+				<WorkflowParameterBinding.Value>
+					<ns3:Boolean xmlns:ns3="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns3:Boolean>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="allowMultiSelection">
+				<WorkflowParameterBinding.Value>
+					<ns3:Boolean xmlns:ns3="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns3:Boolean>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="courtClassDesignator">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Name="CloseAppealCaseWorkflow" Path="InputParameters.Item[0].ConvertToString" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns0:CallMethodActivity.Parameters>
+	</ns0:CallMethodActivity>
+	<IfElseActivity x:Name="CheckIfAppealSelected">
+		<IfElseBranchActivity x:Name="AppealSelected">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="AppealSelected" />
+			</IfElseBranchActivity.Condition>
+			<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetAppealsEnumerator" MethodName="GetEnumerator" Type="{x:Type p9:Collection}" xmlns:p9="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Name="ShowSelectOpenAppealForm" Path="ReturnParameter.ConvertToCollection" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+			<WhileActivity x:Name="WhileAppeals">
+				<WhileActivity.Condition>
+					<RuleConditionReference ConditionName="WhileAppeals" />
+				</WhileActivity.Condition>
+				<SequenceActivity x:Name="sequenceActivity3">
+					<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetAppeal" MethodName="get_Current" Type="{x:Type p13:IEnumerator}" xmlns:p13="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						<ns0:CallMethodActivity.InstanceObject>
+							<ActivityBind Name="GetAppealsEnumerator" Path="ReturnParameter.Value" />
+						</ns0:CallMethodActivity.InstanceObject>
+					</ns0:CallMethodActivity>
+					<IfElseActivity x:Name="CheckDocketPerformingSmartDocketActions">
+						<IfElseBranchActivity x:Name="ValidDocket">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="ValidDocket" />
+							</IfElseBranchActivity.Condition>
+							<ns0:CallMethodActivity ParameterTypes="System.DateTime" x:Name="CloseAppeal" MethodName="Close" Type="{x:Type p17:CAppeal}" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib">
+								<ns0:CallMethodActivity.InstanceObject>
+									<ActivityBind Name="GetAppeal" Path="ReturnParameter.ConvertToCAppeal" />
+								</ns0:CallMethodActivity.InstanceObject>
+								<ns0:CallMethodActivity.Parameters>
+									<WorkflowParameterBinding ParameterName="pdAppealCloseDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Name="GetDocketPerformingSmartDocketAction" Path="ReturnParameter.ConvertToCDocket.EffectiveDate" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns0:CallMethodActivity.Parameters>
+							</ns0:CallMethodActivity>
+						</IfElseBranchActivity>
+						<IfElseBranchActivity x:Name="InvalidDocket">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="InvalidDocket" />
+							</IfElseBranchActivity.Condition>
+							<ns0:CallMethodActivity ParameterTypes="System.DateTime" x:Name="CloseAppeal2" MethodName="Close" Type="{x:Type p17:CAppeal}" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib">
+								<ns0:CallMethodActivity.InstanceObject>
+									<ActivityBind Name="GetAppeal" Path="ReturnParameter.ConvertToCAppeal" />
+								</ns0:CallMethodActivity.InstanceObject>
+								<ns0:CallMethodActivity.Parameters>
+									<WorkflowParameterBinding ParameterName="pdAppealCloseDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Name="CloseAppealCaseWorkflow" Path="Case.CurrentDate" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns0:CallMethodActivity.Parameters>
+							</ns0:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</SequenceActivity>
+			</WhileActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

@@ -1,0 +1,87 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="GuardianPersonAdultWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="DocketID:System.Int32, EffectiveDate:System.DateTime" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<IfElseActivity x:Name="IsCaseTypeValid">
+		<IfElseBranchActivity x:Name="CaseTypeValid">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="CaseTypeValid" />
+			</IfElseBranchActivity.Condition>
+			<ns6:CallMethodActivity MethodName="AddDays" ParameterTypes="{x:Null}" Type="{x:Type p9:DateTime}" x:Name="InitialDueDate" xmlns:p9="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns6="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns8:CallMethodActivity.Parameters xmlns:ns8="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="value">
+						<WorkflowParameterBinding.Value>
+							<ns7:Double xmlns:ns7="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">60</ns7:Double>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns8:CallMethodActivity.Parameters>
+				<ns9:CallMethodActivity.InstanceObject xmlns:ns9="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="InputParameters.Item[1].ConvertToDateTime" Name="GuardianPersonAdultWorkflow" />
+				</ns9:CallMethodActivity.InstanceObject>
+			</ns6:CallMethodActivity>
+			<ns10:CallMethodActivity MethodName="CreateCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.DateTime, System.String, System.Int32" Type="{x:Type p9:CCaseEvents}" x:Name="CreateInitialPlan" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns10="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns12:CallMethodActivity.Parameters xmlns:ns12="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="peCaseEventType">
+						<WorkflowParameterBinding.Value>
+							<ns11:eCaseEventType xmlns:ns11="http://aptitudesolutions.com/ShowCaseClassLib">InitialGuardianshipPlan</ns11:eCaseEventType>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="pdtDueDate">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToDateTime" Name="InitialDueDate" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psLinkTableName">
+						<WorkflowParameterBinding.Value>
+							<ns7:String xmlns:ns7="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns7:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="InputParameters.Item[0].ConvertToInteger" Name="GuardianPersonAdultWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns12:CallMethodActivity.Parameters>
+				<ns13:CallMethodActivity.InstanceObject xmlns:ns13="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="Case.CaseEvents" Name="GuardianPersonAdultWorkflow" />
+				</ns13:CallMethodActivity.InstanceObject>
+			</ns10:CallMethodActivity>
+			<ns14:CallMethodActivity MethodName="AddMonths" ParameterTypes="{x:Null}" Type="{x:Type p9:DateTime}" x:Name="AnnualDueDate" xmlns:p9="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns14="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns15:CallMethodActivity.Parameters xmlns:ns15="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="months">
+						<WorkflowParameterBinding.Value>
+							<ns7:Int32 xmlns:ns7="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">15</ns7:Int32>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns15:CallMethodActivity.Parameters>
+				<ns16:CallMethodActivity.InstanceObject xmlns:ns16="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="InputParameters.Item[1].ConvertToDateTime" Name="GuardianPersonAdultWorkflow" />
+				</ns16:CallMethodActivity.InstanceObject>
+			</ns14:CallMethodActivity>
+			<ns17:CallMethodActivity MethodName="CreateCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.DateTime, System.String, System.Int32" Type="{x:Type p9:CCaseEvents}" x:Name="CreateAnnualPlan" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns17="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns18:CallMethodActivity.Parameters xmlns:ns18="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="peCaseEventType">
+						<WorkflowParameterBinding.Value>
+							<ns11:eCaseEventType xmlns:ns11="http://aptitudesolutions.com/ShowCaseClassLib">AnnualGuardianshipPlan</ns11:eCaseEventType>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="pdtDueDate">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToDateTime" Name="AnnualDueDate" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psLinkTableName">
+						<WorkflowParameterBinding.Value>
+							<ns7:String xmlns:ns7="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns7:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="InputParameters.Item[0].ConvertToInteger" Name="GuardianPersonAdultWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns18:CallMethodActivity.Parameters>
+				<ns19:CallMethodActivity.InstanceObject xmlns:ns19="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="Case.CaseEvents" Name="GuardianPersonAdultWorkflow" />
+				</ns19:CallMethodActivity.InstanceObject>
+			</ns17:CallMethodActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

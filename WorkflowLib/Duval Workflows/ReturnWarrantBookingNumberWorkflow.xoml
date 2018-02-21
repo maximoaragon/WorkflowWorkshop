@@ -1,0 +1,104 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="ReturnWarrantBookingNumberWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="bookingNumber:System.String" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns8:CallMethodActivity MethodName="LoadByBookingNumber" ParameterTypes="{x:Null}" Type="{x:Type p5:CJails}" x:Name="LoadJailsByBookingNumber" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns8="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns10:CallMethodActivity.Parameters xmlns:ns10="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<WorkflowParameterBinding ParameterName="psBookingNumber">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Path="InputParameters.Item[0].ConvertToString" Name="ReturnWarrantBookingNumberWorkflow" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns10:CallMethodActivity.Parameters>
+		<ns11:CallMethodActivity.InstanceObject xmlns:ns11="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="GlobalClass.Jails" Name="ReturnWarrantBookingNumberWorkflow" />
+		</ns11:CallMethodActivity.InstanceObject>
+	</ns8:CallMethodActivity>
+	<IfElseActivity x:Name="CheckJailRecords">
+		<IfElseBranchActivity x:Name="OneJailRecord">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="OneJailRecord" />
+			</IfElseBranchActivity.Condition>
+			<ns12:CallMethodActivity MethodName="Load" ParameterTypes="{x:Null}" Type="{x:Type p9:CJail}" x:Name="LoadJailCharges" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns12="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns13:CallMethodActivity.InstanceObject xmlns:ns13="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="ReturnParameter.ConvertToCJails[0]" Name="LoadJailsByBookingNumber" />
+				</ns13:CallMethodActivity.InstanceObject>
+			</ns12:CallMethodActivity>
+			<PolicyActivity x:Name="ReturnJailChargePolicy">
+				<PolicyActivity.RuleSetReference>
+					<RuleSetReference RuleSetName="ReturnJailChargePolicy" />
+				</PolicyActivity.RuleSetReference>
+			</PolicyActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="MultiJailRecords">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="MultiJailRecords" />
+			</IfElseBranchActivity.Condition>
+			<ns14:CallMethodActivity MethodName="Load" ParameterTypes="{x:Null}" Type="{x:Type p9:CJail}" x:Name="LoadJailCharges2" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns14="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns15:CallMethodActivity.InstanceObject xmlns:ns15="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="ReturnParameter.ConvertToCJails[0]" Name="LoadJailsByBookingNumber" />
+				</ns15:CallMethodActivity.InstanceObject>
+			</ns14:CallMethodActivity>
+			<ns16:CallMethodActivity Enabled="False" MethodName="ReturnSortedCollection" ParameterTypes="{x:Null}" Type="{x:Type p9:CJailCharges}" x:Name="XGetJailChargesCollection" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns16="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns17:CallMethodActivity.Parameters xmlns:ns17="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="psSortOn">
+						<WorkflowParameterBinding.Value>
+							<ns18:String xmlns:ns18="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">JailChargeID</ns18:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psFilter">
+						<WorkflowParameterBinding.Value>
+							<ns18:String xmlns:ns18="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">WarrantNumber =</ns18:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns17:CallMethodActivity.Parameters>
+				<ns19:CallMethodActivity.InstanceObject xmlns:ns19="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="GlobalClass.Jails[0].JailCharges" Name="ReturnWarrantBookingNumberWorkflow" />
+				</ns19:CallMethodActivity.InstanceObject>
+			</ns16:CallMethodActivity>
+			<ns20:CallMethodActivity MethodName="ReturnByDistinctOBTSNumber" ParameterTypes="{x:Null}" Type="{x:Type p9:CJailCharges}" x:Name="GetJailChargesCollection" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns20="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns21:CallMethodActivity.InstanceObject xmlns:ns21="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="GlobalClass.Jails[0].JailCharges" Name="ReturnWarrantBookingNumberWorkflow" />
+				</ns21:CallMethodActivity.InstanceObject>
+			</ns20:CallMethodActivity>
+			<ns22:CallMethodActivity MethodName="ShowSelectObjectsForm" ParameterTypes="{x:Null}" Type="{x:Type p9:GlobalUIExtensions}" x:Name="ShowSelectObjectsForm" xmlns:p9="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns22="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns24:CallMethodActivity.Parameters xmlns:ns24="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="myGlobal">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="GlobalClass" Name="ReturnWarrantBookingNumberWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psMessage">
+						<WorkflowParameterBinding.Value>
+							<ns18:String xmlns:ns18="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Jail Charges</ns18:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psColumnNames">
+						<WorkflowParameterBinding.Value>
+							<ns18:String xmlns:ns18="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">JailNumber;ChargeCount;OBTSNumber;CitationNumber;WarrantNumber;FirstName;MiddleName;LastName;DOB</ns18:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="pbAllowMultiSelection">
+						<WorkflowParameterBinding.Value>
+							<ns18:Boolean xmlns:ns18="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns18:Boolean>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="pCollection">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToCollection" Name="GetJailChargesCollection" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns24:CallMethodActivity.Parameters>
+			</ns22:CallMethodActivity>
+			<IfElseActivity x:Name="CheckSelectedJailCharge">
+				<IfElseBranchActivity x:Name="JailChargeSelected">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="JailChargeSelected" />
+					</IfElseBranchActivity.Condition>
+					<PolicyActivity x:Name="ReturnSelectedJailChargePolicy">
+						<PolicyActivity.RuleSetReference>
+							<RuleSetReference RuleSetName="ReturnSelectedJailChargePolicy" />
+						</PolicyActivity.RuleSetReference>
+					</PolicyActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>
