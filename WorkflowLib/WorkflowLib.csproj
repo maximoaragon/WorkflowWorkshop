@@ -224,12 +224,11 @@
     <Content Include="Dlls\ShowCaseCCB.dll" />
     <Content Include="Dlls\ShowCaseClassLib.dll" />
     <Content Include="Dlls\ShowCaseDAL.dll" />
+    <Content Include="Dlls\ShowCasePresentation.dll" />
+    <Content Include="Dlls\ShowCaseReportingServices.dll" />
     <Content Include="Dlls\ShowCaseUtil.dll" />
     <Content Include="Dlls\ShowCaseWorkflowActivityLib.dll" />
     <Content Include="Dlls\ShowCaseWorkflowLib.dll" />
-    <Content Include="TemplateWorkflows\TemplateWorkflow.xoml">
-      <SubType>Designer</SubType>
-    </Content>
     <None Include="Training Workflows\WarnInvalidPDWorkflow.xoml">
       <SubType>Designer</SubType>
     </None>
@@ -261,11 +260,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="TemplateWorkflows\TemplateWorkflow.rules">
-      <DependentUpon>TemplateWorkflow.xoml</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

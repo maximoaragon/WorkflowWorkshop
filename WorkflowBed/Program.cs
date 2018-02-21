@@ -1,16 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Activities;
-using System.Activities.Statements;
-using System.Collections.Generic;
-using System.Collections;
-using ShowCaseClassLib;
-using System.IO;
-using System.Xml;
-using ShowCaseWorkflowLib;
-using System.Text;
-using System.Configuration;
+﻿using ShowCaseClassLib;
 using ShowCaseClassLib.AuthenticationService;
+using ShowCaseWorkflowLib;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Xml;
 
 namespace WorkflowBed
 {
@@ -23,10 +20,12 @@ namespace WorkflowBed
 
             //TODO: SET THE PATH OF THE WORKFLOW TO INVOKE. THIS WILL BE EITHER A XAML OR XOML FILE
             //string workflowFilePath = @"C:\Users\maxuel.aragones\Desktop\WorkflowWorkhop\WorkflowLib\Workflow1.xaml";
-            string workflowFilePath = @"C:\Users\maxuel.aragones\Desktop\WorkflowWorkhop\WorkflowWorkhop\WorkflowLib\Duval Workflows\CreateCaseWorkflow.xoml";
+            //string workflowFilePath = @"..\WorkflowWorkhop\WorkflowWorkhop\WorkflowLib\Duval Workflows\CreateCaseWorkflow.xoml";
+            string workflowFilePath = @"..\..\..\WorkflowLib\Duval Workflows\CreateCaseWorkflow.xoml";
+
 
             //TODO: SET CASE PASSED TO THE WORKFLOW. THIS IS REQURED BY ANY SHOWCASE WORKFLOW.
-            CCase testingCase = GetCaseObject("50-2011-CA-009997-XXXX-WB");
+            CCase testingCase = GetCaseObject("50-2015-CC-025987-XXXX-MB");
 
             //TODO: OPTINALLY add any arguments required by the workflow 
             var parms = new object[]
