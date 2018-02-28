@@ -11,6 +11,7 @@
  xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
  xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
  xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
  xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml"
  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
@@ -77,9 +78,14 @@
       <Variable x:TypeArguments="x:String" Name="caseNumber" />
       <Variable x:TypeArguments="es:DataProvider" Name="dataProvider" />
       <Variable x:TypeArguments="x:Int32" Name="caseID" />
+      <Variable x:TypeArguments="x:String" Name="details">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String" Value="" />
+        </Variable.Default>
+      </Variable>
     </Flowchart.Variables>
     <Flowchart.StartNode>
-      <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_2">
+      <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_2">
         <Assign DisplayName="Assign caseNumber" sap2010:WorkflowViewState.IdRef="Assign_1">
           <Assign.To>
             <OutArgument x:TypeArguments="x:String">
@@ -107,7 +113,7 @@
               </Assign.Value>
             </Assign>
             <FlowStep.Next>
-              <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_1">
+              <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_1">
                 <Assign DisplayName="Assign myCase" sap2010:WorkflowViewState.IdRef="Assign_2">
                   <Assign.To>
                     <OutArgument x:TypeArguments="s:CCase">
@@ -149,34 +155,92 @@
                           </Assign.Value>
                         </Assign>
                         <FlowStep.Next>
-                          <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_3">
-                            <Assign DisplayName="Init Result" sap2010:WorkflowViewState.IdRef="Assign_3">
-                              <Assign.To>
-                                <OutArgument x:TypeArguments="sx:XmlDocument">
-                                  <mca:CSharpReference x:TypeArguments="sx:XmlDocument">Result</mca:CSharpReference>
-                                </OutArgument>
-                              </Assign.To>
-                              <Assign.Value>
-                                <InArgument x:TypeArguments="sx:XmlDocument">
-                                  <mca:CSharpValue x:TypeArguments="sx:XmlDocument">new XmlDocument()</mca:CSharpValue>
-                                </InArgument>
-                              </Assign.Value>
-                            </Assign>
-                            <FlowStep.Next>
-                              <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_5">
-                                <InvokeMethod DisplayName="LoadXml" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="LoadXml">
-                                  <InvokeMethod.TargetObject>
-                                    <InArgument x:TypeArguments="sx:XmlDocument">
-                                      <mca:CSharpValue x:TypeArguments="sx:XmlDocument">Result</mca:CSharpValue>
-                                    </InArgument>
-                                  </InvokeMethod.TargetObject>
-                                  <InArgument x:TypeArguments="x:String">
-                                    <mca:CSharpValue x:TypeArguments="x:String">"&lt;caseinfo&gt;&lt;casenumber&gt;" + caseNumber + "&lt;/casenumber&gt;&lt;caseid&gt;" + caseID +"&lt;/caseid&gt;&lt;/caseinfo&gt;"</mca:CSharpValue>
-                                  </InArgument>
-                                </InvokeMethod>
+                          <FlowDecision x:Name="__ReferenceID8" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                            <FlowDecision.Condition>
+                              <mca:CSharpValue x:TypeArguments="x:Boolean">caseID &gt; 0</mca:CSharpValue>
+                            </FlowDecision.Condition>
+                            <FlowDecision.True>
+                              <FlowStep x:Name="__ReferenceID7" sap2010:WorkflowViewState.IdRef="FlowStep_12">
+                                <Assign DisplayName="Assign CMD Text" sap2010:WorkflowViewState.IdRef="Assign_8">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">
+                                      <mca:CSharpReference x:TypeArguments="x:String">dataProvider.CommandText</mca:CSharpReference>
+                                    </OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">usp_de_GetCaseCreated</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <FlowStep.Next>
+                                  <FlowStep x:Name="__ReferenceID10" sap2010:WorkflowViewState.IdRef="FlowStep_11">
+                                    <InvokeMethod DisplayName="AddParameter" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="AddParameter">
+                                      <InvokeMethod.TargetObject>
+                                        <InArgument x:TypeArguments="es:DataProvider">
+                                          <mca:CSharpValue x:TypeArguments="es:DataProvider">dataProvider</mca:CSharpValue>
+                                        </InArgument>
+                                      </InvokeMethod.TargetObject>
+                                      <InArgument x:TypeArguments="x:String">CaseID</InArgument>
+                                      <InArgument x:TypeArguments="x:Object">
+                                        <mca:CSharpValue x:TypeArguments="x:Object">caseID</mca:CSharpValue>
+                                      </InArgument>
+                                      <InArgument x:TypeArguments="sd:SqlDbType">
+                                        <mca:CSharpValue x:TypeArguments="sd:SqlDbType">SqlDbType.Int</mca:CSharpValue>
+                                      </InArgument>
+                                    </InvokeMethod>
+                                    <FlowStep.Next>
+                                      <FlowStep x:Name="__ReferenceID9" sap2010:WorkflowViewState.IdRef="FlowStep_10">
+                                        <Assign DisplayName="Executre SP" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">
+                                              <mca:CSharpReference x:TypeArguments="x:String">details</mca:CSharpReference>
+                                            </OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">
+                                              <mca:CSharpValue x:TypeArguments="x:String">dataProvider.ExecuteXMLReader()</mca:CSharpValue>
+                                            </InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                        <FlowStep.Next>
+                                          <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_3">
+                                            <Assign DisplayName="Init Result" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                              <Assign.To>
+                                                <OutArgument x:TypeArguments="sx:XmlDocument">
+                                                  <mca:CSharpReference x:TypeArguments="sx:XmlDocument">Result</mca:CSharpReference>
+                                                </OutArgument>
+                                              </Assign.To>
+                                              <Assign.Value>
+                                                <InArgument x:TypeArguments="sx:XmlDocument">
+                                                  <mca:CSharpValue x:TypeArguments="sx:XmlDocument">new XmlDocument()</mca:CSharpValue>
+                                                </InArgument>
+                                              </Assign.Value>
+                                            </Assign>
+                                            <FlowStep.Next>
+                                              <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_5">
+                                                <InvokeMethod DisplayName="LoadXml" sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="LoadXml">
+                                                  <InvokeMethod.TargetObject>
+                                                    <InArgument x:TypeArguments="sx:XmlDocument">
+                                                      <mca:CSharpValue x:TypeArguments="sx:XmlDocument">Result</mca:CSharpValue>
+                                                    </InArgument>
+                                                  </InvokeMethod.TargetObject>
+                                                  <InArgument x:TypeArguments="x:String">
+                                                    <mca:CSharpValue x:TypeArguments="x:String">"&lt;caseinfo&gt;&lt;casenumber&gt;" + caseNumber + "&lt;/casenumber&gt;&lt;caseid&gt;" + caseID +"&lt;/caseid&gt;&lt;details&gt;" + details + "&lt;/details&gt;&lt;/caseinfo&gt;"</mca:CSharpValue>
+                                                  </InArgument>
+                                                </InvokeMethod>
+                                              </FlowStep>
+                                            </FlowStep.Next>
+                                          </FlowStep>
+                                        </FlowStep.Next>
+                                      </FlowStep>
+                                    </FlowStep.Next>
+                                  </FlowStep>
+                                </FlowStep.Next>
                               </FlowStep>
-                            </FlowStep.Next>
-                          </FlowStep>
+                            </FlowDecision.True>
+                            <FlowDecision.False>
+                              <x:Reference>__ReferenceID0</x:Reference>
+                            </FlowDecision.False>
+                          </FlowDecision>
                         </FlowStep.Next>
                       </FlowStep>
                     </FlowStep.Next>
@@ -188,14 +252,18 @@
         </FlowStep.Next>
       </FlowStep>
     </Flowchart.StartNode>
-    <x:Reference>__ReferenceID0</x:Reference>
     <x:Reference>__ReferenceID1</x:Reference>
     <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID0</x:Reference>
     <x:Reference>__ReferenceID3</x:Reference>
     <x:Reference>__ReferenceID4</x:Reference>
     <x:Reference>__ReferenceID5</x:Reference>
     <x:Reference>__ReferenceID6</x:Reference>
-    <sads:DebugSymbol.Symbol>d0NDOlxEZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxUcmFpbmluZ1xHZXRDYXNlSW5mby54YW1sFkoDxwEPAgEBUwleEgIBXGENbBYCAU1vEXoaAgE+fRWIAR4CAS+LARmWASICASCZAR2kASYCARGnASGwATACAQJbD1t8AgFkVg9WXwIBXWkTaWoCAVVkE2RsAgFOdxd3owECAUZyF3JiAgE/hQEbhQGgAQIBN4ABG4ABawIBMJMBH5MBhAECASiOAR+OAWoCASGhASOhAXgCARmcASOcAXUCARKuASWuAecBAgEKqgEnqgFxAgED</sads:DebugSymbol.Symbol>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID9</x:Reference>
+    <x:Reference>__ReferenceID10</x:Reference>
+    <sads:DebugSymbol.Symbol>d0NDOlxEZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxUcmFpbmluZ1xHZXRDYXNlSW5mby54YW1sI0sDiwIPAgEBUwtTOgIBAlkJZBIDAaYBZw1yFgMBlQF1EYABGgMBhAGDARWOAR4CAXORARmcASICAWKgAR+gAWsCAVrOAS3ZATYCAUncATHlAUACATikASGtASoCAS6wASW9ATQCARTAASnLATICAQNhD2F8AwGvAVwPXF8DAacBbxNvagMBngFqE2psAwGWAX0XfaMBAwGNAXgXeGIDAYUBiwEbiwGgAQIBfIYBG4YBawIBdJkBH5kBhAECAWuUAR+UAWoCAWPWATPWAYgBAgFS0QEz0QGFAQIBSuMBNeMBpQICAUHfATffAYEBAgE5qwFMqwFhAgE3pwEnpwGFAQIBL7gBKbgBbQIBJrsBKbsBeAIBHrMBK7MBfAIBFrYBTrYBVAIBFcgBL8gBjAECAQzDAS/DAXwCAQQ=</sads:DebugSymbol.Symbol>
   </Flowchart>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -234,6 +302,27 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_8" sap:VirtualizedContainerService.HintSize="242,62">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeMethod_2" sap:VirtualizedContainerService.HintSize="217.333333333333,133.333333333333">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_9" sap:VirtualizedContainerService.HintSize="242,62">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="242,62">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -251,7 +340,7 @@
       <sap2010:ViewStateData Id="FlowStep_5">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">191.333333333333,733.333333333333</av:Point>
+            <av:Point x:Key="ShapeLocation">191.333333333333,1183.33333333333</av:Point>
             <av:Size x:Key="ShapeSize">217.333333333333,133.333333333333</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -259,9 +348,49 @@
       <sap2010:ViewStateData Id="FlowStep_3">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">179,639</av:Point>
+            <av:Point x:Key="ShapeLocation">179,1089</av:Point>
             <av:Size x:Key="ShapeSize">242,62</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">300,701 300,733.333333333333</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">300,1151 300,1183.33333333333</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_10">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">9,999</av:Point>
+            <av:Size x:Key="ShapeSize">242,62</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">130,1061 130,1120 179,1120</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_11">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">21.3333333333333,831</av:Point>
+            <av:Size x:Key="ShapeSize">217.333333333333,133.333333333333</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">130,964.333333333333 130,999</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_12">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">9,749</av:Point>
+            <av:Size x:Key="ShapeSize">242,62</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">130,811 130,831</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="70,86.6666666666667">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">255,646.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">70,86.6666666666667</av:Size>
+            <x:String x:Key="TrueLabel">Valid Case</x:String>
+            <x:String x:Key="FalseLabel">No Case</x:String>
+            <av:PointCollection x:Key="TrueConnector">255,690 130,690 130,749</av:PointCollection>
+            <av:PointCollection x:Key="FalseConnector">325,690 451,690 451,1120 421,1120</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
@@ -270,7 +399,7 @@
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">179,549</av:Point>
             <av:Size x:Key="ShapeSize">242,62</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">300,611 300,639</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">300,611 300,641 290,641 290,646.666666666667</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
@@ -310,19 +439,19 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="772,903.333333333333">
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="772,1353.33333333333">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">False</x:Boolean>
             <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
             <av:Size x:Key="ShapeSize">60,74.6666666666667</av:Size>
             <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,127.5</av:PointCollection>
-            <x:Double x:Key="Height">867.333333333333</x:Double>
+            <x:Double x:Key="Height">1317.33333333333</x:Double>
             <x:Double x:Key="Width">758.33333333333314</x:Double>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="WorkflowLib.Training.GetCaseInfo_1" sap:VirtualizedContainerService.HintSize="812,983.333333333333" />
+      <sap2010:ViewStateData Id="WorkflowLib.Training.GetCaseInfo_1" sap:VirtualizedContainerService.HintSize="812,1433.33333333333" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

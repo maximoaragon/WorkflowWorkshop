@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowLib", "WorkflowLib\WorkflowLib.csproj", "{DDFBB017-F3C8-421D-BCF1-F625463AAF99}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowTestBed", "WorkflowBed\WorkflowTestBed.csproj", "{BD0CA859-ED8C-4BA6-BBBE-6E203F48CFE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.ServiceTester", "ExchangePointServiceTester\Exchange.ServiceTester.csproj", "{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,16 @@ Global
 		{BD0CA859-ED8C-4BA6-BBBE-6E203F48CFE5}.Release|Mixed Platforms.Build.0 = Release|x86
 		{BD0CA859-ED8C-4BA6-BBBE-6E203F48CFE5}.Release|x86.ActiveCfg = Release|x86
 		{BD0CA859-ED8C-4BA6-BBBE-6E203F48CFE5}.Release|x86.Build.0 = Release|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Debug|x86.ActiveCfg = Debug|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Debug|x86.Build.0 = Debug|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|Any CPU.ActiveCfg = Release|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|x86.ActiveCfg = Release|x86
+		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
