@@ -1,0 +1,570 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="ReopenChargeWorkflow" Case="{x:Null}" InputParameters="{x:Null}" Description="Workflow " InputParametersFormat="chargeID:System.Int32, reopenReason:System.String, reopenDate:System.DateTime, docketID:System.Int32" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns33:CallMethodActivity MethodName="GetByID" ParameterTypes="{x:Null}" Type="{x:Type p5:CCharges}" x:Name="GetCharge" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns33="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns35:CallMethodActivity.Parameters xmlns:ns35="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<WorkflowParameterBinding ParameterName="piID">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Path="InputParameters.Item[0].ConvertToInteger" Name="ReopenChargeWorkflow" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns35:CallMethodActivity.Parameters>
+		<ns36:CallMethodActivity.InstanceObject xmlns:ns36="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="Case.Charges" Name="ReopenChargeWorkflow" />
+		</ns36:CallMethodActivity.InstanceObject>
+	</ns33:CallMethodActivity>
+	<IfElseActivity x:Name="CheckChargeExists">
+		<IfElseBranchActivity x:Name="ChargeExists">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="ChargeExists" />
+			</IfElseBranchActivity.Condition>
+			<IfElseActivity x:Name="CheckValidReopenDate">
+				<IfElseBranchActivity Description="ReopenDate &gt; Charge.DispositionDate" x:Name="ValidReopenDate">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="ValidReopenDate" />
+					</IfElseBranchActivity.Condition>
+					<IfElseActivity x:Name="CheckReopenReason">
+						<IfElseBranchActivity Description="ReopenReason is &quot;O&quot;" x:Name="ReopenReasonOther">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="ReopenReasonOther" />
+							</IfElseBranchActivity.Condition>
+							<IfElseActivity x:Name="CheckConvicted">
+								<IfElseBranchActivity Enabled="False" x:Name="NotConvicted">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="NotConvicted" />
+									</IfElseBranchActivity.Condition>
+									<ns37:CallMethodActivity Enabled="False" MethodName="ShowMessageBox" ParameterTypes="{x:Null}" Type="{x:Type p21:GlobalUIExtensions}" x:Name="NotifyUserDialog" xmlns:p21="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns37="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns39:CallMethodActivity.Parameters xmlns:ns39="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="buttons">
+												<WorkflowParameterBinding.Value>
+													<ns40:MessageBoxButtons xmlns:ns40="clr-namespace:System.Windows.Forms;Assembly=System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">YesNo</ns40:MessageBoxButtons>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="caption">
+												<WorkflowParameterBinding.Value>
+													<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Attention</ns41:String>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="text">
+												<WorkflowParameterBinding.Value>
+													<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">The charge is not Convicted.  Continue and reopen w/ reason Other?</ns41:String>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns39:CallMethodActivity.Parameters>
+									</ns37:CallMethodActivity>
+									<IfElseActivity Enabled="False" x:Name="CheckUserDialogResponse">
+										<IfElseBranchActivity x:Name="UserDialogResponseYes">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="UserDialogResponseYes" />
+											</IfElseBranchActivity.Condition>
+											<ns42:CallMethodActivity MethodName="CreateReopen" ParameterTypes="System.Int32, System.String, System.DateTime, System.Int32" Type="{x:Type p25:CReopens}" x:Name="ReopenOOverride" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns42="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns43:CallMethodActivity.Parameters xmlns:ns43="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="piChargeID">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="ReturnParameter.ConvertToCCharge.ChargeID" Name="GetCharge" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psReopenReason">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="pdReopenDate">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[2].ConvertToDateTime" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="piDocketID">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[3].ConvertToInteger" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns43:CallMethodActivity.Parameters>
+												<ns44:CallMethodActivity.InstanceObject xmlns:ns44="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+												</ns44:CallMethodActivity.InstanceObject>
+											</ns42:CallMethodActivity>
+											<ns45:CallMethodActivity MethodName="Audit" ParameterTypes="{x:Null}" Type="{x:Type p25:CCharge}" x:Name="AuditReopenOOverride" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns45="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns46:CallMethodActivity.Parameters xmlns:ns46="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="pbSupervisorOverrideNeeded">
+														<WorkflowParameterBinding.Value>
+															<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psText">
+														<WorkflowParameterBinding.Value>
+															<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Reopen O Override:  Charge not Convicted</ns41:String>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns46:CallMethodActivity.Parameters>
+												<ns47:CallMethodActivity.InstanceObject xmlns:ns47="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+												</ns47:CallMethodActivity.InstanceObject>
+											</ns45:CallMethodActivity>
+										</IfElseBranchActivity>
+										<IfElseBranchActivity x:Name="UserDialogResponseNo">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="UserDialogResponseNo" />
+											</IfElseBranchActivity.Condition>
+											<ns48:CallMethodActivity MethodName="Audit" ParameterTypes="{x:Null}" Type="{x:Type p25:CCharge}" x:Name="AuditReopenOAbort" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns48="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns49:CallMethodActivity.Parameters xmlns:ns49="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="pbSupervisorOverrideNeeded">
+														<WorkflowParameterBinding.Value>
+															<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psText">
+														<WorkflowParameterBinding.Value>
+															<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Reopen O Aborted:  Charge not Convicted</ns41:String>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns49:CallMethodActivity.Parameters>
+												<ns50:CallMethodActivity.InstanceObject xmlns:ns50="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+												</ns50:CallMethodActivity.InstanceObject>
+											</ns48:CallMethodActivity>
+										</IfElseBranchActivity>
+									</IfElseActivity>
+								</IfElseBranchActivity>
+								<IfElseBranchActivity x:Name="Convicted">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="Convicted" />
+									</IfElseBranchActivity.Condition>
+									<ns51:CallMethodActivity MethodName="CreateReopen" ParameterTypes="System.Int32, System.String, System.DateTime, System.Int32" Type="{x:Type p21:CReopens}" x:Name="ReopenO" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns51="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns52:CallMethodActivity.Parameters xmlns:ns52="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="piChargeID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge.ChargeID" Name="GetCharge" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="psReopenReason">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pdReopenDate">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[2].ConvertToDateTime" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="piDocketID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[3].ConvertToInteger" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns52:CallMethodActivity.Parameters>
+										<ns53:CallMethodActivity.InstanceObject xmlns:ns53="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+										</ns53:CallMethodActivity.InstanceObject>
+									</ns51:CallMethodActivity>
+									<ns54:CallMethodActivity MethodName="UpdateReopen" ParameterTypes="{x:Null}" Description="Update the charge's ReopenReason and ReopenDate to reflect the most recent active reopen (if any)" Type="{x:Type p21:CCharge}" x:Name="UpdateReopen" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns54="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns55:CallMethodActivity.InstanceObject xmlns:ns55="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+										</ns55:CallMethodActivity.InstanceObject>
+									</ns54:CallMethodActivity>
+									<ns56:CallMethodActivity MethodName="Save" ParameterTypes="System.Boolean, System.Boolean" Type="{x:Type p21:CCharge}" x:Name="SaveCharge" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns56="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns57:CallMethodActivity.Parameters xmlns:ns57="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="pbSkipDocket">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pbSetCaseStatus">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns57:CallMethodActivity.Parameters>
+										<ns58:CallMethodActivity.InstanceObject xmlns:ns58="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+										</ns58:CallMethodActivity.InstanceObject>
+									</ns56:CallMethodActivity>
+									<ns59:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p21:CCase}" x:Name="SaveCase" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns59="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns60:CallMethodActivity.InstanceObject xmlns:ns60="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case" Name="ReopenChargeWorkflow" />
+										</ns60:CallMethodActivity.InstanceObject>
+									</ns59:CallMethodActivity>
+									<ns61:CallMethodActivity Enabled="False" MethodName="SetCaseStatus" ParameterTypes="{x:Null}" Type="{x:Type p21:CCase}" x:Name="SetCaseStatus" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns61="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns62:CallMethodActivity.Parameters xmlns:ns62="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="pbIncludeCivilCases">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns62:CallMethodActivity.Parameters>
+										<ns63:CallMethodActivity.InstanceObject xmlns:ns63="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case" Name="ReopenChargeWorkflow" />
+										</ns63:CallMethodActivity.InstanceObject>
+									</ns61:CallMethodActivity>
+									<ns64:CallMethodActivity Enabled="False" MethodName="RaiseEvent_RefreshCaseInfo" ParameterTypes="{x:Null}" Type="{x:Type p21:CReopens}" x:Name="RefreshCaseInfo" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns64="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns65:CallMethodActivity.InstanceObject xmlns:ns65="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+										</ns65:CallMethodActivity.InstanceObject>
+									</ns64:CallMethodActivity>
+								</IfElseBranchActivity>
+							</IfElseActivity>
+						</IfElseBranchActivity>
+						<IfElseBranchActivity Description="ReopenReason is &quot;P&quot;" x:Name="ReopenReasonPCRM">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="ReopenReasonPCRM" />
+							</IfElseBranchActivity.Condition>
+							<IfElseActivity x:Name="CheckConvicted2">
+								<IfElseBranchActivity Enabled="False" x:Name="NotConvicted2">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="NotConvicted" />
+									</IfElseBranchActivity.Condition>
+									<ns66:CallMethodActivity Enabled="False" MethodName="ShowMessageBox" ParameterTypes="{x:Null}" Type="{x:Type p21:GlobalUIExtensions}" x:Name="NotifyUserDialog2" xmlns:p21="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns66="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns67:CallMethodActivity.Parameters xmlns:ns67="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="buttons">
+												<WorkflowParameterBinding.Value>
+													<ns40:MessageBoxButtons xmlns:ns40="clr-namespace:System.Windows.Forms;Assembly=System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">YesNo</ns40:MessageBoxButtons>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="caption">
+												<WorkflowParameterBinding.Value>
+													<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Attention</ns41:String>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="text">
+												<WorkflowParameterBinding.Value>
+													<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">The charge is not Convicted.  Continue and reopen w/ reason PCRM?</ns41:String>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns67:CallMethodActivity.Parameters>
+									</ns66:CallMethodActivity>
+									<IfElseActivity Enabled="False" x:Name="CheckUserDialog2Response">
+										<IfElseBranchActivity x:Name="UserDialog2ResponseYes">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="UserDialog2ResponseYes" />
+											</IfElseBranchActivity.Condition>
+											<ns68:CallMethodActivity MethodName="CreateReopen" ParameterTypes="System.Int32, System.String, System.DateTime, System.Int32" Type="{x:Type p25:CReopens}" x:Name="ReopenPOverride" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns68="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns69:CallMethodActivity.Parameters xmlns:ns69="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="piChargeID">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="ReturnParameter.ConvertToCCharge.ChargeID" Name="GetCharge" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psReopenReason">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="pdReopenDate">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[2].ConvertToDateTime" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="piDocketID">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[3].ConvertToInteger" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns69:CallMethodActivity.Parameters>
+												<ns70:CallMethodActivity.InstanceObject xmlns:ns70="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+												</ns70:CallMethodActivity.InstanceObject>
+											</ns68:CallMethodActivity>
+											<ns71:CallMethodActivity MethodName="Audit" ParameterTypes="{x:Null}" Type="{x:Type p25:CCharge}" x:Name="AuditReopenPOverride" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns71="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns72:CallMethodActivity.Parameters xmlns:ns72="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="pbSupervisorOverrideNeeded">
+														<WorkflowParameterBinding.Value>
+															<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psText">
+														<WorkflowParameterBinding.Value>
+															<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Reopen P Override:  Charge not Convicted</ns41:String>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns72:CallMethodActivity.Parameters>
+												<ns73:CallMethodActivity.InstanceObject xmlns:ns73="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+												</ns73:CallMethodActivity.InstanceObject>
+											</ns71:CallMethodActivity>
+										</IfElseBranchActivity>
+										<IfElseBranchActivity x:Name="UserDialog2ResponseNo">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="UserDialog2ResponseNo" />
+											</IfElseBranchActivity.Condition>
+											<ns74:CallMethodActivity MethodName="Audit" ParameterTypes="{x:Null}" Type="{x:Type p25:CCharge}" x:Name="AuditReopenPAbort" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns74="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns75:CallMethodActivity.Parameters xmlns:ns75="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="pbSupervisorOverrideNeeded">
+														<WorkflowParameterBinding.Value>
+															<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psText">
+														<WorkflowParameterBinding.Value>
+															<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Reopen P Aborted:  Charge not Convicted</ns41:String>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns75:CallMethodActivity.Parameters>
+												<ns76:CallMethodActivity.InstanceObject xmlns:ns76="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+												</ns76:CallMethodActivity.InstanceObject>
+											</ns74:CallMethodActivity>
+										</IfElseBranchActivity>
+									</IfElseActivity>
+								</IfElseBranchActivity>
+								<IfElseBranchActivity x:Name="Convicted2">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="Convicted" />
+									</IfElseBranchActivity.Condition>
+									<ns77:CallMethodActivity MethodName="CreateReopen" ParameterTypes="System.Int32, System.String, System.DateTime, System.Int32" Type="{x:Type p21:CReopens}" x:Name="ReopenP" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns77="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns78:CallMethodActivity.Parameters xmlns:ns78="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="piChargeID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge.ChargeID" Name="GetCharge" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="psReopenReason">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pdReopenDate">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[2].ConvertToDateTime" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="piDocketID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[3].ConvertToInteger" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns78:CallMethodActivity.Parameters>
+										<ns79:CallMethodActivity.InstanceObject xmlns:ns79="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+										</ns79:CallMethodActivity.InstanceObject>
+									</ns77:CallMethodActivity>
+									<ns80:CallMethodActivity MethodName="UpdateReopen" ParameterTypes="{x:Null}" Description="Update the charge's ReopenReason and ReopenDate to reflect the most recent active reopen (if any)" Type="{x:Type p21:CCharge}" x:Name="UpdateReopen2" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns80="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns81:CallMethodActivity.InstanceObject xmlns:ns81="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+										</ns81:CallMethodActivity.InstanceObject>
+									</ns80:CallMethodActivity>
+									<ns82:CallMethodActivity MethodName="Save" ParameterTypes="System.Boolean, System.Boolean" Type="{x:Type p21:CCharge}" x:Name="SaveCharge2" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns82="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns83:CallMethodActivity.Parameters xmlns:ns83="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="pbSkipDocket">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pbSetCaseStatus">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns83:CallMethodActivity.Parameters>
+										<ns84:CallMethodActivity.InstanceObject xmlns:ns84="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+										</ns84:CallMethodActivity.InstanceObject>
+									</ns82:CallMethodActivity>
+									<ns85:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p21:CCase}" x:Name="SaveCase2" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns85="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns86:CallMethodActivity.InstanceObject xmlns:ns86="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case" Name="ReopenChargeWorkflow" />
+										</ns86:CallMethodActivity.InstanceObject>
+									</ns85:CallMethodActivity>
+									<ns87:CallMethodActivity Enabled="False" MethodName="SetCaseStatus" ParameterTypes="{x:Null}" Type="{x:Type p21:CCase}" x:Name="SetCaseStatus2" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns87="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns88:CallMethodActivity.Parameters xmlns:ns88="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="pbIncludeCivilCases">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns88:CallMethodActivity.Parameters>
+										<ns89:CallMethodActivity.InstanceObject xmlns:ns89="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case" Name="ReopenChargeWorkflow" />
+										</ns89:CallMethodActivity.InstanceObject>
+									</ns87:CallMethodActivity>
+									<ns90:CallMethodActivity Enabled="False" MethodName="RaiseEvent_RefreshCaseInfo" ParameterTypes="{x:Null}" Type="{x:Type p21:CReopens}" x:Name="RefreshCaseInfo2" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns90="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns91:CallMethodActivity.InstanceObject xmlns:ns91="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+										</ns91:CallMethodActivity.InstanceObject>
+									</ns90:CallMethodActivity>
+								</IfElseBranchActivity>
+							</IfElseActivity>
+						</IfElseBranchActivity>
+						<IfElseBranchActivity Description="ReopenReason is &quot;V&quot;" x:Name="ReopenReasonVOP">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="ReopenReasonVOP" />
+							</IfElseBranchActivity.Condition>
+							<IfElseActivity x:Name="CheckOnProbation">
+								<IfElseBranchActivity Enabled="False" x:Name="NotOnProbation">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="NotOnProbation" />
+									</IfElseBranchActivity.Condition>
+									<ns92:CallMethodActivity Enabled="False" MethodName="ShowMessageBox" ParameterTypes="{x:Null}" Type="{x:Type p21:GlobalUIExtensions}" x:Name="NotifyUserDialog3" xmlns:p21="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns92="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns93:CallMethodActivity.Parameters xmlns:ns93="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="buttons">
+												<WorkflowParameterBinding.Value>
+													<ns40:MessageBoxButtons xmlns:ns40="clr-namespace:System.Windows.Forms;Assembly=System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">YesNo</ns40:MessageBoxButtons>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="caption">
+												<WorkflowParameterBinding.Value>
+													<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Attention</ns41:String>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="text">
+												<WorkflowParameterBinding.Value>
+													<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">The charge is not On Probation.  Continue and reopen w/ reason VOP?</ns41:String>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns93:CallMethodActivity.Parameters>
+									</ns92:CallMethodActivity>
+									<IfElseActivity Enabled="False" x:Name="CheckUserDialog3Response">
+										<IfElseBranchActivity x:Name="UserDialog3ResponseYes">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="UserDialog3ResponseYes" />
+											</IfElseBranchActivity.Condition>
+											<ns94:CallMethodActivity MethodName="CreateReopen" ParameterTypes="System.Int32, System.String, System.DateTime, System.Int32" Type="{x:Type p25:CReopens}" x:Name="ReopenVOverride" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns94="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns95:CallMethodActivity.Parameters xmlns:ns95="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="piChargeID">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="ReturnParameter.ConvertToCCharge.ChargeID" Name="GetCharge" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psReopenReason">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="pdReopenDate">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[2].ConvertToDateTime" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="piDocketID">
+														<WorkflowParameterBinding.Value>
+															<ActivityBind Path="InputParameters.Item[3].ConvertToInteger" Name="ReopenChargeWorkflow" />
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns95:CallMethodActivity.Parameters>
+												<ns96:CallMethodActivity.InstanceObject xmlns:ns96="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+												</ns96:CallMethodActivity.InstanceObject>
+											</ns94:CallMethodActivity>
+											<ns97:CallMethodActivity MethodName="Audit" ParameterTypes="{x:Null}" Type="{x:Type p25:CCharge}" x:Name="AuditReopenVOverride" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns97="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns98:CallMethodActivity.Parameters xmlns:ns98="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="pbSupervisorOverrideNeeded">
+														<WorkflowParameterBinding.Value>
+															<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psText">
+														<WorkflowParameterBinding.Value>
+															<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Reopen V Override:  Charge not On Probation</ns41:String>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns98:CallMethodActivity.Parameters>
+												<ns99:CallMethodActivity.InstanceObject xmlns:ns99="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+												</ns99:CallMethodActivity.InstanceObject>
+											</ns97:CallMethodActivity>
+										</IfElseBranchActivity>
+										<IfElseBranchActivity x:Name="UserDialog3ResponseNo">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="UserDialog3ResponseNo" />
+											</IfElseBranchActivity.Condition>
+											<ns100:CallMethodActivity MethodName="Audit" ParameterTypes="{x:Null}" Type="{x:Type p25:CCharge}" x:Name="AuditReopenVAbort" xmlns:p25="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns100="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+												<ns101:CallMethodActivity.Parameters xmlns:ns101="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<WorkflowParameterBinding ParameterName="pbSupervisorOverrideNeeded">
+														<WorkflowParameterBinding.Value>
+															<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+													<WorkflowParameterBinding ParameterName="psText">
+														<WorkflowParameterBinding.Value>
+															<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Reopen V Aborted:  Charge not On Probation</ns41:String>
+														</WorkflowParameterBinding.Value>
+													</WorkflowParameterBinding>
+												</ns101:CallMethodActivity.Parameters>
+												<ns102:CallMethodActivity.InstanceObject xmlns:ns102="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+												</ns102:CallMethodActivity.InstanceObject>
+											</ns100:CallMethodActivity>
+										</IfElseBranchActivity>
+									</IfElseActivity>
+								</IfElseBranchActivity>
+								<IfElseBranchActivity x:Name="OnProbation">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="OnProbation" />
+									</IfElseBranchActivity.Condition>
+									<ns103:CallMethodActivity MethodName="CreateReopen" ParameterTypes="System.Int32, System.String, System.DateTime, System.Int32" Type="{x:Type p21:CReopens}" x:Name="ReopenV" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns103="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns104:CallMethodActivity.Parameters xmlns:ns104="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="piChargeID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="ReturnParameter.ConvertToCCharge.ChargeID" Name="GetCharge" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="psReopenReason">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pdReopenDate">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[2].ConvertToDateTime" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="piDocketID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Path="InputParameters.Item[3].ConvertToInteger" Name="ReopenChargeWorkflow" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns104:CallMethodActivity.Parameters>
+										<ns105:CallMethodActivity.InstanceObject xmlns:ns105="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+										</ns105:CallMethodActivity.InstanceObject>
+									</ns103:CallMethodActivity>
+									<ns106:CallMethodActivity MethodName="UpdateReopen" ParameterTypes="{x:Null}" Description="Update the charge's ReopenReason and ReopenDate to reflect the most recent active reopen (if any)" Type="{x:Type p21:CCharge}" x:Name="UpdateReopen3" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns106="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns107:CallMethodActivity.InstanceObject xmlns:ns107="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+										</ns107:CallMethodActivity.InstanceObject>
+									</ns106:CallMethodActivity>
+									<ns108:CallMethodActivity MethodName="Save" ParameterTypes="System.Boolean, System.Boolean" Type="{x:Type p21:CCharge}" x:Name="SaveCharge3" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns108="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns109:CallMethodActivity.Parameters xmlns:ns109="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="pbSkipDocket">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pbSetCaseStatus">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns109:CallMethodActivity.Parameters>
+										<ns110:CallMethodActivity.InstanceObject xmlns:ns110="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+										</ns110:CallMethodActivity.InstanceObject>
+									</ns108:CallMethodActivity>
+									<ns111:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p21:CCase}" x:Name="SaveCase3" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns111="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns112:CallMethodActivity.InstanceObject xmlns:ns112="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case" Name="ReopenChargeWorkflow" />
+										</ns112:CallMethodActivity.InstanceObject>
+									</ns111:CallMethodActivity>
+									<ns113:CallMethodActivity MethodName="SetCaseStatus" ParameterTypes="{x:Null}" Description="Duval only want to set the case status when the reopen is a V" Type="{x:Type p21:CCase}" x:Name="SetCaseStatus3" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns113="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns114:CallMethodActivity.Parameters xmlns:ns114="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<WorkflowParameterBinding ParameterName="pbIncludeCivilCases">
+												<WorkflowParameterBinding.Value>
+													<ns41:Boolean xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns41:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns114:CallMethodActivity.Parameters>
+										<ns115:CallMethodActivity.InstanceObject xmlns:ns115="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case" Name="ReopenChargeWorkflow" />
+										</ns115:CallMethodActivity.InstanceObject>
+									</ns113:CallMethodActivity>
+									<ns116:CallMethodActivity MethodName="RaiseEvent_RefreshCaseInfo" ParameterTypes="{x:Null}" Type="{x:Type p21:CReopens}" x:Name="RefreshCaseInfo3" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns116="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns117:CallMethodActivity.InstanceObject xmlns:ns117="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="Case.Reopens" Name="ReopenChargeWorkflow" />
+										</ns117:CallMethodActivity.InstanceObject>
+									</ns116:CallMethodActivity>
+								</IfElseBranchActivity>
+							</IfElseActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

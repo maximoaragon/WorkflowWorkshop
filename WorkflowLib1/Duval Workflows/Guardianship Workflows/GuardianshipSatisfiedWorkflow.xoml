@@ -1,0 +1,621 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="GuardianshipSatisfiedWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="{x:Null}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns36:CallMethodActivity MethodName="GetDocketPerformingSmartDocketAction" ParameterTypes="{x:Null}" Type="{x:Type p5:CDockets}" x:Name="GetDocket" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns36="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns38:CallMethodActivity.InstanceObject xmlns:ns38="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="Case.Dockets" Name="GuardianshipSatisfiedWorkflow" />
+		</ns38:CallMethodActivity.InstanceObject>
+	</ns36:CallMethodActivity>
+	<ns39:CallMethodActivity MethodName="GetDocket" ParameterTypes="{x:Null}" Type="{x:Type p5:CDockets}" x:Name="GetLettersDocket" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns39="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns40:CallMethodActivity.Parameters xmlns:ns40="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<WorkflowParameterBinding ParameterName="psDocketCode">
+				<WorkflowParameterBinding.Value>
+					<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C5147</ns41:String>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns40:CallMethodActivity.Parameters>
+		<ns42:CallMethodActivity.InstanceObject xmlns:ns42="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="Case.Dockets" Name="GuardianshipSatisfiedWorkflow" />
+		</ns42:CallMethodActivity.InstanceObject>
+	</ns39:CallMethodActivity>
+	<IfElseActivity x:Name="OriginalDocket">
+		<IfElseBranchActivity x:Name="LettersDocketExists">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="LettersDocketExists" />
+			</IfElseBranchActivity.Condition>
+			<IfElseActivity x:Name="EventSatisfiedDocketCode">
+				<IfElseBranchActivity x:Name="AnnualSatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="AnnualSatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns43:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetAnnualEvent" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns43="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns44:CallMethodActivity.Parameters xmlns:ns44="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">AnnualGuardianshipPlan</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns44:CallMethodActivity.Parameters>
+						<ns45:CallMethodActivity.InstanceObject xmlns:ns45="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns45:CallMethodActivity.InstanceObject>
+					</ns43:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists1">
+						<IfElseBranchActivity x:Name="Exists1">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists1" />
+							</IfElseBranchActivity.Condition>
+							<ns46:CallMethodActivity MethodName="AddYears" ParameterTypes="{x:Null}" Type="{x:Type p17:DateTime}" x:Name="NewAnnualDueDate" xmlns:p17="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns46="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns47:CallMethodActivity.Parameters xmlns:ns47="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="value">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns47:CallMethodActivity.Parameters>
+								<ns48:CallMethodActivity.InstanceObject xmlns:ns48="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent.DueDate" Name="GetAnnualEvent" />
+								</ns48:CallMethodActivity.InstanceObject>
+							</ns46:CallMethodActivity>
+							<ns49:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetAnnualStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns49="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns50:CallMethodActivity.Parameters xmlns:ns50="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns50:CallMethodActivity.Parameters>
+								<ns51:CallMethodActivity.InstanceObject xmlns:ns51="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetAnnualEvent" />
+								</ns51:CallMethodActivity.InstanceObject>
+							</ns49:CallMethodActivity>
+							<ns52:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SaveAnnualEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns52="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns53:CallMethodActivity.InstanceObject xmlns:ns53="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetAnnualEvent" />
+								</ns53:CallMethodActivity.InstanceObject>
+							</ns52:CallMethodActivity>
+							<ns54:CallMethodActivity MethodName="CreateCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.DateTime, System.String, System.Int32" Type="{x:Type p17:CCaseEvents}" x:Name="CreateAnnual" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns54="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns55:CallMethodActivity.Parameters xmlns:ns55="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="peCaseEventType">
+										<WorkflowParameterBinding.Value>
+											<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">AnnualGuardianshipPlan</ns37:eCaseEventType>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="pdtDueDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToDateTime" Name="NewAnnualDueDate" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="psLinkTableName">
+										<WorkflowParameterBinding.Value>
+											<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns55:CallMethodActivity.Parameters>
+								<ns56:CallMethodActivity.InstanceObject xmlns:ns56="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+								</ns56:CallMethodActivity.InstanceObject>
+							</ns54:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="AccountingSatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="AccountingSatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns57:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetAccountingEvent" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns57="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns58:CallMethodActivity.Parameters xmlns:ns58="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">AnnualAccounting</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns58:CallMethodActivity.Parameters>
+						<ns59:CallMethodActivity.InstanceObject xmlns:ns59="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns59:CallMethodActivity.InstanceObject>
+					</ns57:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists2">
+						<IfElseBranchActivity x:Name="Exists2">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists2" />
+							</IfElseBranchActivity.Condition>
+							<ns60:CallMethodActivity MethodName="AddYears" ParameterTypes="{x:Null}" Type="{x:Type p17:DateTime}" x:Name="NewAccountingDueDate" xmlns:p17="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns60="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns61:CallMethodActivity.Parameters xmlns:ns61="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="value">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns61:CallMethodActivity.Parameters>
+								<ns62:CallMethodActivity.InstanceObject xmlns:ns62="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent.DueDate" Name="GetAccountingEvent" />
+								</ns62:CallMethodActivity.InstanceObject>
+							</ns60:CallMethodActivity>
+							<ns63:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetAccountingStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns63="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns64:CallMethodActivity.Parameters xmlns:ns64="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns64:CallMethodActivity.Parameters>
+								<ns65:CallMethodActivity.InstanceObject xmlns:ns65="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetAccountingEvent" />
+								</ns65:CallMethodActivity.InstanceObject>
+							</ns63:CallMethodActivity>
+							<ns66:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SaveAccountingEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns66="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns67:CallMethodActivity.InstanceObject xmlns:ns67="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetAccountingEvent" />
+								</ns67:CallMethodActivity.InstanceObject>
+							</ns66:CallMethodActivity>
+							<ns68:CallMethodActivity MethodName="CreateCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.DateTime, System.String, System.Int32" Type="{x:Type p17:CCaseEvents}" x:Name="CreateAccounting" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns68="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns69:CallMethodActivity.Parameters xmlns:ns69="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="peCaseEventType">
+										<WorkflowParameterBinding.Value>
+											<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">AnnualAccounting</ns37:eCaseEventType>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="pdtDueDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToDateTime" Name="NewAccountingDueDate" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="psLinkTableName">
+										<WorkflowParameterBinding.Value>
+											<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns69:CallMethodActivity.Parameters>
+								<ns70:CallMethodActivity.InstanceObject xmlns:ns70="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+								</ns70:CallMethodActivity.InstanceObject>
+							</ns68:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="InitialSatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="InitialSatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns71:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetInitialEvent" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns71="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns72:CallMethodActivity.Parameters xmlns:ns72="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">InitialGuardianshipPlan</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns72:CallMethodActivity.Parameters>
+						<ns73:CallMethodActivity.InstanceObject xmlns:ns73="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns73:CallMethodActivity.InstanceObject>
+					</ns71:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists3">
+						<IfElseBranchActivity x:Name="Exists3">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists3" />
+							</IfElseBranchActivity.Condition>
+							<ns74:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetInitialStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns74="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns75:CallMethodActivity.Parameters xmlns:ns75="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns75:CallMethodActivity.Parameters>
+								<ns76:CallMethodActivity.InstanceObject xmlns:ns76="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetInitialEvent" />
+								</ns76:CallMethodActivity.InstanceObject>
+							</ns74:CallMethodActivity>
+							<ns77:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SaveInitialEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns77="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns78:CallMethodActivity.InstanceObject xmlns:ns78="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetInitialEvent" />
+								</ns78:CallMethodActivity.InstanceObject>
+							</ns77:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="InventorySatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="InventorySatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns79:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetInventoryEvent" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns79="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns80:CallMethodActivity.Parameters xmlns:ns80="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Inventory</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns80:CallMethodActivity.Parameters>
+						<ns81:CallMethodActivity.InstanceObject xmlns:ns81="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns81:CallMethodActivity.InstanceObject>
+					</ns79:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists4">
+						<IfElseBranchActivity x:Name="Exists4">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists4" />
+							</IfElseBranchActivity.Condition>
+							<ns82:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetInventoryStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns82="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns83:CallMethodActivity.Parameters xmlns:ns83="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns83:CallMethodActivity.Parameters>
+								<ns84:CallMethodActivity.InstanceObject xmlns:ns84="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetInventoryEvent" />
+								</ns84:CallMethodActivity.InstanceObject>
+							</ns82:CallMethodActivity>
+							<ns85:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SaveInventoryEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns85="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns86:CallMethodActivity.InstanceObject xmlns:ns86="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetInventoryEvent" />
+								</ns86:CallMethodActivity.InstanceObject>
+							</ns85:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="PetitionSatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="PetitionSatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns87:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetPetitionEvent" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns87="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns88:CallMethodActivity.Parameters xmlns:ns88="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">PetitionForDischarge</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetLettersDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns88:CallMethodActivity.Parameters>
+						<ns89:CallMethodActivity.InstanceObject xmlns:ns89="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns89:CallMethodActivity.InstanceObject>
+					</ns87:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists5">
+						<IfElseBranchActivity x:Name="Exists5">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists7" />
+							</IfElseBranchActivity.Condition>
+							<ns90:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetPetitionStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns90="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns91:CallMethodActivity.Parameters xmlns:ns91="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns91:CallMethodActivity.Parameters>
+								<ns92:CallMethodActivity.InstanceObject xmlns:ns92="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetPetitionEvent" />
+								</ns92:CallMethodActivity.InstanceObject>
+							</ns90:CallMethodActivity>
+							<ns93:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SavePetitionEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns93="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns94:CallMethodActivity.InstanceObject xmlns:ns94="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetPetitionEvent" />
+								</ns94:CallMethodActivity.InstanceObject>
+							</ns93:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="FormalAdminDocketExists">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="FormalAdminDocketExists" />
+			</IfElseBranchActivity.Condition>
+			<IfElseActivity x:Name="FormalAdminEventType">
+				<IfElseBranchActivity x:Name="FormalInventorySatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="FormalInventorySatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns95:CallMethodActivity MethodName="GetDocket" ParameterTypes="{x:Null}" Type="{x:Type p13:CDockets}" x:Name="GetFormalDocket" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns95="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns96:CallMethodActivity.Parameters xmlns:ns96="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psDocketCode">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C5114132</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns96:CallMethodActivity.Parameters>
+						<ns97:CallMethodActivity.InstanceObject xmlns:ns97="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.Dockets" Name="GuardianshipSatisfiedWorkflow" />
+						</ns97:CallMethodActivity.InstanceObject>
+					</ns95:CallMethodActivity>
+					<ns98:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetFormalInventory" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns98="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns99:CallMethodActivity.Parameters xmlns:ns99="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Inventory</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetFormalDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns99:CallMethodActivity.Parameters>
+						<ns100:CallMethodActivity.InstanceObject xmlns:ns100="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns100:CallMethodActivity.InstanceObject>
+					</ns98:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists6">
+						<IfElseBranchActivity x:Name="Exists6">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists5" />
+							</IfElseBranchActivity.Condition>
+							<ns101:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetFormalStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns101="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns102:CallMethodActivity.Parameters xmlns:ns102="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns102:CallMethodActivity.Parameters>
+								<ns103:CallMethodActivity.InstanceObject xmlns:ns103="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetFormalInventory" />
+								</ns103:CallMethodActivity.InstanceObject>
+							</ns101:CallMethodActivity>
+							<ns104:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SaveFormalEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns104="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns105:CallMethodActivity.InstanceObject xmlns:ns105="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetFormalInventory" />
+								</ns105:CallMethodActivity.InstanceObject>
+							</ns104:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="FormalPetitionSatisfied">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="FormalPetitionSatisfied" />
+					</IfElseBranchActivity.Condition>
+					<ns106:CallMethodActivity MethodName="GetDocket" ParameterTypes="{x:Null}" Type="{x:Type p13:CDockets}" x:Name="GetFormalPetitionDocket" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns106="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns107:CallMethodActivity.Parameters xmlns:ns107="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psDocketCode">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C5114132</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns107:CallMethodActivity.Parameters>
+						<ns108:CallMethodActivity.InstanceObject xmlns:ns108="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.Dockets" Name="GuardianshipSatisfiedWorkflow" />
+						</ns108:CallMethodActivity.InstanceObject>
+					</ns106:CallMethodActivity>
+					<ns109:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p13:CCaseEvents}" x:Name="GetFormalPetition" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns109="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns110:CallMethodActivity.Parameters xmlns:ns110="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psProgramControl">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">PetitionForDischarge</ns37:eCaseEventType>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="psLinkTableName">
+								<WorkflowParameterBinding.Value>
+									<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+								<WorkflowParameterBinding.Value>
+									<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetFormalPetitionDocket" />
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+							<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns110:CallMethodActivity.Parameters>
+						<ns111:CallMethodActivity.InstanceObject xmlns:ns111="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+						</ns111:CallMethodActivity.InstanceObject>
+					</ns109:CallMethodActivity>
+					<IfElseActivity x:Name="EventExists7">
+						<IfElseBranchActivity x:Name="Exists7">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="Exists8" />
+							</IfElseBranchActivity.Condition>
+							<ns112:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SetFormalPetitionStatus" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns112="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns113:CallMethodActivity.Parameters xmlns:ns113="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+										<WorkflowParameterBinding.Value>
+											<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns113:CallMethodActivity.Parameters>
+								<ns114:CallMethodActivity.InstanceObject xmlns:ns114="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetFormalPetition" />
+								</ns114:CallMethodActivity.InstanceObject>
+							</ns112:CallMethodActivity>
+							<ns115:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseEvent}" x:Name="SaveFormalPetitionEvent" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns115="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns116:CallMethodActivity.InstanceObject xmlns:ns116="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetFormalPetition" />
+								</ns116:CallMethodActivity.InstanceObject>
+							</ns115:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="SafeDepositDocketExists">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="SafeDepositDocketExists" />
+			</IfElseBranchActivity.Condition>
+			<ns117:CallMethodActivity MethodName="GetDocket" ParameterTypes="{x:Null}" Type="{x:Type p9:CDockets}" x:Name="GetSafeDepositDocket" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns117="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns118:CallMethodActivity.Parameters xmlns:ns118="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="psDocketCode">
+						<WorkflowParameterBinding.Value>
+							<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">C492019</ns41:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns118:CallMethodActivity.Parameters>
+				<ns119:CallMethodActivity.InstanceObject xmlns:ns119="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="Case.Dockets" Name="GuardianshipSatisfiedWorkflow" />
+				</ns119:CallMethodActivity.InstanceObject>
+			</ns117:CallMethodActivity>
+			<ns120:CallMethodActivity MethodName="FindCaseEvent" ParameterTypes="ShowCaseClassLib.eCaseEventType, System.String, System.Int32, ShowCaseClassLib.eCaseEventStatus" Type="{x:Type p9:CCaseEvents}" x:Name="GetSafeDeposit" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns120="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns121:CallMethodActivity.Parameters xmlns:ns121="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="psProgramControl">
+						<WorkflowParameterBinding.Value>
+							<ns37:eCaseEventType xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Inventory</ns37:eCaseEventType>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psLinkTableName">
+						<WorkflowParameterBinding.Value>
+							<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">tblDocket</ns41:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="piLinkTableIDValue">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetSafeDepositDocket" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="peCaseEventStatus">
+						<WorkflowParameterBinding.Value>
+							<ns37:eCaseEventStatus xmlns:ns37="http://aptitudesolutions.com/ShowCaseClassLib">Waiting</ns37:eCaseEventStatus>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns121:CallMethodActivity.Parameters>
+				<ns122:CallMethodActivity.InstanceObject xmlns:ns122="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="Case.CaseEvents" Name="GuardianshipSatisfiedWorkflow" />
+				</ns122:CallMethodActivity.InstanceObject>
+			</ns120:CallMethodActivity>
+			<IfElseActivity x:Name="EventExists8">
+				<IfElseBranchActivity x:Name="Exists8">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="Exists6" />
+					</IfElseBranchActivity.Condition>
+					<ns123:CallMethodActivity MethodName="set_CaseEventStatus" ParameterTypes="{x:Null}" Type="{x:Type p13:CCaseEvent}" x:Name="SetSafeDepositStatus" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns123="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns124:CallMethodActivity.Parameters xmlns:ns124="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="piCaseEventStatus">
+								<WorkflowParameterBinding.Value>
+									<ns41:Int32 xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">1</ns41:Int32>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns124:CallMethodActivity.Parameters>
+						<ns125:CallMethodActivity.InstanceObject xmlns:ns125="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetSafeDeposit" />
+						</ns125:CallMethodActivity.InstanceObject>
+					</ns123:CallMethodActivity>
+					<ns126:CallMethodActivity MethodName="Save" ParameterTypes="{x:Null}" Type="{x:Type p13:CCaseEvent}" x:Name="SaveSafeDepositEvent" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns126="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns127:CallMethodActivity.InstanceObject xmlns:ns127="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCCaseEvent" Name="GetSafeDeposit" />
+						</ns127:CallMethodActivity.InstanceObject>
+					</ns126:CallMethodActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="NoDocketExists">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="NoDocketExists" />
+			</IfElseBranchActivity.Condition>
+			<ns128:CallMethodActivity MethodName="ShowMessageBox" ParameterTypes="{x:Null}" Type="{x:Type p9:GlobalUIExtensions}" x:Name="ShowMessage" xmlns:p9="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns128="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns130:CallMethodActivity.Parameters xmlns:ns130="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="buttons">
+						<WorkflowParameterBinding.Value>
+							<ns131:MessageBoxButtons xmlns:ns131="clr-namespace:System.Windows.Forms;Assembly=System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">OK</ns131:MessageBoxButtons>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="caption">
+						<WorkflowParameterBinding.Value>
+							<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">Warning</ns41:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="text">
+						<WorkflowParameterBinding.Value>
+							<ns41:String xmlns:ns41="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">A "Letters of Guardianship" or other original case event docket was not found on this case. No case events will be updated.</ns41:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns130:CallMethodActivity.Parameters>
+			</ns128:CallMethodActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

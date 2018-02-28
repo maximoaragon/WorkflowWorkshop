@@ -1,0 +1,89 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="EfilingSummonsFeeWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns7:BaseWorkflow.Result xmlns:ns7="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ActivityBind Path="DefaultTrue" Name="EfilingSummonsFeeWorkflow" />
+	</ns7:BaseWorkflow.Result>
+	<ns8:CallMethodActivity MethodName="ShowInputBoxPopup" ParameterTypes="{x:Null}" Type="{x:Type p5:GlobalUIExtensions}" x:Name="AskForSummons" xmlns:p5="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" xmlns:ns8="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns10:CallMethodActivity.Parameters xmlns:ns10="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<WorkflowParameterBinding ParameterName="myGlobal">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Path="GlobalClass" Name="EfilingSummonsFeeWorkflow" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="prompt">
+				<WorkflowParameterBinding.Value>
+					<ns11:String xmlns:ns11="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">How many summons were issued?</ns11:String>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="title">
+				<WorkflowParameterBinding.Value>
+					<ns11:String xmlns:ns11="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">E-Filing Fee</ns11:String>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="defaultResponse">
+				<WorkflowParameterBinding.Value>
+					<ns11:String xmlns:ns11="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns11:String>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns10:CallMethodActivity.Parameters>
+	</ns8:CallMethodActivity>
+	<IfElseActivity x:Name="ifSummonsIssued">
+		<IfElseBranchActivity x:Name="SummonsIssued">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="SummonsIssued" />
+			</IfElseBranchActivity.Condition>
+			<IfElseActivity x:Name="ifValidAmount">
+				<IfElseBranchActivity x:Name="ValidAmount">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="ValidAmount" />
+					</IfElseBranchActivity.Condition>
+					<ns12:CallMethodActivity MethodName="GetEnumerator" ParameterTypes="{x:Null}" Type="{x:Type p13:CCaseFees}" x:Name="GetCaseFeesEnumerator" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns12="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns14:CallMethodActivity.InstanceObject xmlns:ns14="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case.CaseFees" Name="EfilingSummonsFeeWorkflow" />
+						</ns14:CallMethodActivity.InstanceObject>
+					</ns12:CallMethodActivity>
+					<WhileActivity x:Name="whileCaseFees">
+						<WhileActivity.Condition>
+							<RuleConditionReference ConditionName="WhileCaseFees" />
+						</WhileActivity.Condition>
+						<SequenceActivity x:Name="sequenceActivity1">
+							<ns15:CallMethodActivity MethodName="get_Current" ParameterTypes="{x:Null}" Type="{x:Type p17:IEnumerator}" x:Name="GetCaseFee" xmlns:p17="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns15="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns17:CallMethodActivity.InstanceObject xmlns:ns17="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.Value" Name="GetCaseFeesEnumerator" />
+								</ns17:CallMethodActivity.InstanceObject>
+							</ns15:CallMethodActivity>
+							<ns18:CallMethodActivity MethodName="GetEnumerator" ParameterTypes="{x:Null}" Type="{x:Type p17:CCaseFeeDetails}" x:Name="GetCaseFeeDetailsEnumerator" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns18="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns19:CallMethodActivity.InstanceObject xmlns:ns19="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.CovertToCCaseFee.CaseFeeDetails" Name="GetCaseFee" />
+								</ns19:CallMethodActivity.InstanceObject>
+							</ns18:CallMethodActivity>
+							<WhileActivity x:Name="whileCaseFeeDetails">
+								<WhileActivity.Condition>
+									<RuleConditionReference ConditionName="WhileCaseFeeDetails" />
+								</WhileActivity.Condition>
+								<SequenceActivity x:Name="sequenceActivity2">
+									<ns20:CallMethodActivity MethodName="get_Current" ParameterTypes="{x:Null}" Type="{x:Type p21:IEnumerator}" x:Name="GetCaseFeeDetail" xmlns:p21="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns20="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+										<ns21:CallMethodActivity.InstanceObject xmlns:ns21="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+											<ActivityBind Path="ReturnParameter.Value" Name="GetCaseFeeDetailsEnumerator" />
+										</ns21:CallMethodActivity.InstanceObject>
+									</ns20:CallMethodActivity>
+									<IfElseActivity x:Name="ifCaseFeeDetailSummon">
+										<IfElseBranchActivity x:Name="CaseFeeDetailSummon">
+											<IfElseBranchActivity.Condition>
+												<RuleConditionReference ConditionName="CaseFeeDetailSummon" />
+											</IfElseBranchActivity.Condition>
+											<PolicyActivity Description="Updates the Fee Details with summons amount and re-calculate the case fee" x:Name="policyCalculateFee">
+												<PolicyActivity.RuleSetReference>
+													<RuleSetReference RuleSetName="CaculateFee" />
+												</PolicyActivity.RuleSetReference>
+											</PolicyActivity>
+										</IfElseBranchActivity>
+									</IfElseActivity>
+								</SequenceActivity>
+							</WhileActivity>
+						</SequenceActivity>
+					</WhileActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

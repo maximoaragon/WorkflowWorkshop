@@ -1,0 +1,63 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="LettersOfGuardianshipWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="{x:Null}" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns10:CallMethodActivity MethodName="GetDocketPerformingSmartDocketAction" ParameterTypes="{x:Null}" Type="{x:Type p4:CDockets}" x:Name="GetDocket" xmlns:p4="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns10="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns12:CallMethodActivity.InstanceObject xmlns:ns12="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="Case.Dockets" Name="LettersOfGuardianshipWorkflow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns12:CallMethodActivity.InstanceObject>
+	</ns10:CallMethodActivity>
+	<ns13:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianPersonAdult" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianPersonAdultWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns13="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns14:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns14="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns14:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns15:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns15="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns15:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns13:InvokeShowCaseWorkflowActivity>
+	<ns16:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianPropertyAdult" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianPropertyAdultWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns16="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns17:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns17="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns17:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns18:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns18="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns18:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns16:InvokeShowCaseWorkflowActivity>
+	<ns19:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianPersonPropertyAdult" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianPersonPropertyAdultWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns19="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns20:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns20="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns20:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns21:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns21="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns21:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns19:InvokeShowCaseWorkflowActivity>
+	<ns22:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianPersonMinor" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianPersonMinorWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns22="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns23:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns23="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns23:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns24:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns24="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns24:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns22:InvokeShowCaseWorkflowActivity>
+	<ns25:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianPropertyMinor" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianPropertyMinorWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns25="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns26:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns26="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns26:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns27:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns27="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns27:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns25:InvokeShowCaseWorkflowActivity>
+	<ns28:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianPersonPropertyMinor" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianPersonPropertyMinorWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns28="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns29:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns29="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns29:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns30:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns30="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns30:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns28:InvokeShowCaseWorkflowActivity>
+	<ns31:InvokeShowCaseWorkflowActivity CaseObject="{p4:ActivityBind LettersOfGuardianshipWorkflow,Path=Case}" x:Name="InvokeGuardianVeteran" WorkflowCategory="Case.CaseEvents" WorkflowName="GuardianVeteranWorkflow" WorkflowProgramControl="None" xmlns:p4="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:ns31="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns32:InvokeShowCaseWorkflowActivity.Parameter1 xmlns:ns32="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns32:InvokeShowCaseWorkflowActivity.Parameter1>
+		<ns33:InvokeShowCaseWorkflowActivity.Parameter2 xmlns:ns33="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectDateWithOutTime" Name="GetDocket" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" />
+		</ns33:InvokeShowCaseWorkflowActivity.Parameter2>
+	</ns31:InvokeShowCaseWorkflowActivity>
+</ns0:BaseWorkflow>

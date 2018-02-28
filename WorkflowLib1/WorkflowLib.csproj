@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DDFBB017-F3C8-421D-BCF1-F625463AAF99}</ProjectGuid>
+    <ProjectTypeGuids>{32f31d43-81cc-4c15-9de6-3fc5453562b6};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WorkflowBed</RootNamespace>
+    <AssemblyName>WorkflowBed</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BaseClassLib">
+      <HintPath>Dlls\BaseClassLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Exceptions">
+      <HintPath>Dlls\Exceptions.dll</HintPath>
+    </Reference>
+    <Reference Include="Exchange.ClientLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Exchange.ClientLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Exchange.Contracts, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\Exchange.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ImagingClient">
+      <HintPath>Dlls\ImagingClient.dll</HintPath>
+    </Reference>
+    <Reference Include="ImagingUtil">
+      <HintPath>Dlls\ImagingUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="ShowCaseCCB">
+      <HintPath>Dlls\ShowCaseCCB.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowCaseClassLib">
+      <HintPath>Dlls\ShowCaseClassLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ShowCaseDAL, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\ShowCaseDAL.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowCaseUtil, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\ShowCaseUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowCaseWorkflowActivityLib">
+      <HintPath>Dlls\ShowCaseWorkflowActivityLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowCaseWorkflowLib">
+      <HintPath>Dlls\ShowCaseWorkflowLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TemplateWorkflows\ShowCaseActivityTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Duval Workflows\AppealCaseWorkflow.rules">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Duval Workflows\CaseAddChargeSetInitialStatusWorkflow.rules" />
+    <None Include="Duval Workflows\ChecktoCancelFutureCourtDatesWorkflow.rules" />
+    <None Include="Duval Workflows\CivilDefendantsCourtActionWorkflow.rules" />
+    <None Include="Duval Workflows\CloseAppealCaseWorkflow.rules" />
+    <None Include="Duval Workflows\CloseReopenByDocketWorkflow.rules" />
+    <None Include="Duval Workflows\CloseReopenCaseWorkflow.rules" />
+    <None Include="Duval Workflows\CloseReopenChargeWorkflow.rules" />
+    <None Include="Duval Workflows\CourtEventDocketWorkflow.rules" />
+    <None Include="Duval Workflows\CreateCaseWorkflow.rules" />
+    <None Include="Duval Workflows\DisposeChargeonDisburseGLWorkflow.rules" />
+    <None Include="Duval Workflows\DocketCourtChangeWorkflow.rules" />
+    <None Include="Duval Workflows\DocketInitialChangeWorkflow.rules" />
+    <None Include="Duval Workflows\EfilingSummonsFeeWorkflow.rules" />
+    <None Include="Duval Workflows\EmailCancellationToOfficerWitnessesWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonAdultWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonMinorWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonPropertyAdultWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonPropertyMinorWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPropertyAdultWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPropertyMinorWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianshipSatisfiedWorkflow.rules" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianVeteranWorkflow.rules" />
+    <None Include="Duval Workflows\OffenseLevelCalcWorkflow.rules" />
+    <None Include="Duval Workflows\PrintWarrantWorkflow.rules" />
+    <None Include="Duval Workflows\ReopenCaseWorkflow.rules" />
+    <None Include="Duval Workflows\ReopenChargeWorkflow.rules" />
+    <None Include="Duval Workflows\ReturnWarrantBookingNumberWorkflow.rules" />
+    <None Include="Duval Workflows\SetCaseFeeDueDateWorkflow.rules" />
+    <None Include="Duval Workflows\SetCaseStatusFromDisposedToClosedWorkflow.rules" />
+    <None Include="Duval Workflows\UpdateReopenWorkflow.rules" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Duval Workflows\AppealCaseWorkflow.xoml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Duval Workflows\CaseAddChargeSetInitialStatusWorkflow.xoml" />
+    <None Include="Duval Workflows\ChecktoCancelFutureCourtDatesWorkflow.xoml" />
+    <None Include="Duval Workflows\CivilDefendantsCourtActionWorkflow.xoml" />
+    <None Include="Duval Workflows\CloseAppealCaseWorkflow.xoml" />
+    <None Include="Duval Workflows\CloseReopenByDocketWorkflow.xoml" />
+    <None Include="Duval Workflows\CloseReopenCaseWorkflow.xoml" />
+    <None Include="Duval Workflows\CloseReopenChargeWorkflow.xoml" />
+    <None Include="Duval Workflows\CourtEventDocketWorkflow.xoml" />
+    <None Include="Duval Workflows\CreateCaseWorkflow.xoml" />
+    <None Include="Duval Workflows\DisposeChargeonDisburseGLWorkflow.xoml" />
+    <None Include="Duval Workflows\DocketCourtChangeWorkflow.xoml" />
+    <None Include="Duval Workflows\DocketInitialChangeWorkflow.xoml" />
+    <None Include="Duval Workflows\EfilingSummonsFeeWorkflow.xoml" />
+    <None Include="Duval Workflows\EmailCancellationToOfficerWitnessesWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonAdultWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonMinorWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonPropertyAdultWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPersonPropertyMinorWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPropertyAdultWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianPropertyMinorWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianshipSatisfiedWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\GuardianVeteranWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\LettersOfGuardianshipWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\ProbateFormalAdminWorkflow.xoml" />
+    <None Include="Duval Workflows\Guardianship Workflows\SafeDepositBoxWorkflow.xoml" />
+    <None Include="Duval Workflows\OffenseLevelCalcWorkflow.xoml" />
+    <None Include="Duval Workflows\PrintWarrantWorkflow.xoml" />
+    <None Include="Duval Workflows\ReopenCaseWorkflow.xoml" />
+    <None Include="Duval Workflows\ReopenChargeWorkflow.xoml" />
+    <None Include="Duval Workflows\ReturnWarrantBookingNumberWorkflow.xoml" />
+    <None Include="Duval Workflows\SetCaseFeeDueDateWorkflow.xoml" />
+    <None Include="Duval Workflows\SetCaseStatusFromDisposedToClosedWorkflow.xoml" />
+    <None Include="Duval Workflows\UpdateReopenWorkflow.xoml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Duval Workflows\AddEFilingFeeWorkflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Duval Workflows\ERecordActivity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Duval Workflows\UpdateCapiasIssuedDateActivity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dlls\BaseClassLib.dll" />
+    <Content Include="Dlls\BaseSQLDAO.dll" />
+    <Content Include="Dlls\ClientConfiguration.dll" />
+    <Content Include="Dlls\Exceptions.dll" />
+    <Content Include="Dlls\Exchange.ClientLib.dll" />
+    <Content Include="Dlls\Exchange.Contracts.dll" />
+    <Content Include="Dlls\GZipEncoder.dll" />
+    <Content Include="Dlls\ImagingClient.dll" />
+    <Content Include="Dlls\ImagingUtil.dll" />
+    <Content Include="Dlls\Security.Authorization.Claims.dll" />
+    <Content Include="Dlls\ShowCaseCCB.dll" />
+    <Content Include="Dlls\ShowCaseClassLib.dll" />
+    <Content Include="Dlls\ShowCaseDAL.dll" />
+    <Content Include="Dlls\ShowCasePresentation.dll" />
+    <Content Include="Dlls\ShowCaseReportingServices.dll" />
+    <Content Include="Dlls\ShowCaseUtil.dll" />
+    <Content Include="Dlls\ShowCaseWorkflowActivityLib.dll" />
+    <Content Include="Dlls\ShowCaseWorkflowLib.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Training Workflows\EBookingApprovedActivity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Training Workflows\NoInformationActivity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Training Workflows\rabDES1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Training Workflows\rabDES2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Training Workflows\ActivityWarrant3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Training Workflows\TrainingPresentationActivity.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TemplateWorkflows\DESActivityTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

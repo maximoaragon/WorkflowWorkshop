@@ -1,0 +1,73 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="AppealCaseWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="courtClassDesignator:System.String, appealReason:System.String" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns0:CallMethodActivity MethodName="GetDocketPerformingSmartDocketAction" ParameterTypes="{x:Null}" Type="{x:Type p5:CDockets}" x:Name="GetDocketPerformingSmartDocketAction" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib">
+		<ns0:CallMethodActivity.InstanceObject>
+			<ActivityBind Path="Case.Dockets" Name="AppealCaseWorkflow" />
+		</ns0:CallMethodActivity.InstanceObject>
+	</ns0:CallMethodActivity>
+	<IfElseActivity x:Name="CheckDocketPerformingSmartDocketActions">
+		<IfElseBranchActivity x:Name="ValidDocket">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="ValidDocket" />
+			</IfElseBranchActivity.Condition>
+			<ns0:CallMethodActivity MethodName="CreateAppeal" ParameterTypes="System.String, System.DateTime, System.Int32, System.String" Type="{x:Type p9:CAppeals}" x:Name="CreateAppeal" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib">
+				<ns0:CallMethodActivity.Parameters>
+					<WorkflowParameterBinding ParameterName="psCourtClassDesignator">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="InputParameters.Item[0].ConvertToString" Name="AppealCaseWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="pdtAppealDate">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToCDocket.EffectiveDate" Name="GetDocketPerformingSmartDocketAction" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="piDocketID">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToCDocket.DocketID" Name="GetDocketPerformingSmartDocketAction" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psAppealReason">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="AppealCaseWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns0:CallMethodActivity.Parameters>
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Path="Case.Appeals" Name="AppealCaseWorkflow" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="InvalidDocket">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="InvalidDocket" />
+			</IfElseBranchActivity.Condition>
+			<ns0:CallMethodActivity MethodName="CreateAppeal" ParameterTypes="System.String, System.DateTime, System.Int32, System.String" Type="{x:Type p9:CAppeals}" x:Name="CreateAppeal2" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib">
+				<ns0:CallMethodActivity.Parameters>
+					<WorkflowParameterBinding ParameterName="psCourtClassDesignator">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="InputParameters.Item[0].ConvertToString" Name="AppealCaseWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="pdtAppealDate">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="Case.CurrentDate" Name="AppealCaseWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="piDocketID">
+						<WorkflowParameterBinding.Value>
+							<ns2:Int32 xmlns:ns2="clr-namespace:System;Assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0</ns2:Int32>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psAppealReason">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="InputParameters.Item[1].ConvertToString" Name="AppealCaseWorkflow" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns0:CallMethodActivity.Parameters>
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Path="Case.Appeals" Name="AppealCaseWorkflow" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

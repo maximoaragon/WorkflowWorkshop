@@ -1,0 +1,149 @@
+﻿<Activity mc:Ignorable="sads sap" x:Class="WorkflowBed.rabDES2"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:b="clr-namespace:BaseClassLib;assembly=BaseClassLib"
+ xmlns:ec="clr-namespace:Exchange.Contracts;assembly=Exchange.Contracts"
+ xmlns:ec1="clr-namespace:Exchange.ClientLib;assembly=Exchange.ClientLib"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System"
+ xmlns:mv1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:ShowCaseUtil;assembly=ShowCaseUtil"
+ xmlns:s1="clr-namespace:ShowCaseClassLib;assembly=ShowCaseClassLib"
+ xmlns:s2="clr-namespace:System;assembly=mscorlib"
+ xmlns:s3="clr-namespace:System;assembly=System"
+ xmlns:s4="clr-namespace:System;assembly=System.Xml"
+ xmlns:s5="clr-namespace:System;assembly=System.Core"
+ xmlns:s6="clr-namespace:ShowCaseCCB;assembly=ShowCaseCCB"
+ xmlns:s7="clr-namespace:System;assembly=System.ServiceModel"
+ xmlns:s8="clr-namespace:ShowCaseDAL;assembly=ShowCaseDAL"
+ xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities"
+ xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System"
+ xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel"
+ xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core"
+ xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:sl="clr-namespace:System.Linq;assembly=System.Core"
+ xmlns:st="clr-namespace:System.Text;assembly=mscorlib"
+ xmlns:sx="clr-namespace:System.Xml;assembly=System.Xml"
+ xmlns:sx1="clr-namespace:System.Xml;assembly=System.Runtime.Serialization"
+ xmlns:sx2="clr-namespace:System.Xml;assembly=System.Data"
+ xmlns:sxx="clr-namespace:System.Xml.XPath;assembly=System.Xml.Linq"
+ xmlns:sxx1="clr-namespace:System.Xml.XPath;assembly=System.Xml"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="ExchangeRequest" Type="InArgument(ec:ExchangeRequest)" />
+    <x:Property Name="Result" Type="OutArgument(sx:XmlDocument)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>654,886</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Flowchart DisplayName="DES1Flowchart" sad:XamlDebuggerXmlReader.FileName="C:\Source\ShowCase\Aptitude Hosted\Software Factory\WorkflowWorkshop\WorkflowLib\Training Workflows\rabDES2.xaml" sap:VirtualizedContainerService.HintSize="614,846">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:String" Name="WarrantID" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">300,77.7 300,107.7 270,107.7 270,129.6</av:PointCollection>
+        <x:Double x:Key="Height">809.6</x:Double>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID0">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">148.4,129.6</av:Point>
+            <av:Size x:Key="ShapeSize">242,60</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">269.4,189.6 269.4,205.2 280.2,205.2</av:PointCollection>
+          </scg3:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Assign sap:VirtualizedContainerService.HintSize="242,60">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[WarrantID]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[ExchangeRequest.GetParameterValue("WarrantNumber")]</InArgument>
+          </Assign.Value>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </Assign>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                <av:Point x:Key="ShapeLocation">171.2,205.2</av:Point>
+                <av:Size x:Key="ShapeSize">218,132</av:Size>
+                <av:PointCollection x:Key="ConnectorLocation">280.2,337.2 280.2,367.2 280,367.2 280,370</av:PointCollection>
+              </scg3:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <InvokeMethod sap:VirtualizedContainerService.HintSize="218,132" MethodName="Log" TargetType="s:Logger">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <InArgument x:TypeArguments="x:String">["DES Step 2 - WarrantID = " &amp; WarrantID &amp; " was sent for recall"]</InArgument>
+            </InvokeMethod>
+            <FlowStep.Next>
+              <FlowStep x:Name="__ReferenceID3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">159,370</av:Point>
+                    <av:Size x:Key="ShapeSize">242,60</av:Size>
+                    <av:PointCollection x:Key="ConnectorLocation">280,430 280,474</av:PointCollection>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap:VirtualizedContainerService.HintSize="242,60">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="sx:XmlDocument">[Result]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="sx:XmlDocument">[New XmlDocument]</InArgument>
+                  </Assign.Value>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </Assign>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID2">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">171,474</av:Point>
+                        <av:Size x:Key="ShapeSize">218,132</av:Size>
+                      </scg3:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <InvokeMethod sap:VirtualizedContainerService.HintSize="218,132" MethodName="LoadXml">
+                      <InvokeMethod.TargetObject>
+                        <InArgument x:TypeArguments="sx:XmlDocument">[Result]</InArgument>
+                      </InvokeMethod.TargetObject>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <InArgument x:TypeArguments="x:String">["&lt;Status&gt;&lt;WarrantID&gt;" &amp; WarrantID &amp; "&lt;/WarrantID&gt;&lt;/Status&gt;"]</InArgument>
+                    </InvokeMethod>
+                  </FlowStep>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowStep.Next>
+          </FlowStep>
+        </FlowStep.Next>
+      </FlowStep>
+    </Flowchart.StartNode>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID3</x:Reference>
+  </Flowchart>
+</Activity>

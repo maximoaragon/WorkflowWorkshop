@@ -1,0 +1,185 @@
+﻿<ns0:BaseWorkflow x:Name="CloseReopenByDocketWorkflow" InputParametersFormat="reopenCloseDate:System.DateTime" Initialized="BaseWorkflow_Initialized" ParameterValues="{x:Null}" Completed="BaseWorkflow_Completed" Case="{x:Null}" EnableCaseTransaction="False" InputParameters="{x:Null}" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="ShowSelectActiveReopenDocketForm" MethodName="ShowSelectActiveReopenDocketForm" Type="{x:Type p5:GlobalUIExtensions}" xmlns:p5="clr-namespace:ShowCaseCCB;Assembly=ShowCaseCCB, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+		<ns0:CallMethodActivity.Parameters>
+			<WorkflowParameterBinding ParameterName="myGlobal">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Name="CloseReopenByDocketWorkflow" Path="GlobalClass" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns0:CallMethodActivity.Parameters>
+	</ns0:CallMethodActivity>
+	<IfElseActivity x:Name="CheckDocketsSelected">
+		<IfElseBranchActivity x:Name="DocketsSelected">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="DocketsSelected" />
+			</IfElseBranchActivity.Condition>
+			<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetDocketPerformingSmartDocketAction" MethodName="GetDocketPerformingSmartDocketAction" Type="{x:Type p9:CDockets}" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib">
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Name="CloseReopenByDocketWorkflow" Path="Case.Dockets" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+			<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetSelectedDocketsEnumerator" MethodName="GetEnumerator" Type="{x:Type p9:Collection}" xmlns:p9="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Name="ShowSelectActiveReopenDocketForm" Path="ReturnParameter.ConvertToCollection" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+			<WhileActivity x:Name="WhileSelectedDockets">
+				<WhileActivity.Condition>
+					<RuleConditionReference ConditionName="WhileSelectedDockets" />
+				</WhileActivity.Condition>
+				<SequenceActivity x:Name="sequenceActivity1">
+					<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetSelectedDocket" MethodName="get_Current" Type="{x:Type p13:IEnumerator}" xmlns:p13="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+						<ns0:CallMethodActivity.InstanceObject>
+							<ActivityBind Name="GetSelectedDocketsEnumerator" Path="ReturnParameter.Value" />
+						</ns0:CallMethodActivity.InstanceObject>
+					</ns0:CallMethodActivity>
+					<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetSelectedDocketActiveReopens" MethodName="GetLinkedReopens" Type="{x:Type p13:CDocket}" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib">
+						<ns0:CallMethodActivity.InstanceObject>
+							<ActivityBind Name="GetSelectedDocket" Path="ReturnParameter.ConvertToCDocket" />
+						</ns0:CallMethodActivity.InstanceObject>
+						<ns0:CallMethodActivity.Parameters>
+							<WorkflowParameterBinding ParameterName="pbActiveOnly">
+								<WorkflowParameterBinding.Value>
+									<ns5:Boolean xmlns:ns5="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns5:Boolean>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns0:CallMethodActivity.Parameters>
+					</ns0:CallMethodActivity>
+					<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetSelectedDocketActiveReopensEnumerator" MethodName="GetEnumerator" Type="{x:Type p13:Collection}" xmlns:p13="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+						<ns0:CallMethodActivity.InstanceObject>
+							<ActivityBind Name="GetSelectedDocketActiveReopens" Path="ReturnParameter.ConvertToCollection" />
+						</ns0:CallMethodActivity.InstanceObject>
+					</ns0:CallMethodActivity>
+					<WhileActivity x:Name="WhileSelectedDocketActiveReopens">
+						<WhileActivity.Condition>
+							<RuleConditionReference ConditionName="WhileSelectedDocketActiveReopens" />
+						</WhileActivity.Condition>
+						<SequenceActivity x:Name="sequenceActivity2">
+							<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetSelectedDocketActiveReopen" MethodName="get_Current" Type="{x:Type p17:IEnumerator}" xmlns:p17="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+								<ns0:CallMethodActivity.InstanceObject>
+									<ActivityBind Name="GetSelectedDocketActiveReopensEnumerator" Path="ReturnParameter.Value" />
+								</ns0:CallMethodActivity.InstanceObject>
+							</ns0:CallMethodActivity>
+							<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="_activeReopen" MethodName="AddLocalVariable" Type="{x:Type ShowCaseWorkflowActivityLib.WorkflowLocals}">
+								<ns0:CallMethodActivity.InstanceObject>
+									<ActivityBind Name="CloseReopenByDocketWorkflow" Path="WorkflowLocals" />
+								</ns0:CallMethodActivity.InstanceObject>
+								<ns0:CallMethodActivity.Parameters>
+									<WorkflowParameterBinding ParameterName="variableName">
+										<WorkflowParameterBinding.Value>
+											<ns5:String xmlns:ns5="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">activeReopen</ns5:String>
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+									<WorkflowParameterBinding ParameterName="value">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Name="GetSelectedDocketActiveReopen" Path="ReturnParameter.Value" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns0:CallMethodActivity.Parameters>
+							</ns0:CallMethodActivity>
+							<IfElseActivity x:Name="CheckDocketPerformingSmartDocketActions">
+								<IfElseBranchActivity x:Name="ValidDocket">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="ValidDocket" />
+									</IfElseBranchActivity.Condition>
+									<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="CloseReopen" MethodName="Close" Type="{x:Type p21:CReopen}" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib">
+										<ns0:CallMethodActivity.InstanceObject>
+											<ActivityBind Name="GetSelectedDocketActiveReopen" Path="ReturnParameter.ConvertToCReopen" />
+										</ns0:CallMethodActivity.InstanceObject>
+										<ns0:CallMethodActivity.Parameters>
+											<WorkflowParameterBinding ParameterName="pdReopenCloseDate">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Name="GetDocketPerformingSmartDocketAction" Path="ReturnParameter.ConvertToCDocket.EffectiveDate" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns0:CallMethodActivity.Parameters>
+									</ns0:CallMethodActivity>
+								</IfElseBranchActivity>
+								<IfElseBranchActivity x:Name="InvalidDocket">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="InvalidDocket" />
+									</IfElseBranchActivity.Condition>
+									<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="CloseReopen2" MethodName="Close" Type="{x:Type p21:CReopen}" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib">
+										<ns0:CallMethodActivity.InstanceObject>
+											<ActivityBind Name="GetSelectedDocketActiveReopen" Path="ReturnParameter.ConvertToCReopen" />
+										</ns0:CallMethodActivity.InstanceObject>
+										<ns0:CallMethodActivity.Parameters>
+											<WorkflowParameterBinding ParameterName="pdReopenCloseDate">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Name="CloseReopenCaseWorkflow" Path="InputParameters.Item[0].ConvertToDateTime" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns0:CallMethodActivity.Parameters>
+									</ns0:CallMethodActivity>
+								</IfElseBranchActivity>
+							</IfElseActivity>
+							<IfElseActivity x:Name="CheckChargeID">
+								<IfElseBranchActivity x:Name="ValidChargeID">
+									<IfElseBranchActivity.Condition>
+										<RuleConditionReference ConditionName="ValidChargeID" />
+									</IfElseBranchActivity.Condition>
+									<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="GetCharge" MethodName="GetByID" Type="{x:Type p21:CCharges}" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib">
+										<ns0:CallMethodActivity.InstanceObject>
+											<ActivityBind Name="CloseReopenByDocketWorkflow" Path="Case.Charges" />
+										</ns0:CallMethodActivity.InstanceObject>
+										<ns0:CallMethodActivity.Parameters>
+											<WorkflowParameterBinding ParameterName="piID">
+												<WorkflowParameterBinding.Value>
+													<ActivityBind Name="GetSelectedDocketActiveReopen" Path="ReturnParameter.ConvertToCReopen.ChargeID" />
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns0:CallMethodActivity.Parameters>
+									</ns0:CallMethodActivity>
+									<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="UpdateReopen" MethodName="UpdateReopen" Description="Update the charge's/case's ReopenReason and ReopenDate to reflect the most recent active reopen (if any)" Type="{x:Type p21:CCharge}" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib">
+										<ns0:CallMethodActivity.InstanceObject>
+											<ActivityBind Name="GetCharge" Path="ReturnParameter.ConvertToCCharge" />
+										</ns0:CallMethodActivity.InstanceObject>
+									</ns0:CallMethodActivity>
+									<ns0:CallMethodActivity ParameterTypes="System.Boolean, System.Boolean" x:Name="SaveCharge" MethodName="Save" Type="{x:Type p21:CCharge}" xmlns:p21="http://aptitudesolutions.com/ShowCaseClassLib">
+										<ns0:CallMethodActivity.InstanceObject>
+											<ActivityBind Name="GetCharge" Path="ReturnParameter.ConvertToCCharge" />
+										</ns0:CallMethodActivity.InstanceObject>
+										<ns0:CallMethodActivity.Parameters>
+											<WorkflowParameterBinding ParameterName="pbSkipDocket">
+												<WorkflowParameterBinding.Value>
+													<ns5:Boolean xmlns:ns5="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns5:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+											<WorkflowParameterBinding ParameterName="pbSetCaseStatus">
+												<WorkflowParameterBinding.Value>
+													<ns5:Boolean xmlns:ns5="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">false</ns5:Boolean>
+												</WorkflowParameterBinding.Value>
+											</WorkflowParameterBinding>
+										</ns0:CallMethodActivity.Parameters>
+									</ns0:CallMethodActivity>
+								</IfElseBranchActivity>
+							</IfElseActivity>
+						</SequenceActivity>
+					</WhileActivity>
+				</SequenceActivity>
+			</WhileActivity>
+			<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="SaveCase" MethodName="Save" Type="{x:Type p9:CCase}" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib">
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Name="CloseReopenByDocketWorkflow" Path="Case" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+			<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="SetCaseStatus" MethodName="SetCaseStatus" Type="{x:Type p9:CCase}" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib">
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Name="CloseReopenByDocketWorkflow" Path="Case" />
+				</ns0:CallMethodActivity.InstanceObject>
+				<ns0:CallMethodActivity.Parameters>
+					<WorkflowParameterBinding ParameterName="pbIncludeCivilCases">
+						<WorkflowParameterBinding.Value>
+							<ns5:Boolean xmlns:ns5="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">true</ns5:Boolean>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns0:CallMethodActivity.Parameters>
+			</ns0:CallMethodActivity>
+			<ns0:CallMethodActivity ParameterTypes="{x:Null}" x:Name="RefreshCaseInfo" MethodName="RaiseEvent_RefreshCaseInfo" Type="{x:Type p9:CReopens}" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib">
+				<ns0:CallMethodActivity.InstanceObject>
+					<ActivityBind Name="CloseReopenByDocketWorkflow" Path="Case.Reopens" />
+				</ns0:CallMethodActivity.InstanceObject>
+			</ns0:CallMethodActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

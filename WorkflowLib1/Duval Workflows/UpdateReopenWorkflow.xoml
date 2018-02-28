@@ -1,0 +1,269 @@
+﻿<ns0:BaseWorkflow EnableCaseTransaction="False" ParameterValues="{p1:Null}" Initialized="BaseWorkflow_Initialized" Completed="BaseWorkflow_Completed" x:Name="UpdateReopenWorkflow" Case="{x:Null}" InputParameters="{x:Null}" InputParametersFormat="chargeID:System.Int32" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/workflow" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:p1="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ns0="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+	<ns25:CallMethodActivity MethodName="GetByID" ParameterTypes="{x:Null}" Type="{x:Type p5:CCharges}" x:Name="GetCharge" xmlns:p5="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns25="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns27:CallMethodActivity.Parameters xmlns:ns27="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<WorkflowParameterBinding ParameterName="piID">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Path="InputParameters[0].ConvertToInteger" Name="UpdateReopenWorkflow" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns27:CallMethodActivity.Parameters>
+		<ns28:CallMethodActivity.InstanceObject xmlns:ns28="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<ActivityBind Path="Case.Charges" Name="UpdateReopenWorkflow" />
+		</ns28:CallMethodActivity.InstanceObject>
+	</ns25:CallMethodActivity>
+	<ns29:CallMethodActivity MethodName="Format" ParameterTypes="System.String, System.String" Type="{x:Type p5:String}" x:Name="ConstructFilter" xmlns:p5="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns29="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+		<ns31:CallMethodActivity.Parameters xmlns:ns31="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+			<WorkflowParameterBinding ParameterName="format">
+				<WorkflowParameterBinding.Value>
+					<ns30:String xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">ChargeID = {0}</ns30:String>
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+			<WorkflowParameterBinding ParameterName="arg0">
+				<WorkflowParameterBinding.Value>
+					<ActivityBind Path="InputParameters[0].ConvertToString" Name="UpdateReopenWorkflow" />
+				</WorkflowParameterBinding.Value>
+			</WorkflowParameterBinding>
+		</ns31:CallMethodActivity.Parameters>
+	</ns29:CallMethodActivity>
+	<IfElseActivity x:Name="CheckIfIsReopen">
+		<IfElseBranchActivity x:Name="IsNotReopen">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="IsNotReopen" />
+			</IfElseBranchActivity.Condition>
+			<ns32:CallMethodActivity MethodName="ReturnSortedCollection" ParameterTypes="{x:Null}" Type="{x:Type p9:CReopens}" x:Name="GetSortedReopens" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns32="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns33:CallMethodActivity.Parameters xmlns:ns33="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="psSortOn">
+						<WorkflowParameterBinding.Value>
+							<ns30:String xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">ReopenCloseDate DESC, ReopenID DESC</ns30:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psFilter">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToString" Name="ConstructFilter" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns33:CallMethodActivity.Parameters>
+				<ns34:CallMethodActivity.InstanceObject xmlns:ns34="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="Case.Reopens" Name="UpdateReopenWorkflow" />
+				</ns34:CallMethodActivity.InstanceObject>
+			</ns32:CallMethodActivity>
+			<IfElseActivity x:Name="CheckForReopens">
+				<IfElseBranchActivity x:Name="CollectionNotNothing">
+					<IfElseBranchActivity.Condition>
+						<RuleConditionReference ConditionName="CheckReopensNotNothing" />
+					</IfElseBranchActivity.Condition>
+					<ns35:CallMethodActivity MethodName="GetEnumerator" ParameterTypes="{x:Null}" Type="{x:Type p13:Collection}" x:Name="GetReopenEnumerator" xmlns:p13="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:ns35="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns37:CallMethodActivity.InstanceObject xmlns:ns37="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCollection" Name="GetSortedReopens" />
+						</ns37:CallMethodActivity.InstanceObject>
+					</ns35:CallMethodActivity>
+					<WhileActivity x:Name="WhileReopens">
+						<WhileActivity.Condition>
+							<RuleConditionReference ConditionName="WhileReopensTrue" />
+						</WhileActivity.Condition>
+						<SequenceActivity x:Name="sequenceActivity1">
+							<ns38:CallMethodActivity MethodName="get_Current" ParameterTypes="{x:Null}" Type="{x:Type p17:IEnumerator}" x:Name="GetReopenRecord" xmlns:p17="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns38="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns40:CallMethodActivity.InstanceObject xmlns:ns40="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.Value" Name="GetReopenEnumerator" />
+								</ns40:CallMethodActivity.InstanceObject>
+							</ns38:CallMethodActivity>
+							<ns41:CallMethodActivity MethodName="set_ReopenDate" ParameterTypes="{x:Null}" Type="{x:Type p17:CCharge}" x:Name="SetChargeReopenDate" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns41="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns42:CallMethodActivity.Parameters xmlns:ns42="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="pdReopenDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCReopen.ReopenDate" Name="GetReopenRecord" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns42:CallMethodActivity.Parameters>
+								<ns43:CallMethodActivity.InstanceObject xmlns:ns43="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+								</ns43:CallMethodActivity.InstanceObject>
+							</ns41:CallMethodActivity>
+							<ns44:CallMethodActivity MethodName="set_ReopenReason" ParameterTypes="{x:Null}" Type="{x:Type p17:CCharge}" x:Name="SetChargeReopenReason" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns44="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns45:CallMethodActivity.Parameters xmlns:ns45="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="psReopenReason">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCReopen.ReopenReason" Name="GetReopenRecord" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns45:CallMethodActivity.Parameters>
+								<ns46:CallMethodActivity.InstanceObject xmlns:ns46="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+								</ns46:CallMethodActivity.InstanceObject>
+							</ns44:CallMethodActivity>
+							<ns47:CallMethodActivity MethodName="set_ReopenCloseDate" ParameterTypes="{x:Null}" Type="{x:Type p17:CCharge}" x:Name="SetChargeReopenCloseDate" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns47="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns48:CallMethodActivity.Parameters xmlns:ns48="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="pdReopenCloseDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCReopen.ReopenCloseDate" Name="GetReopenRecord" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns48:CallMethodActivity.Parameters>
+								<ns49:CallMethodActivity.InstanceObject xmlns:ns49="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+								</ns49:CallMethodActivity.InstanceObject>
+							</ns47:CallMethodActivity>
+							<ns50:CallMethodActivity MethodName="UpdateReopen" ParameterTypes="{x:Null}" Type="{x:Type p17:CCase}" x:Name="UpdateCaseReopen1" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns50="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns51:CallMethodActivity.InstanceObject xmlns:ns51="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="Case" Name="UpdateReopenWorkflow" />
+								</ns51:CallMethodActivity.InstanceObject>
+							</ns50:CallMethodActivity>
+							<ns52:CallMethodActivity MethodName="Clear" ParameterTypes="{x:Null}" Type="{x:Type p17:Collection}" x:Name="ClearEnumeration" xmlns:p17="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:ns52="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns53:CallMethodActivity.InstanceObject xmlns:ns53="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCollection" Name="GetSortedReopens" />
+								</ns53:CallMethodActivity.InstanceObject>
+							</ns52:CallMethodActivity>
+						</SequenceActivity>
+					</WhileActivity>
+				</IfElseBranchActivity>
+				<IfElseBranchActivity x:Name="CollectionIsNothing">
+					<ns54:CallMethodActivity MethodName="set_ReopenDate" ParameterTypes="{x:Null}" Type="{x:Type p13:CCharge}" x:Name="ResetChargeReopenDate" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns54="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns55:CallMethodActivity.Parameters xmlns:ns55="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="pdReopenDate">
+								<WorkflowParameterBinding.Value>
+									<ns30:DateTime xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0001-01-01T00:00:00.0000000</ns30:DateTime>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns55:CallMethodActivity.Parameters>
+						<ns56:CallMethodActivity.InstanceObject xmlns:ns56="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+						</ns56:CallMethodActivity.InstanceObject>
+					</ns54:CallMethodActivity>
+					<ns57:CallMethodActivity MethodName="set_ReopenReason" ParameterTypes="{x:Null}" Type="{x:Type p13:CCharge}" x:Name="ResetChargeReopenReason" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns57="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns58:CallMethodActivity.Parameters xmlns:ns58="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="psReopenReason">
+								<WorkflowParameterBinding.Value>
+									<ns30:String xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"></ns30:String>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns58:CallMethodActivity.Parameters>
+						<ns59:CallMethodActivity.InstanceObject xmlns:ns59="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+						</ns59:CallMethodActivity.InstanceObject>
+					</ns57:CallMethodActivity>
+					<ns60:CallMethodActivity MethodName="set_ReopenCloseDate" ParameterTypes="{x:Null}" Type="{x:Type p13:CCharge}" x:Name="ResetChargeReopenCloseDate" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns60="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns61:CallMethodActivity.Parameters xmlns:ns61="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="pdReopenCloseDate">
+								<WorkflowParameterBinding.Value>
+									<ns30:DateTime xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0001-01-01T00:00:00.0000000</ns30:DateTime>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns61:CallMethodActivity.Parameters>
+						<ns62:CallMethodActivity.InstanceObject xmlns:ns62="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+						</ns62:CallMethodActivity.InstanceObject>
+					</ns60:CallMethodActivity>
+					<ns63:CallMethodActivity MethodName="set_AltDispositionDate" ParameterTypes="{x:Null}" Type="{x:Type p13:CCharge}" x:Name="ResetChargeAlternateDispDate" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns63="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns64:CallMethodActivity.Parameters xmlns:ns64="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<WorkflowParameterBinding ParameterName="pdAltDispositionDate">
+								<WorkflowParameterBinding.Value>
+									<ns30:DateTime xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">0001-01-01T00:00:00.0000000</ns30:DateTime>
+								</WorkflowParameterBinding.Value>
+							</WorkflowParameterBinding>
+						</ns64:CallMethodActivity.Parameters>
+						<ns65:CallMethodActivity.InstanceObject xmlns:ns65="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+						</ns65:CallMethodActivity.InstanceObject>
+					</ns63:CallMethodActivity>
+					<ns66:CallMethodActivity MethodName="UpdateReopen" ParameterTypes="{x:Null}" Description="'Richard Marens 05/15/2011 Sprint ID 1092 - we need to re-check the case" Type="{x:Type p13:CCase}" x:Name="UpdateCaseReopen2" xmlns:p13="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns66="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns67:CallMethodActivity.InstanceObject xmlns:ns67="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="Case" Name="UpdateReopenWorkflow" />
+						</ns67:CallMethodActivity.InstanceObject>
+					</ns66:CallMethodActivity>
+				</IfElseBranchActivity>
+			</IfElseActivity>
+		</IfElseBranchActivity>
+		<IfElseBranchActivity x:Name="IsReopen">
+			<IfElseBranchActivity.Condition>
+				<RuleConditionReference ConditionName="IsReopen" />
+			</IfElseBranchActivity.Condition>
+			<ns68:CallMethodActivity MethodName="ReturnSortedCollection" ParameterTypes="{x:Null}" Type="{x:Type p9:CReopens}" x:Name="GetSortedReopens2" xmlns:p9="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns68="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns69:CallMethodActivity.Parameters xmlns:ns69="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<WorkflowParameterBinding ParameterName="psSortOn">
+						<WorkflowParameterBinding.Value>
+							<ns30:String xmlns:ns30="clr-namespace:System;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">ReopenDate DESC, ReopenID DESC</ns30:String>
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+					<WorkflowParameterBinding ParameterName="psFilter">
+						<WorkflowParameterBinding.Value>
+							<ActivityBind Path="ReturnParameter.ConvertToString" Name="ConstructFilter" />
+						</WorkflowParameterBinding.Value>
+					</WorkflowParameterBinding>
+				</ns69:CallMethodActivity.Parameters>
+				<ns70:CallMethodActivity.InstanceObject xmlns:ns70="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="Case.Reopens" Name="UpdateReopenWorkflow" />
+				</ns70:CallMethodActivity.InstanceObject>
+			</ns68:CallMethodActivity>
+			<ns71:CallMethodActivity MethodName="GetEnumerator" ParameterTypes="{x:Null}" Type="{x:Type p9:Collection}" x:Name="GetReopenEnumerator2" xmlns:p9="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:ns71="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+				<ns72:CallMethodActivity.InstanceObject xmlns:ns72="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+					<ActivityBind Path="ReturnParameter.ConvertToCollection" Name="GetSortedReopens2" />
+				</ns72:CallMethodActivity.InstanceObject>
+			</ns71:CallMethodActivity>
+			<WhileActivity x:Name="WhileReopensIsTrue">
+				<WhileActivity.Condition>
+					<RuleConditionReference ConditionName="WhileReopensTrue2" />
+				</WhileActivity.Condition>
+				<SequenceActivity x:Name="sequenceActivity2">
+					<ns73:CallMethodActivity MethodName="get_Current" ParameterTypes="{x:Null}" Type="{x:Type p13:IEnumerator}" x:Name="GetReopenRecord2" xmlns:p13="clr-namespace:System.Collections;Assembly=mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:ns73="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+						<ns74:CallMethodActivity.InstanceObject xmlns:ns74="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+							<ActivityBind Path="ReturnParameter.Value" Name="GetReopenEnumerator2" />
+						</ns74:CallMethodActivity.InstanceObject>
+					</ns73:CallMethodActivity>
+					<IfElseActivity x:Name="CheckIfReopenCloseDateIsNull">
+						<IfElseBranchActivity x:Name="ReopenCloseDateIsNull">
+							<IfElseBranchActivity.Condition>
+								<RuleConditionReference ConditionName="ReopenCloseDateIsNull" />
+							</IfElseBranchActivity.Condition>
+							<ns75:CallMethodActivity MethodName="set_ReopenDate" ParameterTypes="{x:Null}" Type="{x:Type p17:CCharge}" x:Name="SetReopenDate2" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns75="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns76:CallMethodActivity.Parameters xmlns:ns76="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="pdReopenDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCReopen.ReopenDate" Name="GetReopenRecord2" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns76:CallMethodActivity.Parameters>
+								<ns77:CallMethodActivity.InstanceObject xmlns:ns77="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+								</ns77:CallMethodActivity.InstanceObject>
+							</ns75:CallMethodActivity>
+							<ns78:CallMethodActivity MethodName="set_ReopenReason" ParameterTypes="{x:Null}" Type="{x:Type p17:CCharge}" x:Name="SetReopenReason2" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns78="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns79:CallMethodActivity.Parameters xmlns:ns79="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="psReopenReason">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCReopen.ReopenReason" Name="GetReopenRecord2" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns79:CallMethodActivity.Parameters>
+								<ns80:CallMethodActivity.InstanceObject xmlns:ns80="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+								</ns80:CallMethodActivity.InstanceObject>
+							</ns78:CallMethodActivity>
+							<ns81:CallMethodActivity MethodName="set_ReopenCloseDate" ParameterTypes="{x:Null}" Type="{x:Type p17:CCharge}" x:Name="SetReopenCloseDate2" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns81="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns82:CallMethodActivity.Parameters xmlns:ns82="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<WorkflowParameterBinding ParameterName="pdReopenCloseDate">
+										<WorkflowParameterBinding.Value>
+											<ActivityBind Path="ReturnParameter.ConvertToCReopen.ReopenCloseDate" Name="GetReopenRecord2" />
+										</WorkflowParameterBinding.Value>
+									</WorkflowParameterBinding>
+								</ns82:CallMethodActivity.Parameters>
+								<ns83:CallMethodActivity.InstanceObject xmlns:ns83="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCCharge" Name="GetCharge" />
+								</ns83:CallMethodActivity.InstanceObject>
+							</ns81:CallMethodActivity>
+							<ns84:CallMethodActivity MethodName="UpdateReopen" ParameterTypes="{x:Null}" Type="{x:Type p17:CCase}" x:Name="UpdateCaseReopen" xmlns:p17="http://aptitudesolutions.com/ShowCaseClassLib" xmlns:ns84="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns85:CallMethodActivity.InstanceObject xmlns:ns85="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="Case" Name="UpdateReopenWorkflow" />
+								</ns85:CallMethodActivity.InstanceObject>
+							</ns84:CallMethodActivity>
+							<ns86:CallMethodActivity MethodName="Clear" ParameterTypes="{x:Null}" Type="{x:Type p17:Collection}" x:Name="ClearEnumerator2" xmlns:p17="clr-namespace:Microsoft.VisualBasic;Assembly=Microsoft.VisualBasic, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" xmlns:ns86="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+								<ns87:CallMethodActivity.InstanceObject xmlns:ns87="http://aptitudesolutions.com/ShowCaseWorkflowActivityLib">
+									<ActivityBind Path="ReturnParameter.ConvertToCollection" Name="GetSortedReopens2" />
+								</ns87:CallMethodActivity.InstanceObject>
+							</ns86:CallMethodActivity>
+						</IfElseBranchActivity>
+					</IfElseActivity>
+				</SequenceActivity>
+			</WhileActivity>
+		</IfElseBranchActivity>
+	</IfElseActivity>
+</ns0:BaseWorkflow>

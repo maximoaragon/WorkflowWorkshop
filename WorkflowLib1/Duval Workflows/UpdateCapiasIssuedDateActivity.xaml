@@ -1,0 +1,320 @@
+﻿<Activity mc:Ignorable="sap" x:Class="UpdateCapiasIssuedDateActivity" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:b="clr-namespace:BaseClassLib;assembly=BaseClassLib" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mv="clr-namespace:Microsoft.VisualBasic;assembly=System" xmlns:mv1="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:ShowCaseClassLib;assembly=ShowCaseClassLib" xmlns:s1="clr-namespace:System;assembly=mscorlib" xmlns:s2="clr-namespace:System;assembly=System" xmlns:s3="clr-namespace:System;assembly=System.Xml" xmlns:s4="clr-namespace:System;assembly=System.Core" xmlns:s5="clr-namespace:System;assembly=System.ServiceModel" xmlns:sa="clr-namespace:System.Activities;assembly=System.Activities" xmlns:sad="clr-namespace:System.Activities.Debugger;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sc="clr-namespace:System.Collections;assembly=mscorlib" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System" xmlns:scg1="clr-namespace:System.Collections.Generic;assembly=System.ServiceModel" xmlns:scg2="clr-namespace:System.Collections.Generic;assembly=System.Core" xmlns:scg3="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:sl="clr-namespace:System.Linq;assembly=System.Core" xmlns:st="clr-namespace:System.Text;assembly=mscorlib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="MyCase" Type="InArgument(s:CCase)" />
+  </x:Members>
+  <sap:VirtualizedContainerService.HintSize>654,676</sap:VirtualizedContainerService.HintSize>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <Flowchart sad:XamlDebuggerXmlReader.FileName="C:\Development\ShowCase\ShowCaseWorkflowActivityLib\Duval Workflows\UpdateCapiasIssuedDateActivity.xaml" sap:VirtualizedContainerService.HintSize="614,1064">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="s1:DateTime" Default="[Date.MinValue]" Name="capiasIssuedDate" />
+      <Variable x:TypeArguments="sc:IEnumerator" Name="warrantCases" />
+      <Variable x:TypeArguments="sc:IEnumerator" Name="courtEvents" />
+    </Flowchart.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+        <av:Size x:Key="ShapeSize">60,75</av:Size>
+        <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,101</av:PointCollection>
+        <x:Double x:Key="Height">1027.9199999999999</x:Double>
+      </scg3:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Flowchart.StartNode>
+      <x:Reference>__ReferenceID15</x:Reference>
+    </Flowchart.StartNode>
+    <FlowStep x:Name="__ReferenceID15">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+          <av:Point x:Key="ShapeLocation">179,101</av:Point>
+          <av:Size x:Key="ShapeSize">242,58</av:Size>
+          <av:PointCollection x:Key="ConnectorLocation">300,159 300,184.5</av:PointCollection>
+        </scg3:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <Assign DisplayName="Assign warrantCases" sap:VirtualizedContainerService.HintSize="242,58">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sc:IEnumerator">[warrantCases]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sc:IEnumerator">[MyCase.WarrantCases.GetEnumerator]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <FlowStep.Next>
+        <FlowStep x:Name="__ReferenceID8">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+              <av:Point x:Key="ShapeLocation">200,184.5</av:Point>
+              <av:Size x:Key="ShapeSize">200,51</av:Size>
+              <av:PointCollection x:Key="ConnectorLocation">300,235.5 300,262.5</av:PointCollection>
+            </scg3:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <While DisplayName="While warrantCases" sap:VirtualizedContainerService.HintSize="200,51" Condition="[warrantCases.MoveNext]">
+            <Flowchart DisplayName="warrantCases Flowchart" sap:VirtualizedContainerService.HintSize="614,636">
+              <Flowchart.Variables>
+                <Variable x:TypeArguments="s:CWarrantCase" Name="warrantCase" />
+              </Flowchart.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+                  <av:Size x:Key="ShapeSize">60,75</av:Size>
+                  <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,107.5 300,111</av:PointCollection>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Flowchart.StartNode>
+                <x:Reference>__ReferenceID2</x:Reference>
+              </Flowchart.StartNode>
+              <FlowDecision x:Name="__ReferenceID1" Condition="[(warrantCase.Warrant.WarrantType = eWarrantType.Capias OrElse warrantCase.Warrant.WarrantType = eWarrantType.Warrant) AndAlso Not warrantCase.Warrant.Closed AndAlso Not warrantCase.Warrant.Deleted AndAlso Not warrantCase.Deleted AndAlso warrantCase.Warrant.IssueDate &gt; capiasIssuedDate]" sap:VirtualizedContainerService.HintSize="60,75">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">270,202.5</av:Point>
+                    <av:Size x:Key="ShapeSize">60,75</av:Size>
+                    <av:PointCollection x:Key="TrueConnector">270,240 149,240 149,330 179,330</av:PointCollection>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <FlowDecision.True>
+                  <FlowStep x:Name="__ReferenceID0">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                        <av:Point x:Key="ShapeLocation">179,301</av:Point>
+                        <av:Size x:Key="ShapeSize">242,58</av:Size>
+                      </scg3:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign DisplayName="Assign capiasIssuedDate" sap:VirtualizedContainerService.HintSize="242,58">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="s1:DateTime">[capiasIssuedDate]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="s1:DateTime">[warrantCase.Warrant.IssueDate]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                  </FlowStep>
+                </FlowDecision.True>
+              </FlowDecision>
+              <x:Reference>__ReferenceID0</x:Reference>
+              <FlowStep x:Name="__ReferenceID2">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                    <av:Point x:Key="ShapeLocation">179,111</av:Point>
+                    <av:Size x:Key="ShapeSize">242,58</av:Size>
+                    <av:PointCollection x:Key="ConnectorLocation">300,169 300,199 300,202.5</av:PointCollection>
+                  </scg3:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign DisplayName="Assign warrantCase" sap:VirtualizedContainerService.HintSize="242,58">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="s:CWarrantCase">[warrantCase]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="s:CWarrantCase">[CType(warrantCases.Current, CWarrantCase)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <FlowStep.Next>
+                  <x:Reference>__ReferenceID1</x:Reference>
+                </FlowStep.Next>
+              </FlowStep>
+            </Flowchart>
+          </While>
+          <FlowStep.Next>
+            <FlowDecision x:Name="__ReferenceID9" Condition="[Not IsNothing(MyCase.CourtEvents) AndAlso MyCase.CourtEvents.GetAllWhere(&quot;Cancelled = 0&quot;).Count &gt; 0 AndAlso MyCase.CapiasIssuedDate &lt;&gt; capiasIssuedDate]" sap:VirtualizedContainerService.HintSize="60,75">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                  <av:Point x:Key="ShapeLocation">270,262.5</av:Point>
+                  <av:Size x:Key="ShapeSize">60,75</av:Size>
+                  <av:PointCollection x:Key="TrueConnector">270,300 149,300 149,830 179,830</av:PointCollection>
+                  <av:PointCollection x:Key="FalseConnector">330,300 440,300 440,361</av:PointCollection>
+                </scg3:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <FlowDecision.True>
+                <FlowStep x:Name="__ReferenceID6">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <av:Point x:Key="ShapeLocation">179,801</av:Point>
+                      <av:Size x:Key="ShapeSize">242,58</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">300,859 300,885</av:PointCollection>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Assign MyCase.CapiasIssuedDate" sap:VirtualizedContainerService.HintSize="242,58">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s1:DateTime">[MyCase.CapiasIssuedDate]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s1:DateTime">[capiasIssuedDate]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <FlowStep.Next>
+                    <FlowStep x:Name="__ReferenceID10">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <av:Point x:Key="ShapeLocation">191,885</av:Point>
+                          <av:Size x:Key="ShapeSize">218,130</av:Size>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <InvokeMethod DisplayName="InvokeMethod MyCase.Save" sap:VirtualizedContainerService.HintSize="218,130" MethodName="Save">
+                        <InvokeMethod.TargetObject>
+                          <InArgument x:TypeArguments="s:CCase">[MyCase]</InArgument>
+                        </InvokeMethod.TargetObject>
+                      </InvokeMethod>
+                    </FlowStep>
+                  </FlowStep.Next>
+                </FlowStep>
+              </FlowDecision.True>
+              <FlowDecision.False>
+                <FlowStep x:Name="__ReferenceID11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                      <av:Point x:Key="ShapeLocation">319,361</av:Point>
+                      <av:Size x:Key="ShapeSize">242,58</av:Size>
+                      <av:PointCollection x:Key="ConnectorLocation">440,419 440,444.5</av:PointCollection>
+                    </scg3:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Assign DisplayName="Assign courtEvents" sap:VirtualizedContainerService.HintSize="242,58">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="sc:IEnumerator">[courtEvents]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="sc:IEnumerator">[MyCase.CourtEvents.GetEnumerator]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <FlowStep.Next>
+                    <FlowStep x:Name="__ReferenceID12">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                          <av:Point x:Key="ShapeLocation">340,444.5</av:Point>
+                          <av:Size x:Key="ShapeSize">200,51</av:Size>
+                          <av:PointCollection x:Key="ConnectorLocation">440,495.5 440,522.5</av:PointCollection>
+                        </scg3:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <While DisplayName="While courtEvents" sap:VirtualizedContainerService.HintSize="200,51" Condition="[courtEvents.MoveNext]">
+                        <Flowchart sap:VirtualizedContainerService.HintSize="614,636">
+                          <Flowchart.Variables>
+                            <Variable x:TypeArguments="s:CCourtEvent" Name="courtEvent" />
+                          </Flowchart.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+                              <av:Size x:Key="ShapeSize">60,75</av:Size>
+                              <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,101</av:PointCollection>
+                            </scg3:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <Flowchart.StartNode>
+                            <x:Reference>__ReferenceID5</x:Reference>
+                          </Flowchart.StartNode>
+                          <FlowStep x:Name="__ReferenceID5">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                <av:Point x:Key="ShapeLocation">179,101</av:Point>
+                                <av:Size x:Key="ShapeSize">242,58</av:Size>
+                                <av:PointCollection x:Key="ConnectorLocation">300,159 300,182.5</av:PointCollection>
+                              </scg3:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Assign DisplayName="Assign courtEvent" sap:VirtualizedContainerService.HintSize="242,58">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="s:CCourtEvent">[courtEvent]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="s:CCourtEvent">[CType(courtEvents.Current, CCourtEvent)]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <FlowStep.Next>
+                              <FlowDecision x:Name="__ReferenceID3" Condition="[Not courtEvent.Deleted AndAlso Not courtEvent.Cancelled]" sap:VirtualizedContainerService.HintSize="60,75">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <av:Point x:Key="ShapeLocation">270,182.5</av:Point>
+                                    <av:Size x:Key="ShapeSize">60,75</av:Size>
+                                    <av:PointCollection x:Key="TrueConnector">270,220 160,220 160,281</av:PointCollection>
+                                    <av:PointCollection x:Key="FalseConnector">330,220 345,220 345,332.5 315,332.5 315,362.5</av:PointCollection>
+                                  </scg3:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <FlowDecision.True>
+                                  <FlowStep x:Name="__ReferenceID4">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <av:Point x:Key="ShapeLocation">39,281</av:Point>
+                                        <av:Size x:Key="ShapeSize">242,58</av:Size>
+                                        <av:PointCollection x:Key="ConnectorLocation">160,339 160,365</av:PointCollection>
+                                      </scg3:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <Assign DisplayName="Assign capiasIssuedDate" sap:VirtualizedContainerService.HintSize="242,58">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="s1:DateTime">[capiasIssuedDate]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="s1:DateTime">[Date.MinValue]</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </FlowStep>
+                                </FlowDecision.True>
+                              </FlowDecision>
+                            </FlowStep.Next>
+                          </FlowStep>
+                          <x:Reference>__ReferenceID3</x:Reference>
+                          <x:Reference>__ReferenceID4</x:Reference>
+                        </Flowchart>
+                      </While>
+                      <FlowStep.Next>
+                        <FlowDecision x:Name="__ReferenceID13" Condition="[(Not String.IsNullOrEmpty(MyCase.Partys.MainDefendant.OffenderNumber)) OrElse (MyCase.TypeOfCase = eTypeOfCase.Misdemeanor AndAlso MyCase.Citations.Count &gt; 0)]" sap:VirtualizedContainerService.HintSize="60,75">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                              <av:Point x:Key="ShapeLocation">410,522.5</av:Point>
+                              <av:Size x:Key="ShapeSize">60,75</av:Size>
+                              <av:PointCollection x:Key="TrueConnector">410,560 300,560 300,621</av:PointCollection>
+                              <av:PointCollection x:Key="FalseConnector">470,560 485,560 485,672.5 455,672.5 455,702.5</av:PointCollection>
+                            </scg3:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <FlowDecision.True>
+                            <FlowStep x:Name="__ReferenceID14">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <av:Point x:Key="ShapeLocation">179,621</av:Point>
+                                  <av:Size x:Key="ShapeSize">242,58</av:Size>
+                                  <av:PointCollection x:Key="ConnectorLocation">421,650 440,650 440,702.5</av:PointCollection>
+                                </scg3:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign DisplayName="Assign capiasIssuedDate" sap:VirtualizedContainerService.HintSize="242,58">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="s1:DateTime">[capiasIssuedDate]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="s1:DateTime">[Date.MinValue]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <FlowStep.Next>
+                                <FlowDecision x:Name="__ReferenceID7" Condition="[MyCase.CapiasIssuedDate &lt;&gt; capiasIssuedDate]" sap:VirtualizedContainerService.HintSize="60,75" True="{x:Reference __ReferenceID6}">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg3:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <av:Point x:Key="ShapeLocation">410,702.5</av:Point>
+                                      <av:Size x:Key="ShapeSize">60,75</av:Size>
+                                      <av:PointCollection x:Key="TrueConnector">410,740 300,740 300,801</av:PointCollection>
+                                    </scg3:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </FlowDecision>
+                              </FlowStep.Next>
+                            </FlowStep>
+                          </FlowDecision.True>
+                          <FlowDecision.False>
+                            <x:Reference>__ReferenceID7</x:Reference>
+                          </FlowDecision.False>
+                        </FlowDecision>
+                      </FlowStep.Next>
+                    </FlowStep>
+                  </FlowStep.Next>
+                </FlowStep>
+              </FlowDecision.False>
+            </FlowDecision>
+          </FlowStep.Next>
+        </FlowStep>
+      </FlowStep.Next>
+    </FlowStep>
+    <x:Reference>__ReferenceID8</x:Reference>
+    <x:Reference>__ReferenceID9</x:Reference>
+    <x:Reference>__ReferenceID6</x:Reference>
+    <x:Reference>__ReferenceID10</x:Reference>
+    <x:Reference>__ReferenceID11</x:Reference>
+    <x:Reference>__ReferenceID12</x:Reference>
+    <x:Reference>__ReferenceID13</x:Reference>
+    <x:Reference>__ReferenceID14</x:Reference>
+    <x:Reference>__ReferenceID7</x:Reference>
+  </Flowchart>
+</Activity>
