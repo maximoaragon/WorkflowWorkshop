@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>DES Demo</title>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<h1>DES Demo</h1>
+    <h2>Case Lookup</h2>
+
+    <fieldset>
+		<div>GET https://.../EPS/exchangepointservice.svc/caseinfo_max/{value}</div>
+		<br />
+        <div>
+            <label for="caseinput">Case Lookup</label>
+            <input name="caseinput" id="caseinput" type="text" />
+            <input type="button" id="validateInput" value="Validate"> 
+        </div>
+        <hr>
+        
+        <div>
+            Case Number: <div id="formatedCaseNumber" style="display:inline;"></div>
+        </div>
+
+        <div>
+            Casse ID: <div id="caseID" style="display:inline;"></div>
+        </div>
+
+        <br>
+
+    </fieldset>
+	
+    <br>
+
+    <fieldset id="details">
+
+    </fieldset>
+
+    <script>
+        $(document).ready(function(){
+  
+        });
+
+        var _caseID = 0;
+
+        $('#validateInput').click(function(){
+            var caseInput = $('#caseinput').val();
+
+            var desurl = 'http://showcase.equivant.com/eps/exchangepointservice.svc/caseinfo_max/' +  caseInput;
+
+            $.ajax({
+                url: desurl,
+                dataType: "xml"
+            }).done(function(d){
+                console.log(d);
+                if (d){
+                    var xmlobj = $(d);
+
+                    if (xmlobj.find('Error').text()){
+                        alert('oops! I got a boo boo :-(');
+                        formatedCaseNumber = '';
+                        caseID = '';
+                        details = '';
+						$('#details').text(xmlobj.find('Error').text());
+                    }
+
+                    var formatedCaseNumber = xmlobj.find('casenumber').text();
+                    var caseID = xmlobj.find('caseid').text();
+                    var details = xmlobj.find('details')[0];
+
+                    $('#formatedCaseNumber').text(formatedCaseNumber);   
+                    $('#caseID').text(caseID);  
+					if (details)
+						$('#details').text((new XMLSerializer()).serializeToString(details));  
+                    
+                }
+            });
+
+        });
+
+    </script>
+</body>
+</html>
