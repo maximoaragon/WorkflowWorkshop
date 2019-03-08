@@ -5,10 +5,10 @@
 </head>
 <body>
 	<h1>DES Demo</h1>
-    <h2>Case Lookup</h2>
+    <h2>Greetings</h2>
 
     <fieldset>
-		<div>GET https://.../EPS/exchangepointservice.svc/caseinfo_max/{value}</div>
+		<div>GET https://.../EPS/exchangepointservice.svc/des/hello?myname={value}</div>
 		<br />
         <div>
             <label for="caseinput">Case Lookup</label>
@@ -18,7 +18,7 @@
         <hr>
         
         <div>
-            Case Number: <div id="formatedCaseNumber" style="display:inline;"></div>
+            Name: <div id="formatedCaseNumber" style="display:inline;"></div>
         </div>
 
         <div>
@@ -45,7 +45,7 @@
         $('#validateInput').click(function(){
             var caseInput = $('#caseinput').val();
 
-            var desurl = 'http://showcase.equivant.com/eps/exchangepointservice.svc/caseinfo_max/' +  caseInput;
+            var desurl = 'http://showcase.equivant.com/eps/exchangepointservice.svc/des/hello?myname=' +  caseInput;
 
             $.ajax({
                 url: desurl,
