@@ -198,7 +198,12 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <XamlAppDef Include="DES\FTPExampleWorkflow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </XamlAppDef>
+  </ItemGroup>
   <ItemGroup>
     <None Include="Training\GetCaseInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -206,7 +211,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="DES\SimpleDESExchange.xaml">
+    <XamlAppDef Include="DES\SimpleDESWorkflow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </XamlAppDef>

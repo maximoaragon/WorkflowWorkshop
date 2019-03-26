@@ -19,7 +19,7 @@ namespace Workflow.Test
             {
                 ExchangeID = 9999,
                 RequestID = Guid.NewGuid().ToString(),
-                ExchangeName = "UCR CaseInitiation",
+                ExchangeName = "Simple Hello DES",
                 ExchangeParameters = new Dictionary<string, string>() {
                     { "MYMANE", "Max" }
                 },
@@ -36,6 +36,43 @@ namespace Workflow.Test
             var response = ep.PerformAsyncDataExchange(request);
 
             Assert.IsNotNull(response);
+
+            Console.WriteLine($"RequestID: {response.RequestID}");
+
+            Assert.IsNotNull(response.Result);
+
+            Console.WriteLine($"Response: { response.Result.SelectSingleNode("data")?.InnerText}");
+        }
+
+        [TestMethod]
+        public void FTPExchange()
+        {
+            //Mock exchange
+            ExchangeRequest request = new ExchangeRequest()
+            {
+                ExchangeID = 9999,
+                RequestID = Guid.NewGuid().ToString(),
+                ExchangeName = "FTP Download",
+         
+                //InputUri = "https://showcase.equivant.com/eps/exchangePointservice.svc/...",
+                ProcessingMode = ProcessingMode.NonRealTime // required for test
+            };
+
+            //Load workflow to be tested
+            var wfMgr = new WorkflowManager();
+            wfMgr.LoadFromPath(_workflowRootDir + @"\DES\FTPExampleWorkflow.xaml");
+
+            var ep = new Exchange.ServerLib.ExchangePoint(true, wfMgr);
+
+            var response = ep.PerformAsyncDataExchange(request);
+
+            Assert.IsNotNull(response);
+
+            Console.WriteLine($"RequestID: {response.RequestID}");
+
+            Assert.IsNotNull(response.Result);
+
+            Console.WriteLine($"Response: { response.Result.SelectSingleNode("ftpdata")?.InnerText}");
         }
     }
 }
