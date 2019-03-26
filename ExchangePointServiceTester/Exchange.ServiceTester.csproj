@@ -59,6 +59,10 @@
     <ApplicationIcon>Tools 3.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Exceptions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aabe4c9789e7d06e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WorkflowLib\Dlls\Exceptions.dll</HintPath>
+    </Reference>
     <Reference Include="Exchange.ClientLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aabe4c9789e7d06e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorkflowLib\Dlls\Exchange.ClientLib.dll</HintPath>
@@ -67,7 +71,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorkflowLib\Dlls\Exchange.Contracts.dll</HintPath>
     </Reference>
-    <Reference Include="Exchange.ServerLib">
+    <Reference Include="Exchange.ServerLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aabe4c9789e7d06e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorkflowLib\Dlls\Exchange.ServerLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -168,6 +173,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="loading.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Tools 3.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

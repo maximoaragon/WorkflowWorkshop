@@ -130,7 +130,7 @@ namespace WorkflowBed
 
                     //This runs the XOML workflows
                     var wfManager = new WorkflowManager();
-                    wfManager.ExecuteWorkflow(def, rules, xomlParam);
+                    wfManager.ExecuteXOMLWorkflow(def, rules, xomlParam);
 
                 }
             }
@@ -160,7 +160,7 @@ namespace WorkflowBed
             string def = "";
             string rules = "";
 
-            wfManager.ExecuteWorkflow(def, rules, parms);
+            wfManager.ExecuteXOMLWorkflow(def, rules, parms);
         }
 
         static CCase GetCaseObject(string caseNumber)
@@ -204,6 +204,8 @@ namespace WorkflowBed
 
                 Dictionary<string, string> additionalCredentials = new Dictionary<string, string>();
                 string sConn = ConfigurationManager.AppSettings["FriendlyDBName"];
+
+                
 
                 additionalCredentials.Add("friendlydbname", sConn);
                 Security.Authentication.AuthenticationResponse authenticationResponse = authClient.AuthenticateUser(username, password, additionalCredentials);

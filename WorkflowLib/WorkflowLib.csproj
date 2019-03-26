@@ -139,6 +139,7 @@
     <Content Include="Dlls\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
     <Content Include="Dlls\Microsoft.Practices.ObjectBuilder2.dll" />
     <Content Include="Dlls\Microsoft.Practices.Unity.dll" />
+    <Content Include="Dlls\Renci.SshNet.dll" />
     <Content Include="Dlls\Security.Authorization.Claims.dll" />
     <Content Include="Dlls\ShowCaseCCB.dll" />
     <Content Include="Dlls\ShowCaseClassLib.dll" />

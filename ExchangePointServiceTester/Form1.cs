@@ -1,28 +1,23 @@
-﻿using System;
+﻿using Exchange.ClientLib;
+using Exchange.Contracts;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Configuration;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Net;
-using System.Xml;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.ServiceModel.Configuration;
-using System.Configuration;
-
-//using Exchange.ServerLib;
-using Exchange.Contracts;
-using Exchange.ClientLib;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace ExchangePointServiceTester
 {
     public partial class Form1 : Form
     {
-
+        private string _loadingImage = Environment.CurrentDirectory + @"\loading.gif";
         private string _tempFileName = "";
         private StringBuilder _pubSubLog = new StringBuilder();
 
@@ -56,103 +51,6 @@ namespace ExchangePointServiceTester
             txtFDBN.Text = System.Configuration.ConfigurationManager.AppSettings["FriendlyName"];
 
             LoadMessageTypes();
-        }
-
-        //private void btnGo_Click(object sender, EventArgs e)
-        //{
-        //    btnGet.Enabled = false;
-        //    txtResponse.Text = "";
-
-        //    try
-        //    {
-        //        HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(txtURL.Text);
-        //        request.Method = "GET";
-
-        //        if (chkAuthenticate.Checked)
-        //        {
-        //            AuthenticationService.AuthenticationServiceClient authclient = new AuthenticationService.AuthenticationServiceClient("WSHttpBinding_IAuthenticationService");
-        //            Dictionary<string, string> props = new Dictionary<string, string>();
-        //            props.Add("friendlydbname", System.Configuration.ConfigurationManager.AppSettings["FriendlyName"]);
-        //            AuthenticationService.AuthenticationResponse authresponse = authclient.AuthenticateUser(System.Configuration.ConfigurationManager.AppSettings["UserName"], System.Configuration.ConfigurationManager.AppSettings["Password"], props);
-        //            if (!authresponse.HasError)
-        //            {
-        //                request.Headers.Add("cookie", authresponse.AuthenticationCookie);
-        //            }
-        //            else
-        //            {
-        //                throw new Exception(authresponse.ErrorMessage);
-        //            }
-        //        }
-
-        //        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        //        Stream res_stream = response.GetResponseStream();
-
-        //        // Load the response stream into an xml document
-        //        XmlDocument res_xmldoc = new XmlDocument();
-        //        res_xmldoc.Load(res_stream);
-
-        //        txtResponse.Text = IndentXMLString(res_xmldoc.OuterXml);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        txtResponse.Text = ex.ToString();
-        //        MessageBox.Show(ex.Message, "Error Occurred", MessageBoxButtons.OK);
-        //    }
-        //    finally
-        //    {
-        //        btnGet.Enabled = true;
-        //    }
-        //}
-
-        /// <summary>
-        /// Format/Indent a XML string
-        /// http://www.knowdotnet.com/articles/indentxml.html
-        /// </summary>
-        /// <param name="xml"></param>
-        /// <returns></returns>
-        /// <remarks>Richard 09/28/2009</remarks>
-        private static string IndentXMLString(string xml)
-        {
-
-            if (string.IsNullOrEmpty(xml))
-                return "";
-
-            string outXml = string.Empty;
-            System.IO.MemoryStream ms = new System.IO.MemoryStream();
-
-            //create xmltextwriter to send output to a memory stream (file)
-            System.Xml.XmlTextWriter xtw = new System.Xml.XmlTextWriter(ms, System.Text.Encoding.Unicode);
-            System.Xml.XmlDocument dom = new System.Xml.XmlDocument();
-
-            try
-            {
-                //load the unformatted XML text string into an instance of the XML Document Object Model (DOM)
-                dom.LoadXml(xml);
-
-                //set the formatting property
-                xtw.Formatting = System.Xml.Formatting.Indented;
-
-                //write dom xml to the xmltextwriter
-                dom.WriteContentTo(xtw);
-                //flush contents of text writer to the memory stream (memory file)
-                xtw.Flush();
-
-                //set to start of the memory stream
-                ms.Seek(0, System.IO.SeekOrigin.Begin);
-                //create a reader to read the contents of the memory stream
-                System.IO.StreamReader sr = new System.IO.StreamReader(ms);
-
-                //return the formatted string
-                return sr.ReadToEnd();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return string.Empty;
-
-            }
-
         }
 
         private SubscriptionServiceManager m_SubMgr = null;
@@ -237,7 +135,7 @@ namespace ExchangePointServiceTester
 
         }
 
-        private void btnPost_Click(object sender, EventArgs e)
+        private async void btnPost_Click(object sender, EventArgs e)
         {
 
             this.Text = "FriendlyDBName = " + txtFDBN.Text;
@@ -248,7 +146,7 @@ namespace ExchangePointServiceTester
 
             if (String.IsNullOrEmpty(txtDataPath.Text))
             {
-                MessageBox.Show(this, "Data Path is empty");
+                MessageBox.Show(this, "XML path is empty");
                 return;
             }
             
@@ -262,26 +160,32 @@ namespace ExchangePointServiceTester
             }
             else
             {
-                MessageBox.Show(this, "Data Path for the posted data is invalid");
+                MessageBox.Show(this, "XML path is invalid");
                 return;
             }
 
+            wbResponse.Navigate(_loadingImage);
+
             try
             {
+                await Task.Factory.StartNew(() =>
+                    {
+                        string sts = "";
+                        if (chkAuthenticate.Checked)
+                        {
+                            var authResponse = Exchange.ClientLib.AuthenticationServiceClient.AuthenticateUser(txtUser.Text, txtPassword.Text, txtFDBN.Text);
 
-                if (chkAuthenticate.Checked)
-                    response = Exchange.ClientLib.ExchangeData.PostData(txtURL.Text,
-                        datax,
-                        txtUser.Text,
-                        txtPassword.Text,
-                        txtFDBN.Text
-                        );
-                else
-                    response = Exchange.ClientLib.ExchangeData.PostData(txtURL.Text, datax);
+                            if (!authResponse.HasError)
+                                sts = authResponse.AuthenticationCookie;
+                        }
+
+                        response = ExchangeData.PostData(txtURL.Text, datax, sts);
+                    });
+
 
                 wbResponse.Navigate(SaveTempResponse(response));
 
-                Task.Factory.StartNew(() => { Subscribe(response); });
+                await Task.Factory.StartNew(() => { Subscribe(response); });
             }
             catch (Exception ex)
             {
@@ -289,28 +193,37 @@ namespace ExchangePointServiceTester
             }
         }
 
-        private void btnGet_Click(object sender, EventArgs e)
+        private async void btnGet_Click(object sender, EventArgs e)
         {
             this.Text = "FriendlyDBName = " + txtFDBN.Text;
             txtPubSubLog.Text = "";
             string response = "";
+            string sts = "";
+
+            wbResponse.Navigate(_loadingImage);
 
             try
             {
-                if (chkAuthenticate.Checked)
-                    response = Exchange.ClientLib.ExchangeData.RequestData(txtURL.Text,
-                        txtUser.Text,
-                        txtPassword.Text,
-                        txtFDBN.Text);
-                else
-                    response = Exchange.ClientLib.ExchangeData.RequestData(txtURL.Text);
+                await Task.Factory.StartNew(() =>
+                {
+                    if (chkAuthenticate.Checked)
+                    {
+                        var authResponse = Exchange.ClientLib.AuthenticationServiceClient.AuthenticateUser(txtUser.Text, txtPassword.Text, txtFDBN.Text);
 
+                        if (!authResponse.HasError)
+                            sts = authResponse.AuthenticationCookie;
+                    }
+
+                    response = Exchange.ClientLib.ExchangeData.RequestData(txtURL.Text, sts);
+                });
+                
                 wbResponse.Navigate(SaveTempResponse(response));
 
-                Task.Factory.StartNew(() => { Subscribe(response); });
+                await Task.Factory.StartNew(() => { Subscribe(response); });
                 
             }
-            catch(Exception ex)
+            //catch (AuthenticatieonException  ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(this, "Check the URL... " + ex.Message,":-(");
             }

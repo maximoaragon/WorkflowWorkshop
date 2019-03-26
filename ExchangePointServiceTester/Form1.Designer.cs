@@ -31,12 +31,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.wbXML = new System.Windows.Forms.WebBrowser();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.txtPubSubLog = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.wbResponse = new System.Windows.Forms.WebBrowser();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
@@ -65,16 +59,32 @@
             this.btnUnsubscribe = new System.Windows.Forms.Button();
             this.btnSubscribe = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.wbXML = new System.Windows.Forms.WebBrowser();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtPubSubLog = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.wbResponse = new System.Windows.Forms.WebBrowser();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.pnlSubLog.SuspendLayout();
             this.pnlSubTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -103,77 +113,13 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.groupBox2);
-            this.panel2.Controls.Add(this.groupBox3);
-            this.panel2.Controls.Add(this.groupBox1);
+            this.panel2.Controls.Add(this.splitContainer2);
             this.panel2.Controls.Add(this.splitter2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 127);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(878, 487);
             this.panel2.TabIndex = 7;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.wbXML);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(598, 228);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Post Data";
-            // 
-            // wbXML
-            // 
-            this.wbXML.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wbXML.Location = new System.Drawing.Point(3, 16);
-            this.wbXML.MinimumSize = new System.Drawing.Size(20, 20);
-            this.wbXML.Name = "wbXML";
-            this.wbXML.Size = new System.Drawing.Size(592, 209);
-            this.wbXML.TabIndex = 3;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.txtPubSubLog);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox3.Location = new System.Drawing.Point(601, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(277, 228);
-            this.groupBox3.TabIndex = 8;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "PubSub Activity";
-            // 
-            // txtPubSubLog
-            // 
-            this.txtPubSubLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtPubSubLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPubSubLog.Location = new System.Drawing.Point(3, 16);
-            this.txtPubSubLog.Multiline = true;
-            this.txtPubSubLog.Name = "txtPubSubLog";
-            this.txtPubSubLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtPubSubLog.Size = new System.Drawing.Size(271, 209);
-            this.txtPubSubLog.TabIndex = 1;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.wbResponse);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(3, 228);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(875, 259);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Response";
-            // 
-            // wbResponse
-            // 
-            this.wbResponse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wbResponse.Location = new System.Drawing.Point(3, 16);
-            this.wbResponse.MinimumSize = new System.Drawing.Size(20, 20);
-            this.wbResponse.Name = "wbResponse";
-            this.wbResponse.Size = new System.Drawing.Size(869, 240);
-            this.wbResponse.TabIndex = 3;
             // 
             // splitter2
             // 
@@ -209,7 +155,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(598, 74);
+            this.label7.Location = new System.Drawing.Point(427, 76);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(89, 13);
             this.label7.TabIndex = 13;
@@ -218,7 +164,7 @@
             // txtFDBN
             // 
             this.txtFDBN.Enabled = false;
-            this.txtFDBN.Location = new System.Drawing.Point(601, 87);
+            this.txtFDBN.Location = new System.Drawing.Point(430, 91);
             this.txtFDBN.Name = "txtFDBN";
             this.txtFDBN.Size = new System.Drawing.Size(138, 20);
             this.txtFDBN.TabIndex = 12;
@@ -226,7 +172,7 @@
             // txtPassword
             // 
             this.txtPassword.Enabled = false;
-            this.txtPassword.Location = new System.Drawing.Point(476, 88);
+            this.txtPassword.Location = new System.Drawing.Point(305, 92);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.Size = new System.Drawing.Size(119, 20);
             this.txtPassword.TabIndex = 11;
@@ -235,7 +181,7 @@
             // txtUser
             // 
             this.txtUser.Enabled = false;
-            this.txtUser.Location = new System.Drawing.Point(351, 89);
+            this.txtUser.Location = new System.Drawing.Point(180, 93);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(119, 20);
             this.txtUser.TabIndex = 10;
@@ -243,7 +189,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(474, 72);
+            this.label6.Location = new System.Drawing.Point(303, 76);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(56, 13);
             this.label6.TabIndex = 9;
@@ -252,7 +198,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(349, 72);
+            this.label5.Location = new System.Drawing.Point(177, 76);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(32, 13);
             this.label5.TabIndex = 8;
@@ -304,11 +250,11 @@
             // chkAuthenticate
             // 
             this.chkAuthenticate.AutoSize = true;
-            this.chkAuthenticate.Location = new System.Drawing.Point(87, 91);
+            this.chkAuthenticate.Location = new System.Drawing.Point(87, 95);
             this.chkAuthenticate.Name = "chkAuthenticate";
-            this.chkAuthenticate.Size = new System.Drawing.Size(255, 17);
+            this.chkAuthenticate.Size = new System.Drawing.Size(86, 17);
             this.chkAuthenticate.TabIndex = 3;
-            this.chkAuthenticate.Text = "Authenticate and Pass the Authentication Ticket";
+            this.chkAuthenticate.Text = "Authenticate";
             this.chkAuthenticate.UseVisualStyleBackColor = true;
             this.chkAuthenticate.CheckedChanged += new System.EventHandler(this.chkAuthenticate_CheckedChanged);
             // 
@@ -446,6 +392,103 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(3, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.splitContainer1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer2.Size = new System.Drawing.Size(875, 487);
+            this.splitContainer2.SplitterDistance = 243;
+            this.splitContainer2.TabIndex = 16;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox3);
+            this.splitContainer1.Size = new System.Drawing.Size(875, 243);
+            this.splitContainer1.SplitterDistance = 586;
+            this.splitContainer1.TabIndex = 15;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.wbXML);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(586, 243);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Post Data";
+            // 
+            // wbXML
+            // 
+            this.wbXML.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wbXML.Location = new System.Drawing.Point(3, 16);
+            this.wbXML.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbXML.Name = "wbXML";
+            this.wbXML.Size = new System.Drawing.Size(580, 224);
+            this.wbXML.TabIndex = 3;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtPubSubLog);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(0, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(285, 243);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "PubSub Activity";
+            // 
+            // txtPubSubLog
+            // 
+            this.txtPubSubLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtPubSubLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtPubSubLog.Location = new System.Drawing.Point(3, 16);
+            this.txtPubSubLog.Multiline = true;
+            this.txtPubSubLog.Name = "txtPubSubLog";
+            this.txtPubSubLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtPubSubLog.Size = new System.Drawing.Size(279, 224);
+            this.txtPubSubLog.TabIndex = 1;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.wbResponse);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(875, 240);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Response";
+            // 
+            // wbResponse
+            // 
+            this.wbResponse.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wbResponse.Location = new System.Drawing.Point(3, 16);
+            this.wbResponse.MinimumSize = new System.Drawing.Size(20, 20);
+            this.wbResponse.Name = "wbResponse";
+            this.wbResponse.Size = new System.Drawing.Size(869, 221);
+            this.wbResponse.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -454,21 +497,30 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(10);
+            this.ShowIcon = false;
             this.Text = "DES Tester";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.pnlSubLog.ResumeLayout(false);
             this.pnlSubTop.ResumeLayout(false);
             this.pnlSubTop.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -505,14 +557,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtFDBN;
+        private System.Windows.Forms.Splitter splitter2;
+        private System.Windows.Forms.SplitContainer splitContainer2;
+        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.WebBrowser wbXML;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox txtPubSubLog;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.WebBrowser wbResponse;
-        private System.Windows.Forms.Splitter splitter2;
-
     }
 }
 
