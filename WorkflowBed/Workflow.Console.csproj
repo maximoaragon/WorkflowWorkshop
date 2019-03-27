@@ -142,6 +142,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomLIb\CustomLib.csproj">
+      <Project>{88862f32-d493-41e4-a118-b5a403ebea95}</Project>
+      <Name>CustomLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorkflowLib\WorkflowLib.csproj">
       <Project>{DDFBB017-F3C8-421D-BCF1-F625463AAF99}</Project>
       <Name>WorkflowLib</Name>
