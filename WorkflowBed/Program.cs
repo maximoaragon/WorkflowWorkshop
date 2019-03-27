@@ -15,18 +15,19 @@ namespace WorkflowBed
             //TODO: SET THE PATH OF THE WORKFLOW TO INVOKE. THIS WILL BE EITHER A XAML OR XOML FILE
             //////////////////
 
-            string workflowFilePath = @"..\..\..\WorkflowLib\Training\GetCaseInfo.xaml";
+            string workflowFilePath = @"..\..\..\WorkflowLib\DES\SimpleDESWorkflow.xaml";
             //string workflowFilePath = @"..\WorkflowWorkhop\WorkflowWorkhop\WorkflowLib\Duval Workflows\CreateCaseWorkflow.xoml";
 
             //******************************DES workflow parameters*******************************
             var param = new Dictionary<string, string>()
             {
-                { "SLIDE", "2" } //key must use UPPER CASE
+                  { "MYNAME", "IS KIIIIIIID!" }//key must use UPPER CASE
             };
 
             var result = WorkflowUtil.RunDESWorkflow(workflowFilePath, param);
 
             //************************************************************************************
+
 
             //****************************ShowCase workflow parameters****************************
 

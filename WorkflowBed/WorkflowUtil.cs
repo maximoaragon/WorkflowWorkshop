@@ -28,7 +28,7 @@ namespace WorkflowBed
             RunWorkflow(workflowFilePath, parms, testingCase);
         }
 
-        public static IDictionary<string, object> RunDESWorkflow(string workflowFilePath, Dictionary<string, string> parms)
+        public static XmlDocument RunDESWorkflow(string workflowFilePath, Dictionary<string, string> parms)
         {
             Console.WriteLine("*Running DES workflow...", Path.GetFileName(workflowFilePath));
 
@@ -56,23 +56,25 @@ namespace WorkflowBed
             Activity activity = ActivityXamlServices.Load(ActivityXamlServices.CreateReader(new XamlXmlReader(workflowFilePath)), settings);
 
             var wfManager = new WorkflowInvoker(activity);
-            var result = wfManager.Invoke(dict);
+
+            var wfresult = wfManager.Invoke(dict);
+            XmlDocument xmlResult = null;
 
             Console.WriteLine("*Success :-)");
 
-            if (result != null && result.ContainsKey("Result"))
+            if (wfresult != null && wfresult.ContainsKey("Result"))
             {
                 Console.WriteLine("*Result:");
-                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.ForegroundColor = ConsoleColor.Yellow;
 
-                XmlDocument xml = (XmlDocument)result["Result"];
+                xmlResult = (XmlDocument)wfresult["Result"];
                 
-                Console.WriteLine(xml.OuterXml + "\n");
+                Console.WriteLine(xmlResult.OuterXml + "\n");
 
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
 
-            return result;
+            return xmlResult;
         }
 
         /// <summary>

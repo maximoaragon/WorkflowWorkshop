@@ -3,13 +3,21 @@ using Exchange.ServerLib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Workflow.Test
 {
     [TestClass]
     public class WorkflowTests : TestBase
     {
-        private string _workflowRootDir = @"C:\Dev\repos\WorkflowWorkshop\WorkflowLib";
+        private string _workflowRootDir = "";
+
+        [TestInitialize]
+        public void Init()
+        {
+            _workflowRootDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName.Replace("\\TestResults", "\\WorkflowLib");
+            //should be something like C:\Dev\repos\WorkflowWorkshop\WorkflowLib...
+        }
 
         [TestMethod]
         public void SimpleDESExchange()
@@ -21,7 +29,7 @@ namespace Workflow.Test
                 RequestID = Guid.NewGuid().ToString(),
                 ExchangeName = "Simple Hello DES",
                 ExchangeParameters = new Dictionary<string, string>() {
-                    { "MYMANE", "Max" }
+                    { "MYNAME", "Max" }
                 },
                 //InputUri = "https://showcase.equivant.com/eps/exchangePointservice.svc/...",
                 ProcessingMode = ProcessingMode.NonRealTime // required for test

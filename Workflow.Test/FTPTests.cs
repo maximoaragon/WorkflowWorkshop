@@ -9,8 +9,8 @@ namespace Workflow.Test
     [TestClass]
     public class FTPTests
     {
-        private string _userName = "****";
-        private string _password = "****";    
+        private string _userName = "**";
+        private string _password = "***";    
 
         [TestMethod]
         [DeploymentItem(@"TestData\", @"TestData\")] //Files in this dir must be set to Copy To Output
@@ -71,7 +71,7 @@ namespace Workflow.Test
             ftpClient.Credentials = new NetworkCredential(_userName, _password);
 
             string localFileDest = @"TestData\in";
-            string ftpURL = "ftp://js-ml-fs1/";
+            string ftpURL = "ftp://showcase.equivant.com/";
 
             Console.Write("Calling PutFile()... ");
             ftpClient.PutFile(tiffFile, ftpURL + Path.GetFileName(tiffFile), FileTransferMode.FTP, true);
