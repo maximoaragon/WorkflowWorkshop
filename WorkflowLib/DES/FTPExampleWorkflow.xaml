@@ -80,175 +80,145 @@
           <mca:CSharpValue x:TypeArguments="x:String">System.IO.Path.GetTempPath()</mca:CSharpValue>
         </Variable.Default>
       </Variable>
+      <Variable x:TypeArguments="x:String" Name="variable1" />
     </Flowchart.Variables>
     <Flowchart.StartNode>
-      <x:Reference>__ReferenceID7</x:Reference>
-    </Flowchart.StartNode>
-    <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_2">
-      <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
-        <Assign.To>
-          <OutArgument x:TypeArguments="sx:XmlDocument">
-            <mca:CSharpReference x:TypeArguments="sx:XmlDocument">Result</mca:CSharpReference>
-          </OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="sx:XmlDocument">
-            <mca:CSharpValue x:TypeArguments="sx:XmlDocument">new XmlDocument()</mca:CSharpValue>
-          </InArgument>
-        </Assign.Value>
-      </Assign>
-      <FlowStep.Next>
-        <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_1">
-          <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="LoadXml">
-            <InvokeMethod.TargetObject>
-              <InArgument x:TypeArguments="sx:XmlDocument">
-                <mca:CSharpValue x:TypeArguments="sx:XmlDocument">Result</mca:CSharpValue>
-              </InArgument>
-            </InvokeMethod.TargetObject>
-            <InArgument x:TypeArguments="x:String">
-              <mca:CSharpValue x:TypeArguments="x:String">"&lt;ftpdata&gt;" + System.IO.File.ReadAllText(tempDir + "\\testfile.txt") + "&lt;/ftpdata&gt;"</mca:CSharpValue>
-            </InArgument>
-          </InvokeMethod>
-        </FlowStep>
-      </FlowStep.Next>
-    </FlowStep>
-    <x:Reference>__ReferenceID0</x:Reference>
-    <FlowStep x:Name="__ReferenceID7" sap2010:WorkflowViewState.IdRef="FlowStep_3">
-      <Assign DisplayName="Read FTP Username" sap2010:WorkflowViewState.IdRef="Assign_2">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">
-            <mca:CSharpReference x:TypeArguments="x:String">ftpUsername</mca:CSharpReference>
-          </OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">testusr</InArgument>
-        </Assign.Value>
-      </Assign>
-      <FlowStep.Next>
-        <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_4">
-          <Assign DisplayName="Read FTP Password" sap2010:WorkflowViewState.IdRef="Assign_3">
-            <Assign.To>
-              <OutArgument x:TypeArguments="x:String">
-                <mca:CSharpReference x:TypeArguments="x:String">ftpPassword</mca:CSharpReference>
-              </OutArgument>
-            </Assign.To>
-            <Assign.Value>
-              <InArgument x:TypeArguments="x:String">sh0wcas3</InArgument>
-            </Assign.Value>
-          </Assign>
-          <FlowStep.Next>
-            <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_8">
-              <Assign DisplayName="Set ftpHost" sap2010:WorkflowViewState.IdRef="Assign_6">
-                <Assign.To>
-                  <OutArgument x:TypeArguments="x:String">
-                    <mca:CSharpReference x:TypeArguments="x:String">ftpHost</mca:CSharpReference>
-                  </OutArgument>
-                </Assign.To>
-                <Assign.Value>
-                  <InArgument x:TypeArguments="x:String">showcase.equivant.com</InArgument>
-                </Assign.Value>
-              </Assign>
-              <FlowStep.Next>
-                <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_6">
-                  <Assign DisplayName="Init FtpWrapper" sap2010:WorkflowViewState.IdRef="Assign_4">
-                    <Assign.To>
-                      <OutArgument x:TypeArguments="es:FTPWrapper">
-                        <mca:CSharpReference x:TypeArguments="es:FTPWrapper">ftpClient</mca:CSharpReference>
-                      </OutArgument>
-                    </Assign.To>
-                    <Assign.Value>
-                      <InArgument x:TypeArguments="es:FTPWrapper">
-                        <mca:CSharpValue x:TypeArguments="es:FTPWrapper">new FTPWrapper()</mca:CSharpValue>
-                      </InArgument>
-                    </Assign.Value>
-                  </Assign>
-                  <FlowStep.Next>
-                    <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_5">
-                      <Assign DisplayName="Set FTP client credentials" sap2010:WorkflowViewState.IdRef="Assign_5">
-                        <Assign.To>
-                          <OutArgument x:TypeArguments="sn:ICredentials">
-                            <mca:CSharpReference x:TypeArguments="sn:ICredentials">ftpClient.Credentials</mca:CSharpReference>
-                          </OutArgument>
-                        </Assign.To>
-                        <Assign.Value>
-                          <InArgument x:TypeArguments="sn:ICredentials">
-                            <mca:CSharpValue x:TypeArguments="sn:ICredentials">new System.Net.NetworkCredential(ftpUsername, ftpPassword)</mca:CSharpValue>
-                          </InArgument>
-                        </Assign.Value>
-                      </Assign>
-                      <FlowStep.Next>
-                        <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_7">
-                          <InvokeMethod DisplayName="GetFile" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="GetFile">
-                            <InvokeMethod.TargetObject>
-                              <InArgument x:TypeArguments="es:FTPWrapper">
-                                <mca:CSharpValue x:TypeArguments="es:FTPWrapper">ftpClient</mca:CSharpValue>
+      <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_3">
+        <Assign DisplayName="Read FTP Username" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">
+              <mca:CSharpReference x:TypeArguments="x:String">ftpUsername</mca:CSharpReference>
+            </OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">testusr</InArgument>
+          </Assign.Value>
+        </Assign>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_4">
+            <Assign DisplayName="Read FTP Password" sap2010:WorkflowViewState.IdRef="Assign_3">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">
+                  <mca:CSharpReference x:TypeArguments="x:String">ftpPassword</mca:CSharpReference>
+                </OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">sh0wcas3</InArgument>
+              </Assign.Value>
+            </Assign>
+            <FlowStep.Next>
+              <FlowStep x:Name="__ReferenceID7" sap2010:WorkflowViewState.IdRef="FlowStep_8">
+                <Assign DisplayName="Set ftpHost" sap2010:WorkflowViewState.IdRef="Assign_6">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">
+                      <mca:CSharpReference x:TypeArguments="x:String">ftpHost</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">showcase.equivant.com</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_6">
+                    <Assign DisplayName="Init FtpWrapper" sap2010:WorkflowViewState.IdRef="Assign_4">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="es:FTPWrapper">
+                          <mca:CSharpReference x:TypeArguments="es:FTPWrapper">ftpClient</mca:CSharpReference>
+                        </OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="es:FTPWrapper">
+                          <mca:CSharpValue x:TypeArguments="es:FTPWrapper">new FTPWrapper()</mca:CSharpValue>
+                        </InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <FlowStep.Next>
+                      <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_5">
+                        <Assign DisplayName="Set FTP client credentials" sap2010:WorkflowViewState.IdRef="Assign_5">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="sn:ICredentials">
+                              <mca:CSharpReference x:TypeArguments="sn:ICredentials">ftpClient.Credentials</mca:CSharpReference>
+                            </OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="sn:ICredentials">
+                              <mca:CSharpValue x:TypeArguments="sn:ICredentials">new System.Net.NetworkCredential(ftpUsername, ftpPassword)</mca:CSharpValue>
+                            </InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <FlowStep.Next>
+                          <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_7">
+                            <InvokeMethod DisplayName="GetFile" sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="GetFile">
+                              <InvokeMethod.TargetObject>
+                                <InArgument x:TypeArguments="es:FTPWrapper">
+                                  <mca:CSharpValue x:TypeArguments="es:FTPWrapper">ftpClient</mca:CSharpValue>
+                                </InArgument>
+                              </InvokeMethod.TargetObject>
+                              <InArgument x:TypeArguments="x:String">
+                                <mca:CSharpValue x:TypeArguments="x:String">ftpHost + "/testdir/testfile.txt"</mca:CSharpValue>
                               </InArgument>
-                            </InvokeMethod.TargetObject>
-                            <InArgument x:TypeArguments="x:String">
-                              <mca:CSharpValue x:TypeArguments="x:String">ftpHost + "/testdir/testfile.txt"</mca:CSharpValue>
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String">
-                              <mca:CSharpValue x:TypeArguments="x:String">tempDir</mca:CSharpValue>
-                            </InArgument>
-                            <InArgument x:TypeArguments="es:FileTransferMode">
-                              <mca:CSharpValue x:TypeArguments="es:FileTransferMode">FileTransferMode.SFTP</mca:CSharpValue>
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
-                          </InvokeMethod>
-                          <FlowStep.Next>
-                            <x:Reference>__ReferenceID1</x:Reference>
-                          </FlowStep.Next>
-                        </FlowStep>
-                      </FlowStep.Next>
-                    </FlowStep>
-                  </FlowStep.Next>
-                </FlowStep>
-              </FlowStep.Next>
-            </FlowStep>
-          </FlowStep.Next>
-        </FlowStep>
-      </FlowStep.Next>
-    </FlowStep>
+                              <InArgument x:TypeArguments="x:String">
+                                <mca:CSharpValue x:TypeArguments="x:String">tempDir</mca:CSharpValue>
+                              </InArgument>
+                              <InArgument x:TypeArguments="es:FileTransferMode">
+                                <mca:CSharpValue x:TypeArguments="es:FileTransferMode">FileTransferMode.SFTP</mca:CSharpValue>
+                              </InArgument>
+                              <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                            </InvokeMethod>
+                            <FlowStep.Next>
+                              <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_2">
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="sx:XmlDocument">
+                                      <mca:CSharpReference x:TypeArguments="sx:XmlDocument">Result</mca:CSharpReference>
+                                    </OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="sx:XmlDocument">
+                                      <mca:CSharpValue x:TypeArguments="sx:XmlDocument">new XmlDocument()</mca:CSharpValue>
+                                    </InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <FlowStep.Next>
+                                  <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_1">
+                                    <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="LoadXml">
+                                      <InvokeMethod.TargetObject>
+                                        <InArgument x:TypeArguments="sx:XmlDocument">
+                                          <mca:CSharpValue x:TypeArguments="sx:XmlDocument">Result</mca:CSharpValue>
+                                        </InArgument>
+                                      </InvokeMethod.TargetObject>
+                                      <InArgument x:TypeArguments="x:String">
+                                        <mca:CSharpValue x:TypeArguments="x:String">"&lt;ftpdata&gt;" + System.IO.File.ReadAllText(tempDir + "\\testfile.txt") + "&lt;/ftpdata&gt;"</mca:CSharpValue>
+                                      </InArgument>
+                                    </InvokeMethod>
+                                  </FlowStep>
+                                </FlowStep.Next>
+                              </FlowStep>
+                            </FlowStep.Next>
+                          </FlowStep>
+                        </FlowStep.Next>
+                      </FlowStep>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowStep.Next>
+          </FlowStep>
+        </FlowStep.Next>
+      </FlowStep>
+    </Flowchart.StartNode>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID1</x:Reference>
     <x:Reference>__ReferenceID2</x:Reference>
     <x:Reference>__ReferenceID3</x:Reference>
     <x:Reference>__ReferenceID4</x:Reference>
     <x:Reference>__ReferenceID5</x:Reference>
     <x:Reference>__ReferenceID6</x:Reference>
-    <sads:DebugSymbol.Symbol>d0VDOlxEZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxERVNcRlRQRXhhbXBsZVdvcmtmbG93LnhhbWwdSAPaAQ8CAQFQC1BlAgECdQd+EAMBhAGBAQuKARQCAXqNAQ+WARgCAXCZAROkARwCAV+nAReyASACAU61ARvFASoCASxYB2MQAgEbZgtvGgIBCnwyfDkDAY0BeA14XgMBhQGIATaIAT4DAYMBhAERhAFiAgF7lAE6lAFPAgF5kAEVkAFiAgFxoQEZoQFsAgFonAEZnAFtAgFgrwEdrwGcAQIBV6oBHaoBfwIBT78BH78BZAIBRsIBH8IBfQIBPrwBH7wBfgIBNsQBRcQBSQIBNbgBIbgBbQIBLWANYGICASRbDVtfAgEcbQ9trAECARNpEWlbAgEL</sads:DebugSymbol.Symbol>
+    <x:Reference>__ReferenceID7</x:Reference>
+    <sads:DebugSymbol.Symbol>d0VDOlxEZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxERVNcRlRQRXhhbXBsZVdvcmtmbG93LnhhbWwdSAPbAQ8CAQFQC1BlAgECVwlgEgMBkwFjDWwWAwGIAW8ReBoCAX17FYYBHgIBaokBGZQBIgIBV5cBHacBLAIBMaoBIbUBKgIBHrgBJcEBNAIBC140XjsDAZ0BWg9aYAMBlAFqOGpAAwGSAWYTZmQDAYkBdjx2UQMBhwFyF3JkAgF+gwEbgwFuAgF0fht+bwIBa5EBH5EBngECAWGMAR+MAYEBAgFYoQEhoQFmAgFOpAEhpAF/AgFFngEhngGAAQIBPKYBR6YBSwIBO5oBI5oBbwIBMrIBJ7IBfAIBKK0BJ60BeQIBH78BKb8BxgECARW7ASu7AXUCAQw=</sads:DebugSymbol.Symbol>
   </Flowchart>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,62">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="218,130">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_1">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">181,815</av:Point>
-            <av:Size x:Key="ShapeSize">218,130</av:Size>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="FlowStep_2">
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">169,719</av:Point>
-            <av:Size x:Key="ShapeSize">242,62</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">290,781 290,815</av:PointCollection>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,62">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -288,6 +258,37 @@
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,62">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="218,130">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">181,815</av:Point>
+            <av:Size x:Key="ShapeSize">218,130</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">169,719</av:Point>
+            <av:Size x:Key="ShapeSize">242,62</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">290,781 290,815</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
