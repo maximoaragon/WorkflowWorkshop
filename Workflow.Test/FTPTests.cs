@@ -32,6 +32,9 @@ namespace Workflow.Test
 
             Console.Write("Calling PutFile()... ");
             ftpClient.PutFile(tiffFile, sftpHost + "/testdir/", FileTransferMode.SFTP, true);
+
+            ftpClient.Timeout = TimeSpan.FromMinutes(10);
+
             Console.WriteLine("**SUCCESS!***");
 
             Console.Write("Calling PutFiles()... ");
