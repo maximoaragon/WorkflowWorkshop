@@ -15,34 +15,34 @@ namespace WorkflowBed
             //TODO: SET THE PATH OF THE WORKFLOW TO INVOKE. THIS WILL BE EITHER A XAML OR XOML FILE
             //////////////////
 
-            //string workflowFilePath = @"..\..\..\WorkflowLib\DES\SimpleDESWorkflow.xaml";
-            string workflowFilePath = @"..\..\..\WorkflowLib\Redwood\RedwoodExchangeWorkflow.xaml";
-            //string workflowFilePath = @"..\..\..\WorkflowLib\Redwood\RedwoodFileWorkflow.xaml";
+            //string workflowFilePath = @"..\..\..\WorkflowLib\Training\DESDemoWorkflow.xaml";
+            string workflowFilePath = @"..\..\..\WorkflowLib\Templates\DESWorfklow.xaml";
 
             //******************************DES workflow parameters*******************************
-            var param = new Dictionary<string, string>()
+            var parameters = new Dictionary<string, string>()
             {
-                  { "USER", "testusr" } ,//key must use UPPER CASE
-                  { "PWD", "sh0wcas3" }//key must use UPPER CASE
+                  { "casenumber", "2013cf123" } 
+                  //{ "PWD", "sh0wcas3" }
             };
 
-            var result = WorkflowUtil.RunDESWorkflow(workflowFilePath, param);
+            //run des workflow
+            var result = WorkflowUtil.RunDESWorkflow(workflowFilePath, parameters);
 
             //************************************************************************************
 
-
             //****************************ShowCase workflow parameters****************************
 
-            //var param = new object[]
+            //var parameters = new object[]
             //{
             //    "First Argument Value",
             //    "Second Argument Value"
             //};
-            //WorkflowUtil.RunShowCaseWorkflow(workflowFilePath, "50-2015-CC-025987-XXXX-MB", param);
+            //run showcase workflow
+            //WorkflowUtil.RunShowCaseWorkflow(workflowFilePath, "50-2015-CC-025987-XXXX-MB", parameters);
 
             //************************************************************************************
 
-            Console.WriteLine("**********Workflow {0} Ended************", Path.GetFileName(workflowFilePath));
+            Console.WriteLine("**********THE END************");
             Console.ReadLine();
         }
     }

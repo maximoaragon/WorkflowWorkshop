@@ -17,6 +17,8 @@ namespace WorkflowBed
 {
     public static class WorkflowUtil
     {
+        static ConsoleColor _ogColor = Console.ForegroundColor;
+
         public static void RunShowCaseWorkflow(string workflowFilePath, string caseNumber, object[] parms)
         {
             Console.WriteLine("running ShowCase workflow...", Path.GetFileName(workflowFilePath));
@@ -28,15 +30,23 @@ namespace WorkflowBed
             RunWorkflow(workflowFilePath, parms, testingCase);
         }
 
-        public static XmlDocument RunDESWorkflow(string workflowFilePath, Dictionary<string, string> parms)
+        public static XmlDocument RunDESWorkflow(string workflowFilePath, Dictionary<string, string> parameters)
         {
-            Console.WriteLine("*Running DES workflow...", Path.GetFileName(workflowFilePath));
+            Console.WriteLine("*Running DES workflow {0}...", Path.GetFileName(workflowFilePath));
+
+            if (!File.Exists(workflowFilePath))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Workflow file not found!  :-(");
+                Console.ForegroundColor = _ogColor;
+                return null;
+            }
 
             var exchangeRequest = new ExchangeRequest()
             {
                 ExchangeName = "TestExchangeName",
                 ProcessingMode = ProcessingMode.RealTime,
-                ExchangeParameters = parms
+                ExchangeParameters = GetExchangeParameters(parameters)
             };
 
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -53,28 +63,43 @@ namespace WorkflowBed
             }
 
             ActivityXamlServicesSettings settings = new ActivityXamlServicesSettings() { CompileExpressions = true };
-            Activity activity = ActivityXamlServices.Load(ActivityXamlServices.CreateReader(new XamlXmlReader(workflowFilePath)), settings);
-
-            var wfManager = new WorkflowInvoker(activity);
-
-            var wfresult = wfManager.Invoke(dict);
-            XmlDocument xmlResult = null;
-
-            Console.WriteLine("*Success :-)");
-
-            if (wfresult != null && wfresult.ContainsKey("Result"))
+            using (var xamlReader = new XamlXmlReader(workflowFilePath))
             {
-                Console.WriteLine("*Result:");
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                using (var innerReader = ActivityXamlServices.CreateReader(xamlReader))
+                {
+                    Activity activity = ActivityXamlServices.Load(innerReader, settings);
+                    var wfManager = new WorkflowInvoker(activity);
 
-                xmlResult = (XmlDocument)wfresult["Result"];
-                
-                Console.WriteLine(xmlResult.OuterXml + "\n");
+                    var wfresult = wfManager.Invoke(dict);
+                    XmlDocument xmlResult = null;
 
-                Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("*Success :-)");
+
+                    if (wfresult != null && wfresult.ContainsKey("Result"))
+                    {
+                        Console.WriteLine("*Result:");
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+
+                        xmlResult = (XmlDocument)wfresult["Result"];
+
+                        Console.WriteLine(xmlResult?.OuterXml + "\n");
+
+                        Console.ForegroundColor = _ogColor;
+                    }
+
+                    return xmlResult;
+                }      
             }
+        }
 
-            return xmlResult;
+        private static Dictionary<string, string> GetExchangeParameters(Dictionary<string, string> parameters)
+        {
+            var ep = new Dictionary<string, string>();
+
+            foreach (var kv in parameters)
+                ep.Add(kv.Key.ToUpper(), kv.Value);
+
+            return ep;
         }
 
         /// <summary>
@@ -219,5 +244,6 @@ namespace WorkflowBed
                 return false;
             }
         }
+
     }
 }

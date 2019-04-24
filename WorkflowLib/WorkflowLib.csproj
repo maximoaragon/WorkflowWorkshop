@@ -139,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Templates\DESActivity.xaml">
+    <None Include="Templates\DESWorfklow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -173,7 +173,7 @@
     <Content Include="Dlls\ShowCaseWorkflowLib.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\ShowCaseActivity.xaml">
+    <None Include="Templates\ShowCaseWorkflow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </None>
@@ -221,10 +221,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="DES\FTPExampleWorkflow.xaml">
+    <None Include="DES\FTPExampleWorkflow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </XamlAppDef>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Training\GetCaseInfo.xaml">
@@ -233,16 +233,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="DES\SimpleDESWorkflow.xaml">
+    <None Include="DES\SimpleDESWorkflow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </XamlAppDef>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <XamlAppDef Include="Redwood\RedwoodExchangeWorkflow.xaml">
+    <None Include="Redwood\RedwoodExchangeWorkflow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </XamlAppDef>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CustomLIb\CustomLib.csproj">

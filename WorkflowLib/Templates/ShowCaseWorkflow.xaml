@@ -12,7 +12,6 @@
   <x:Members>
     <x:Property Name="MyCase" Type="InArgument(s:CCase)" />
   </x:Members>
-  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
   <sap2010:WorkflowViewState.IdRef>WorkflowLib.Templates.ShowCaseActivity_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -35,7 +34,7 @@
       <AssemblyReference>ShowCaseClassLib</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart sap2010:WorkflowViewState.IdRef="Flowchart_1" StartNode="{x:Null}" sads:DebugSymbol.Symbol="d0lDOlxkZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxUZW1wbGF0ZXNcU2hvd0Nhc2VBY3Rpdml0eS54YW1sASYDJoYBAgEB" />
+  <Flowchart sap2010:WorkflowViewState.IdRef="Flowchart_1" StartNode="{x:Null}" sads:DebugSymbol.Symbol="d0lDOlxEZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxUZW1wbGF0ZXNcU2hvd0Nhc2VXb3JrZmxvdy54YW1sASUDJYYBAgEB" />
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
       <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="614,636">
