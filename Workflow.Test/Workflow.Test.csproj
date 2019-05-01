@@ -40,8 +40,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BaseClassLib">
+      <HintPath>..\WorkflowLib\Dlls\BaseClassLib.dll</HintPath>
+    </Reference>
+    <Reference Include="BaseSQLDAO">
+      <HintPath>..\WorkflowLib\Dlls\BaseSQLDAO.dll</HintPath>
+    </Reference>
     <Reference Include="ClientConfiguration">
       <HintPath>..\WorkflowLib\Dlls\ClientConfiguration.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Exceptions">
       <HintPath>..\WorkflowLib\Dlls\Exceptions.dll</HintPath>
@@ -80,6 +92,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorkflowLib\Dlls\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.3.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -92,16 +105,28 @@
     <Reference Include="Security.Authorization.Claims">
       <HintPath>..\WorkflowLib\Dlls\Security.Authorization.Claims.dll</HintPath>
     </Reference>
+    <Reference Include="ShowCaseCCB">
+      <HintPath>..\WorkflowLib\Dlls\ShowCaseCCB.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowCaseClassLib">
+      <HintPath>..\WorkflowLib\Dlls\ShowCaseClassLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ShowCaseDAL">
+      <HintPath>..\WorkflowLib\Dlls\ShowCaseDAL.dll</HintPath>
+    </Reference>
     <Reference Include="ShowCaseUtil, Version=2.0.0.0, Culture=neutral, PublicKeyToken=aabe4c9789e7d06e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorkflowLib\Dlls\ShowCaseUtil.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ShowCaseTests.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FTPTests.cs" />
