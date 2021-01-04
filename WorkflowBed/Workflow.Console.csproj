@@ -46,13 +46,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseClassLib, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorkflowLib\Dlls\BaseClassLib.dll</HintPath>
-    </Reference>
-    <Reference Include="BaseSQLDAO">
-      <HintPath>..\WorkflowLib\Dlls\BaseSQLDAO.dll</HintPath>
-    </Reference>
     <Reference Include="ClientConfiguration">
       <HintPath>..\WorkflowLib\Dlls\ClientConfiguration.dll</HintPath>
     </Reference>
@@ -62,6 +55,10 @@
     <Reference Include="Exchange.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aabe4c9789e7d06e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\WorkflowLib\dlls\Exchange.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="Exchange.ServerLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=aabe4c9789e7d06e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WorkflowLib\Dlls\Exchange.ServerLib.dll</HintPath>
     </Reference>
     <Reference Include="GZipEncoder">
       <HintPath>..\WorkflowLib\Dlls\GZipEncoder.dll</HintPath>
@@ -97,19 +94,6 @@
     </Reference>
     <Reference Include="Security.Authorization.Claims">
       <HintPath>..\WorkflowLib\Dlls\Security.Authorization.Claims.dll</HintPath>
-    </Reference>
-    <Reference Include="ShowCaseCCB">
-      <HintPath>..\WorkflowLib\Dlls\ShowCaseCCB.dll</HintPath>
-    </Reference>
-    <Reference Include="ShowCaseClassLib">
-      <HintPath>..\WorkflowLib\Dlls\ShowCaseClassLib.dll</HintPath>
-    </Reference>
-    <Reference Include="ShowCaseDAL">
-      <HintPath>..\WorkflowLib\Dlls\ShowCaseDAL.dll</HintPath>
-    </Reference>
-    <Reference Include="ShowCasePresentation, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\WorkflowLib\Dlls\ShowCasePresentation.dll</HintPath>
     </Reference>
     <Reference Include="ShowCaseWorkflowActivityLib">
       <HintPath>..\WorkflowLib\Dlls\ShowCaseWorkflowActivityLib.dll</HintPath>

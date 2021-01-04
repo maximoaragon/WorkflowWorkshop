@@ -7,11 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkflowLib", "WorkflowLib\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workflow.Console", "WorkflowBed\Workflow.Console.csproj", "{BD0CA859-ED8C-4BA6-BBBE-6E203F48CFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.ServiceTester", "ExchangePointServiceTester\Exchange.ServiceTester.csproj", "{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DES.Requestor", "ExchangePointServiceTester\DES.Requestor.csproj", "{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Workflow.Test", "Workflow.Test\Workflow.Test.csproj", "{CDEF7E04-9BF7-402B-9709-0145E76F5207}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A4F54F09-99D3-4C0B-BA60-283ACF9BFE51}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{A4F54F09-99D3-4C0B-BA60-283ACF9BFE51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,25 +51,12 @@ Global
 		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|Mixed Platforms.Build.0 = Release|x86
 		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|x86.ActiveCfg = Release|x86
 		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B}.Release|x86.Build.0 = Release|x86
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Debug|x86.Build.0 = Debug|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Release|x86.ActiveCfg = Release|Any CPU
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C4B1D29E-B696-4044-8C19-EEF9B4033F5B} = {A4F54F09-99D3-4C0B-BA60-283ACF9BFE51}
-		{CDEF7E04-9BF7-402B-9709-0145E76F5207} = {A4F54F09-99D3-4C0B-BA60-283ACF9BFE51}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DC1A5EBD-9849-4279-AAA7-0AE78DAE8D7F}
