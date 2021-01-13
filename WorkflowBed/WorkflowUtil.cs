@@ -1,14 +1,12 @@
 ﻿using Exchange.Contracts;
 using Exchange.ServerLib;
-using ShowCaseWorkflowLib;
 using System;
 using System.Activities;
 using System.Activities.XamlIntegration;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Xaml;
 using System.Xml;
 
@@ -80,6 +78,8 @@ namespace WorkflowBed
             Dictionary<string, object> dict = new Dictionary<string, object>();
             dict.Add("ExchangeRequest", exchangeRequest);
 
+            XmlDocument xmlResult = null;
+
             string workflowDef;
             using (var xmlFile = XmlReader.Create(workflowPath))
             {
@@ -96,12 +96,46 @@ namespace WorkflowBed
                 using (var innerReader = ActivityXamlServices.CreateReader(xamlReader))
                 {
                     Activity activity = ActivityXamlServices.Load(innerReader, settings);
-                    var wfManager = new WorkflowInvoker(activity);
-                    
+
+                    var wfinstance = new WorkflowApplication(activity, dict);
+
                     Console.Write("\nExecuting workflow {0}...", Path.GetFileName(workflowPath));
 
-                    var wfresult = wfManager.Invoke(dict);
-                    XmlDocument xmlResult = null;
+                    IDictionary<string, object> wfresult = null;
+
+                    try
+                    {
+                        using(var syncEvent = new AutoResetEvent(false))
+                        {
+                            wfinstance.OnUnhandledException = delegate (WorkflowApplicationUnhandledExceptionEventArgs e)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("\n\nWorkflow Error in Activity: {0}\n", e.ExceptionSource.DisplayName);
+                                Console.WriteLine("{0}\n", e.UnhandledException.ToString());
+                                Console.ForegroundColor = _ogColor;
+                                return UnhandledExceptionAction.Terminate;
+                            };
+
+                            wfinstance.Aborted = delegate (WorkflowApplicationAbortedEventArgs e)
+                            {
+                                syncEvent.Set();
+                            };
+
+                            wfinstance.Completed = delegate (WorkflowApplicationCompletedEventArgs e)
+                            {
+                                wfresult = e.Outputs;
+                                syncEvent.Set();
+                            };
+
+                            wfinstance.Run(TimeSpan.MaxValue);
+
+                            syncEvent.WaitOne();
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine("\nWorkflow Error: {0}!\n", ex.Message);
+                    }
 
                     Console.WriteLine("Done!\n");
 

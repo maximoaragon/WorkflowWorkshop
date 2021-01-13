@@ -33,7 +33,7 @@ namespace WorkflowBed
 
             //var response = WorkflowUtil.ExecWorkflowInDES(workflowFilePath, exchangeParams);
 
-            WorkflowUtil.ExecWorkflow(workflowFilePath, exchangeParams);
+            var response = WorkflowUtil.ExecWorkflow(workflowFilePath, exchangeParams);
         }
     }
 }
