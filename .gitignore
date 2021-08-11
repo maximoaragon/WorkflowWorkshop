@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 #*.xaml
 /Workflow.Test/ShowCaseTests - Copy.cs
+/WorkflowLib/Templates/DESAgentWorkflow.xaml

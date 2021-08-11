@@ -153,7 +153,7 @@
       <sap2010:ViewStateData Id="FlowStep_2">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <av:Point x:Key="ShapeLocation">190.54,303.166666666667</av:Point>
+            <av:Point x:Key="ShapeLocation">191,295</av:Point>
             <av:Size x:Key="ShapeSize">218,130</av:Size>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
@@ -163,7 +163,7 @@
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">178.79,191.166666666667</av:Point>
             <av:Size x:Key="ShapeSize">242,62</av:Size>
-            <av:PointCollection x:Key="ConnectorLocation">299.79,253.166666666667 299.79,303.166666666667</av:PointCollection>
+            <av:PointCollection x:Key="ConnectorLocation">299.79,253.166666666667 299.79,283.166666666667 300,283.166666666667 300,295</av:PointCollection>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
