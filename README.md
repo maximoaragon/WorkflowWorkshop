@@ -1,14 +1,14 @@
 # Workflow Workshop
 
-Welcome to the DES Workflow Workshop!
+Welcome to the Workflow Workshop!
 
-Workflow Workshop is a .NET solution for building and testing DES workflows.
+The Workflow Workshop is a .NET solution for building and testing XAML workflows.
 
 ## Getting Started
 
 ### Dependencies
 
-* Visual Studio 2019 or higher
+* Visual Studio 2022 or higher
 * .NET Framework 4.7 or above
 
 ### Executing a workflow
