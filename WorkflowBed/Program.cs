@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CustomCodeWorkflow;
+using Exchange.Contracts;
+using System;
 using System.Collections.Generic;
 
 namespace WorkflowBed
@@ -8,15 +10,37 @@ namespace WorkflowBed
         static void Main(string[] args)
         {
             Console.WriteLine("**********************************");
-            Console.WriteLine("**********Workflow Bed************");
+            Console.WriteLine("********Workflow Workshop*********");
            
-            RunTestWorkflow();
+            //RunXAMLWorkflow();
 
-            Console.WriteLine("**********THE END************");
+            //or 
+
+            RunCodeWorkflow();
+
+            Console.WriteLine("************THE END***************");
             Console.ReadLine();
         }
 
-        static void RunTestWorkflow()
+        static void RunCodeWorkflow()
+        {
+            //your class must implement Exchange.Contracts.IDataExchangeWorkflow
+            IDataExchangeWorkflow codeWorkflow = new MyCodeWorkflow();
+
+            var request = new ExchangeRequest()
+            {
+                RequestID = Guid.NewGuid().ToString()
+            };
+
+            //DES will the Run() function implemented
+            string result = codeWorkflow.Run(request);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nCode Workflow Result: {0}\n", result);
+            Console.ResetColor();
+        }
+
+        static void RunXAMLWorkflow()
         {
             //1. Set the path of the XAML workflow to invoke.
 

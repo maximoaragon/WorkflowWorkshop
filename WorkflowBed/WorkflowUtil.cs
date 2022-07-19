@@ -14,7 +14,6 @@ namespace WorkflowBed
 {
     public static class WorkflowUtil
     {
-        static ConsoleColor _ogColor = Console.ForegroundColor;
 
         /// <summary>
         /// Executes a XAML workflow in the DES context. This requires a DES <connectionStrings> configured in the app.config.
@@ -52,7 +51,7 @@ namespace WorkflowBed
             Console.WriteLine("DES Response:");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\n{0}\n", response.ToString());
-            Console.ForegroundColor = _ogColor;
+            Console.ResetColor();
 
             return response;
         }
@@ -112,7 +111,7 @@ namespace WorkflowBed
                                 Console.ForegroundColor = ConsoleColor.Red;
                                 Console.WriteLine("\n\nWorkflow Error in Activity: {0}\n", e.ExceptionSource.DisplayName);
                                 Console.WriteLine("{0}\n", e.UnhandledException.ToString());
-                                Console.ForegroundColor = _ogColor;
+                                Console.ResetColor();
                                 return UnhandledExceptionAction.Terminate;
                             };
 
@@ -145,7 +144,7 @@ namespace WorkflowBed
                         Console.ForegroundColor = ConsoleColor.Green;
                         xmlResult = (XmlDocument)wfresult["Result"];
                         Console.WriteLine(xmlResult?.OuterXml + "\n");
-                        Console.ForegroundColor = _ogColor;
+                        Console.ResetColor();
                     }
 
                     return xmlResult;
@@ -159,7 +158,7 @@ namespace WorkflowBed
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Workflow file not found! :-(");
-                Console.ForegroundColor = _ogColor;
+                Console.ResetColor();
                 return false;
             }
             return true;

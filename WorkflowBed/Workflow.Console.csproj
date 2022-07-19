@@ -172,6 +172,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CustomCodeWorkflow\CustomCodeWorkflow.csproj">
+      <Project>{50e6c8c9-e764-4970-9f5e-7938e01b6b8b}</Project>
+      <Name>CustomCodeWorkflow</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WorkflowLib\WorkflowLib.csproj">
       <Project>{DDFBB017-F3C8-421D-BCF1-F625463AAF99}</Project>
       <Name>WorkflowLib</Name>
