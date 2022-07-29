@@ -1,0 +1,407 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="WorkflowLib.Training.DropChargesWorkflow"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mca="clr-namespace:Microsoft.CSharp.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:ShowCaseClassLib;assembly=ShowCaseClassLib"
+ xmlns:s1="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="MyCase" Type="InArgument(s:CCase)" />
+    <x:Property Name="prosecutorActionName" Type="InArgument(x:String)" />
+  </x:Members>
+  <sap2010:ExpressionActivityEditor.ExpressionActivityEditor>C#</sap2010:ExpressionActivityEditor.ExpressionActivityEditor>
+  <sap2010:WorkflowViewState.IdRef>WorkflowLib.Training.DropChargesWorkflow_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Text</x:String>
+      <x:String>ShowCaseClassLib</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>BaseClassLib</AssemblyReference>
+      <AssemblyReference>BaseSQLDAO</AssemblyReference>
+      <AssemblyReference>ClientConfiguration</AssemblyReference>
+      <AssemblyReference>Exceptions</AssemblyReference>
+      <AssemblyReference>Exchange.ClientLib</AssemblyReference>
+      <AssemblyReference>Exchange.Contracts</AssemblyReference>
+      <AssemblyReference>Exchange.ServerLib</AssemblyReference>
+      <AssemblyReference>Exchange.WorkflowLib.Design</AssemblyReference>
+      <AssemblyReference>GZipEncoder</AssemblyReference>
+      <AssemblyReference>ImagingClient</AssemblyReference>
+      <AssemblyReference>ImagingUtil</AssemblyReference>
+      <AssemblyReference>Microsoft.CSharp</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>Security.Authorization.Claims</AssemblyReference>
+      <AssemblyReference>ShowCaseCCB</AssemblyReference>
+      <AssemblyReference>ShowCaseClassLib</AssemblyReference>
+      <AssemblyReference>ShowCaseDAL</AssemblyReference>
+      <AssemblyReference>ShowCasePresentation</AssemblyReference>
+      <AssemblyReference>ShowCaseUtil</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Activities.Presentation</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.IO</AssemblyReference>
+      <AssemblyReference>System.Net</AssemblyReference>
+      <AssemblyReference>System.Net.Http</AssemblyReference>
+      <AssemblyReference>System.Net.Http.Extensions</AssemblyReference>
+      <AssemblyReference>System.Net.Http.Formatting</AssemblyReference>
+      <AssemblyReference>System.Net.Http.Primitives</AssemblyReference>
+      <AssemblyReference>System.Runtime</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Security.Cryptography.Algorithms</AssemblyReference>
+      <AssemblyReference>System.Security.Cryptography.Encoding</AssemblyReference>
+      <AssemblyReference>System.Security.Cryptography.Primitives</AssemblyReference>
+      <AssemblyReference>System.Security.Cryptography.X509Certificates</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
+      <AssemblyReference>System.Workflow.ComponentModel</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>WorkflowLib</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="scg:IEnumerable(s:CCharge)" Name="selectedCharges" />
+      <Variable x:TypeArguments="s:CProsecutorAction" Name="prosecutorAction" />
+    </Flowchart.Variables>
+    <Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID1" sap2010:WorkflowViewState.IdRef="FlowStep_1">
+        <Assign DisplayName="prompt for charges" sap2010:WorkflowViewState.IdRef="Assign_1">
+          <Assign.To>
+            <OutArgument x:TypeArguments="scg:IEnumerable(s:CCharge)">
+              <mca:CSharpReference x:TypeArguments="scg:IEnumerable(s:CCharge)">selectedCharges</mca:CSharpReference>
+            </OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="scg:IEnumerable(s:CCharge)">
+              <mca:CSharpValue x:TypeArguments="scg:IEnumerable(s:CCharge)">ShowCaseCCB.GlobalUIExtensions.ShowSelectChargesForm(MyCase.GlobalClass(), false, true).Cast&lt;CCharge&gt;()</mca:CSharpValue>
+            </InArgument>
+          </Assign.Value>
+        </Assign>
+        <FlowStep.Next>
+          <FlowDecision x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowDecision_2">
+            <FlowDecision.Condition>
+              <mca:CSharpValue x:TypeArguments="x:Boolean">selectedCharges.Count() &gt; 0</mca:CSharpValue>
+            </FlowDecision.Condition>
+            <FlowDecision.True>
+              <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_5">
+                <Assign DisplayName="get pros action" sap2010:WorkflowViewState.IdRef="Assign_2">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="s:CProsecutorAction">
+                      <mca:CSharpReference x:TypeArguments="s:CProsecutorAction">prosecutorAction</mca:CSharpReference>
+                    </OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="s:CProsecutorAction">
+                      <mca:CSharpValue x:TypeArguments="s:CProsecutorAction">MyCase.GlobalClass().ProsecutorActions.GetByProsecutorAction(prosecutorActionName)</mca:CSharpValue>
+                    </InArgument>
+                  </Assign.Value>
+                </Assign>
+                <FlowStep.Next>
+                  <FlowDecision x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                    <FlowDecision.Condition>
+                      <mca:CSharpValue x:TypeArguments="x:Boolean">prosecutorAction != null</mca:CSharpValue>
+                    </FlowDecision.Condition>
+                    <FlowDecision.True>
+                      <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_3">
+                        <ForEach x:TypeArguments="s:CCharge" DisplayName="ForEach&lt;CCharge&gt;" sap2010:WorkflowViewState.IdRef="ForEach`1_3">
+                          <ForEach.Values>
+                            <InArgument x:TypeArguments="scg:IEnumerable(s:CCharge)">
+                              <mca:CSharpValue x:TypeArguments="scg:IEnumerable(s:CCharge)">selectedCharges</mca:CSharpValue>
+                            </InArgument>
+                          </ForEach.Values>
+                          <ActivityAction x:TypeArguments="s:CCharge">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="s:CCharge" Name="ch" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="update selected charge" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                              <Assign DisplayName="set pros action" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:Int32">
+                                    <mca:CSharpReference x:TypeArguments="x:Int32">ch.ProsecutorActionID</mca:CSharpReference>
+                                  </OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:Int32">
+                                    <mca:CSharpValue x:TypeArguments="x:Int32">prosecutorAction.ProsecutorActionID</mca:CSharpValue>
+                                  </InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <Assign DisplayName="set pros filing date" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="s1:DateTime">
+                                    <mca:CSharpReference x:TypeArguments="s1:DateTime">ch.ProsecutorFilingDate</mca:CSharpReference>
+                                  </OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="s1:DateTime">
+                                    <mca:CSharpValue x:TypeArguments="s1:DateTime">MyCase.GlobalClass().SmartDocketEffectiveDate</mca:CSharpValue>
+                                  </InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_1" MethodName="Save">
+                                <InvokeMethod.TargetObject>
+                                  <InArgument x:TypeArguments="s:CCharge">
+                                    <mca:CSharpValue x:TypeArguments="s:CCharge">ch</mca:CSharpValue>
+                                  </InArgument>
+                                </InvokeMethod.TargetObject>
+                              </InvokeMethod>
+                              <ForEach x:TypeArguments="s:CBond" DisplayName="ForEach&lt;CBond&gt;" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+                                <ForEach.Values>
+                                  <InArgument x:TypeArguments="scg:IEnumerable(s:CBond)">
+                                    <mca:CSharpValue x:TypeArguments="scg:IEnumerable(s:CBond)">ch.GetActiveBonds().Cast&lt;CBond&gt;()</mca:CSharpValue>
+                                  </InArgument>
+                                </ForEach.Values>
+                                <ActivityAction x:TypeArguments="s:CBond">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="s:CBond" Name="bond" />
+                                  </ActivityAction.Argument>
+                                  <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_2" MethodName="Close">
+                                    <InvokeMethod.TargetObject>
+                                      <InArgument x:TypeArguments="s:CBond">
+                                        <mca:CSharpValue x:TypeArguments="s:CBond">bond</mca:CSharpValue>
+                                      </InArgument>
+                                    </InvokeMethod.TargetObject>
+                                  </InvokeMethod>
+                                </ActivityAction>
+                              </ForEach>
+                              <ForEach x:TypeArguments="s:CCaseFee" DisplayName="ForEach&lt;CCaseFee&gt;" sap2010:WorkflowViewState.IdRef="ForEach`1_2">
+                                <ForEach.Values>
+                                  <InArgument x:TypeArguments="scg:IEnumerable(s:CCaseFee)">
+                                    <mca:CSharpValue x:TypeArguments="scg:IEnumerable(s:CCaseFee)">MyCase.CaseFees.GetCaseFeesByChargeID(ch.ChargeID).Cast&lt;CCaseFee&gt;()</mca:CSharpValue>
+                                  </InArgument>
+                                </ForEach.Values>
+                                <ActivityAction x:TypeArguments="s:CCaseFee">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="s:CCaseFee" Name="fee" />
+                                  </ActivityAction.Argument>
+                                  <If sap2010:WorkflowViewState.IdRef="If_1">
+                                    <If.Condition>
+                                      <InArgument x:TypeArguments="x:Boolean">
+                                        <mca:CSharpValue x:TypeArguments="x:Boolean">fee.AmountPaid() == 0</mca:CSharpValue>
+                                      </InArgument>
+                                    </If.Condition>
+                                    <If.Then>
+                                      <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_3" MethodName="Delete">
+                                        <InvokeMethod.TargetObject>
+                                          <InArgument x:TypeArguments="s:CCaseFee">
+                                            <mca:CSharpValue x:TypeArguments="s:CCaseFee">fee</mca:CSharpValue>
+                                          </InArgument>
+                                        </InvokeMethod.TargetObject>
+                                      </InvokeMethod>
+                                    </If.Then>
+                                  </If>
+                                </ActivityAction>
+                              </ForEach>
+                            </Sequence>
+                          </ActivityAction>
+                        </ForEach>
+                        <FlowStep.Next>
+                          <FlowStep x:Name="__ReferenceID6" sap2010:WorkflowViewState.IdRef="FlowStep_2">
+                            <ForEach x:TypeArguments="s:CCourtEvent" DisplayName="ForEach&lt;CCourtEvent&gt;" sap2010:WorkflowViewState.IdRef="ForEach`1_4">
+                              <ForEach.Values>
+                                <InArgument x:TypeArguments="scg:IEnumerable(s:CCourtEvent)">
+                                  <mca:CSharpValue x:TypeArguments="scg:IEnumerable(s:CCourtEvent)">MyCase.CourtEvents.GetFutureCourtEvents().Cast&lt;CCourtEvent&gt;()</mca:CSharpValue>
+                                </InArgument>
+                              </ForEach.Values>
+                              <ActivityAction x:TypeArguments="s:CCourtEvent">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="s:CCourtEvent" Name="ce" />
+                                </ActivityAction.Argument>
+                                <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+                                  <InvokeMethod sap2010:WorkflowViewState.IdRef="InvokeMethod_4" MethodName="Delete">
+                                    <InvokeMethod.TargetObject>
+                                      <InArgument x:TypeArguments="s:CCourtEvent">
+                                        <mca:CSharpValue x:TypeArguments="s:CCourtEvent">ce</mca:CSharpValue>
+                                      </InArgument>
+                                    </InvokeMethod.TargetObject>
+                                  </InvokeMethod>
+                                </Sequence>
+                              </ActivityAction>
+                            </ForEach>
+                          </FlowStep>
+                        </FlowStep.Next>
+                      </FlowStep>
+                    </FlowDecision.True>
+                    <FlowDecision.False>
+                      <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_4">
+                        <TerminateWorkflow sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1">
+                          <TerminateWorkflow.Exception>
+                            <InArgument x:TypeArguments="s1:Exception">
+                              <mca:CSharpValue x:TypeArguments="s1:Exception">new Exception(selectedCharges.Count() == 0 ? "No charges selected." : (prosecutorAction == null ? "Prosecutor action not found." : "Something's wrong: call Pradeep."))</mca:CSharpValue>
+                            </InArgument>
+                          </TerminateWorkflow.Exception>
+                        </TerminateWorkflow>
+                      </FlowStep>
+                    </FlowDecision.False>
+                  </FlowDecision>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowDecision.True>
+            <FlowDecision.False>
+              <x:Reference>__ReferenceID0</x:Reference>
+            </FlowDecision.False>
+          </FlowDecision>
+        </FlowStep.Next>
+      </FlowStep>
+    </Flowchart.StartNode>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID3</x:Reference>
+    <x:Reference>__ReferenceID4</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID6</x:Reference>
+    <sads:DebugSymbol.Symbol>d0xDOlxkZXZccmVwb3NcV29ya2Zsb3dXb3Jrc2hvcFxXb3JrZmxvd0xpYlxUcmFpbmluZ1xfRHJvcENoYXJnZXNXb3JrZmxvdy54YW1sJVQDlgIPAgEBWwlmEgIBeWoPamwCAXT6ARmAAi0CAW5uEXkaAgFjfRd9bgIBXoEBGdwBIwIBEN8BHfMBJwIBAmMPY8wBAgF/Xg9edgIBev0BH/0BiAICAW92F3ayAQIBaXEXcXgCAWSEAR+EAX4CAVmLAR3aASgCARHiASPiAboBAgEL6QEh8QEsAgEDjAEflwEoAgFMmAEfowEoAgE/pAEfqgEuAgE4qwEfvQEpAgEpvgEf2QEpAgES6gEj8AEyAgEElAEllAGFAQIBU48BJY8BfwIBTaABJaABkwECAUabASWbAYUBAgFApwElpwFmAgE5rgElrgGaAQIBMrUBI7sBMgIBKsEBJcEBvwECASPIASPXASgCARPtASntAW4CAQW4ASm4AWoCASvLASnLAX0CARTPASfVATYCARvSAS3SAXACARw=</sads:DebugSymbol.Symbol>
+  </Flowchart>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="242,62">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,62">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_3" sap:VirtualizedContainerService.HintSize="494,62" />
+      <sap2010:ViewStateData Id="Assign_4" sap:VirtualizedContainerService.HintSize="494,62" />
+      <sap2010:ViewStateData Id="InvokeMethod_1" sap:VirtualizedContainerService.HintSize="494,130" />
+      <sap2010:ViewStateData Id="InvokeMethod_2" sap:VirtualizedContainerService.HintSize="218,130" />
+      <sap2010:ViewStateData Id="ForEach`1_1" sap:VirtualizedContainerService.HintSize="494,280" />
+      <sap2010:ViewStateData Id="InvokeMethod_3" sap:VirtualizedContainerService.HintSize="218,130" />
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="464,280" />
+      <sap2010:ViewStateData Id="ForEach`1_2" sap:VirtualizedContainerService.HintSize="494,430" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="516,1248">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_3" sap:VirtualizedContainerService.HintSize="200,51" />
+      <sap2010:ViewStateData Id="InvokeMethod_4" sap:VirtualizedContainerService.HintSize="218,130" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="240,254">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEach`1_4" sap:VirtualizedContainerService.HintSize="200,51" />
+      <sap2010:ViewStateData Id="FlowStep_2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">210,674.02</av:Point>
+            <av:Size x:Key="ShapeSize">200,51</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_3">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">40,574.5</av:Point>
+            <av:Size x:Key="ShapeSize">200,51</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">240,600 310,600 310,674.02</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TerminateWorkflow_1" sap:VirtualizedContainerService.HintSize="200,22">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">460,369</av:Point>
+            <av:Size x:Key="ShapeSize">200,22</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="70,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">265,446.5</av:Point>
+            <av:Size x:Key="ShapeSize">70,87</av:Size>
+            <av:PointCollection x:Key="FalseConnector">335,490 365,490 365,421 560,421 560,391</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">265,490 140,490 140,574.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_5">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">9,369</av:Point>
+            <av:Size x:Key="ShapeSize">242,62</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">251,400 300,400 300,446.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowDecision_2" sap:VirtualizedContainerService.HintSize="70,87">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">265,239.5</av:Point>
+            <av:Size x:Key="ShapeSize">70,87</av:Size>
+            <av:PointCollection x:Key="TrueConnector">265,283 130,283 130,369</av:PointCollection>
+            <av:PointCollection x:Key="FalseConnector">335,283 365,283 365,380 460,380</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_1">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">179,127.5</av:Point>
+            <av:Size x:Key="ShapeSize">242,62</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,189.5 300,239.5</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="902,1078">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">270,2.5</av:Point>
+            <av:Size x:Key="ShapeSize">60,75</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">300,77.5 300,127.5</av:PointCollection>
+            <x:Double x:Key="Width">888</x:Double>
+            <x:Double x:Key="Height">1042</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WorkflowLib.Training.DropChargesWorkflow_1" sap:VirtualizedContainerService.HintSize="942,1158" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
